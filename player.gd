@@ -2,74 +2,133 @@ extends KinematicBody2D
 
 # This demo shows how to build a kinematic controller.
 
-# Member variables
-const GRAVITY = 500.0 # pixels/second/second
 
-# Angle in degrees towards either side that the player can consider "floor"
-const FLOOR_ANGLE_TOLERANCE = 40
-const WALK_FORCE = 600
-const WALK_MIN_SPEED = 10
-const WALK_MAX_SPEED = 200
-const STOP_FORCE = 1300
-const JUMP_SPEED = 200
-const JUMP_MAX_AIRBORNE_TIME = 0.2
+const G = 600
+const JUMP_FORCE = G * 0.38
 
-const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
-const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
-
-var velocity = Vector2()
+var velocity = Vector2(0, 0);
 var on_air_time = 100
 var jumping = false
 
 var prev_jump_pressed = false
 
+var move_left = false
+var move_right = false
+var move_down = false
+var up = false
+
+var jump = false
+var jumped = false
+
+var animator
+var animation = "Idle"
+
+var to_ignore = null;
+
+func _input(event):
+	if not event.is_echo():
+
+		if event.is_action_pressed("move_left"):
+			move_left = true
+			move_right = false
+			get_node("sprite").set_flip_h(true)
+
+		if event.is_action_pressed("move_right"):
+			move_right = true
+			move_left = false
+			get_node("sprite").set_flip_h(false)
+
+		if event.is_action_pressed("move_down"):
+			move_down = true
+
+		if event.is_action_pressed("jump"):
+			jump = true
+			
+		if event.is_action_released("move_down"):
+			move_down = false
+
+		if event.is_action_released("move_left"):
+			move_left = false
+
+		if event.is_action_released("move_right"):
+			move_right = false
+
+		if event.is_action_released("jump"):
+			jump = false
 
 func _physics_process(delta):
-	# Create forces
-	var force = Vector2(0, GRAVITY)
 	
-	var walk_left = Input.is_action_pressed("move_left")
-	var walk_right = Input.is_action_pressed("move_right")
-	var jump = Input.is_action_pressed("jump")
-	
-	var stop = true
-	
-	if walk_left:
-		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
-			force.x -= WALK_FORCE
-			stop = false
-	elif walk_right:
-		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
-			force.x += WALK_FORCE
-			stop = false
-	
-	if stop:
-		var vsign = sign(velocity.x)
-		var vlen = abs(velocity.x)
+	self.move_and_slide(velocity, Vector2(0, -1), 0, 2);
+	var grounded = self.is_on_floor()
+
+	if grounded:
 		
-		vlen -= STOP_FORCE * delta
-		if vlen < 0:
-			vlen = 0
+		if jumped:
+			jumped = false
+	
+	
+
+			
+		velocity.y = 1
+
+		if to_ignore:
+			remove_collision_exception_with(to_ignore)
+			to_ignore = null
+
+	elif velocity.y < G:
+		velocity.y += G * delta
+
+	else:
+		velocity.y = G
+
+
+
+	if move_right:
+		velocity.x = 100
+	elif move_left:
+		velocity.x = -100
+	else:
+		velocity.x = 0
+
+
+	if jump and grounded:
 		
-		velocity.x = vlen * vsign
-	
-	# Integrate forces to velocity
-	velocity += force * delta	
-	# Integrate velocity into motion and move
-	velocity = move_and_slide(velocity, Vector2(0, -1))
-	
-	if is_on_floor():
-		on_air_time = 0
+		jump = false
+		jumped = true
+
+		if move_down:
+			to_ignore = move_and_collide(Vector2(0, 1))
+			to_ignore = to_ignore.collider
+			if to_ignore.get_name().match("ground*"):
+				add_collision_exception_with(to_ignore)
+
+		else:
+			velocity.y -= JUMP_FORCE
 		
-	if jumping and velocity.y > 0:
-		# If falling, no longer jumping
-		jumping = false
+		
+		
+		if move_left:
+			velocity.x = -75
+		elif move_right:
+			velocity.x = 75
+
+	if grounded:
+		if abs(velocity.x) > 0:
+			animation = "Run"
+		else:
+			animation = "Idle"
+	else:
+			animation = "Jump"
+			
+
+
+
+	if animator.get_current_animation() != animation:
+		animator.play(animation)
 	
-	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and not jumping:
-		# Jump must also be allowed to happen if the character left the floor a little bit ago.
-		# Makes controls more snappy.
-		velocity.y = -JUMP_SPEED
-		jumping = true
+
 	
-	on_air_time += delta
-	prev_jump_pressed = jump
+func _ready():
+	animator = self.get_node("AnimationPlayer")
+	set_physics_process(true)
+	set_process_input(true)
