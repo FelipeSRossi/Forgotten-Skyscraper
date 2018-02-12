@@ -8,6 +8,9 @@ const G = 600
 const JUMP_FORCE = G * 0.38
 const SPEED_LIMIT = 20
 
+const TILE_SIZE = 8
+
+
 var velocity = Vector2(0, 0);
 var jumping = false
 
@@ -33,6 +36,7 @@ var falling = true
 
 var animator
 var animation = "Idle"
+
 
 
 var current_gravity = 1
@@ -108,9 +112,11 @@ func _input(event):
 func closestXTile(desired_direction, desiredX, space_state):
 	# -1 = check left side
 	# 1 = check right side
-
-	var frontTile = space_state.intersect_ray(Vector2(global_position.x + desired_direction * sprite_offset.x, global_position.y - sprite_offset.y), Vector2(global_position.x + desired_direction * sprite_offset.x + desiredX, global_position.y + sprite_offset.y -1))
 	
+	#try top raycast, if no collider is found, try mid raycast
+	var frontTile = space_state.intersect_ray(Vector2(global_position.x + desired_direction * sprite_offset.x, global_position.y  - sprite_offset.y ), Vector2(global_position.x + desired_direction * sprite_offset.x + desiredX, global_position.y - sprite_offset.y),[self])
+	if(!frontTile.has("collider")):
+		frontTile = space_state.intersect_ray(Vector2(global_position.x + desired_direction * sprite_offset.x, global_position.y), Vector2(global_position.x + desired_direction * sprite_offset.x + desiredX, global_position.y),[self])
 	if (frontTile != null && frontTile.has("collider")):
 		return min(abs(frontTile.position.x -(global_position.x + desired_direction * sprite_offset.x)),abs(desiredX)) * desired_direction # the smallest amount between the distance to the colliding tile and the desired amount of movement
 	else:
@@ -119,16 +125,13 @@ func closestXTile(desired_direction, desiredX, space_state):
 
 func closestYTile(desired_direction, desiredY, space_state):
 	
-	var topTile = space_state.intersect_ray(Vector2(global_position.x , global_position.y + desired_direction * sprite_offset.y), Vector2(global_position.x , global_position.y +desired_direction * sprite_offset.y + desiredY))
+	var topTile = space_state.intersect_ray(Vector2(global_position.x , global_position.y + desired_direction * sprite_offset.y), Vector2(global_position.x , global_position.y +desired_direction * sprite_offset.y + desiredY),[self])
 	if (topTile != null && topTile.has("collider")):
-		if(desired_direction == -1):
-			print("topi coli")
-		elif(desired_direction == 1):
-			print("boti coli")
+		#if(desired_direction == -1):
+		if(desired_direction == 1):
 			grounded = true
-		return 0
+		return min(abs(topTile.position.y -(global_position.y + desired_direction * sprite_offset.y)),abs(desiredY)) * desired_direction
 	else:
-		print ("nopi coli")
 		return desiredY
 
 func step_horizontal(space_state):
@@ -163,10 +166,10 @@ func step_vertical(space_state):
 	
 	if(velocity.y >= 0):
 		velocity.y = closestYTile(1, velocity.y, space_state)
-		print("fallingboyz")
+		
 	elif(velocity.y < 0):
 		velocity.y = closestYTile(-1, velocity.y, space_state)
-		print("risingtide")
+		
 	
 	
 	return velocity.y
@@ -180,8 +183,7 @@ func step_player(delta):
 	# step horizontal motion first
 	velocity.x = step_horizontal(space_state)
 	velocity.y = step_vertical(space_state)
-	print(velocity.x)
-	print(velocity.y)
+
 	
 	if grounded:
 		if abs(velocity.x) > 0:
@@ -195,7 +197,6 @@ func step_player(delta):
 		animator.play(animation)
 	
 	translate(velocity)
-	print(grounded)
 	return
 
 
