@@ -2,15 +2,14 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex"
+path="res://.import/shuriken0000.png-7f6ae76d643cc4fd4d4dff2e150035f1.stex"
 
 [deps]
 
-source_file="res://ghosts.png"
-source_md5="39ab0c538ae284a7a89b9b8454bd347d"
-
-dest_files=[ "res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex" ]
-dest_md5="ef172985f1eb127c1b9ae09ef4621c95"
+source_file="res://Assets/shuriken0000.png"
+source_md5="f46cf90b63028234586d94f824194599"
+dest_files=[ "res://.import/shuriken0000.png-7f6ae76d643cc4fd4d4dff2e150035f1.stex" ]
+dest_md5="7e64f4da2d71b485b53a224e95bac0d7"
 
 [params]
 
@@ -19,7 +18,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

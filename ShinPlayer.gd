@@ -4,18 +4,18 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 
-const G = 600
-const JUMP_FORCE = G * 0.38
+const G = 8
+const JUMP_FORCE = 5
 const SPEED_LIMIT = 20
 
 const TILE_SIZE = 8
 
-
+var speed = 0
 var velocity = Vector2(0, 0);
 var jumping = false
 
 var runspeed = 3
-var jumpspeed = 10
+var jumpspeed = 20
 
 
 
@@ -42,6 +42,15 @@ var animation = "Idle"
 var current_gravity = 1
 var collider
 var colliderShape
+
+
+
+var t0
+var t
+var pos0
+var speed0 = Vector2(0,0);
+
+
 
 
 var accel = 0
@@ -79,12 +88,10 @@ func _input(event):
 		if event.is_action_pressed("move_left"):
 			move_left = true
 			move_right = false
-			get_node("sprite").set_flip_h(true)
 
 		if event.is_action_pressed("move_right"):
 			move_right = true
 			move_left = false
-			get_node("sprite").set_flip_h(false)
 
 		if event.is_action_pressed("move_down"):
 			move_down = true
@@ -116,7 +123,7 @@ func closestXTile(desired_direction, desiredX, space_state):
 	#try top raycast, if no collider is found, try mid raycast
 	var frontTile = space_state.intersect_ray(Vector2(global_position.x + desired_direction * sprite_offset.x, global_position.y  - sprite_offset.y ), Vector2(global_position.x + desired_direction * sprite_offset.x + desiredX, global_position.y - sprite_offset.y),[self])
 	if(!frontTile.has("collider")):
-		frontTile = space_state.intersect_ray(Vector2(global_position.x + desired_direction * sprite_offset.x, global_position.y), Vector2(global_position.x + desired_direction * sprite_offset.x + desiredX, global_position.y),[self])
+		frontTile = space_state.intersect_ray(Vector2(global_position.x + desired_direction * sprite_offset.x, global_position.y), Vector2(global_position.x + desired_direction * sprite_offset.x + desiredX, global_position.y),[self])	
 	if (frontTile != null && frontTile.has("collider")):
 		return min(abs(frontTile.position.x -(global_position.x + desired_direction * sprite_offset.x)),abs(desiredX)) * desired_direction # the smallest amount between the distance to the colliding tile and the desired amount of movement
 	else:
@@ -126,11 +133,17 @@ func closestXTile(desired_direction, desiredX, space_state):
 func closestYTile(desired_direction, desiredY, space_state):
 	
 	var topTile = space_state.intersect_ray(Vector2(global_position.x , global_position.y + desired_direction * sprite_offset.y), Vector2(global_position.x , global_position.y +desired_direction * sprite_offset.y + desiredY),[self])
+	if(!topTile.has("collider")):
+		topTile = space_state.intersect_ray(Vector2(global_position.x + sprite_offset.x , global_position.y + desired_direction * sprite_offset.y), Vector2(global_position.x + sprite_offset.x  , global_position.y +desired_direction * sprite_offset.y + desiredY),[self])
+	if(!topTile.has("collider")):
+		topTile = space_state.intersect_ray(Vector2(global_position.x - sprite_offset.x  , global_position.y + desired_direction * sprite_offset.y), Vector2(global_position.x - sprite_offset.x  , global_position.y +desired_direction * sprite_offset.y + desiredY),[self])	
 	if (topTile != null && topTile.has("collider")):
-		#if(desired_direction == -1):
-		if(desired_direction == 1):
+		if(topTile.normal == Vector2(0,0)):
+			print("groundoboyzo")
 			grounded = true
-		return min(abs(topTile.position.y -(global_position.y + desired_direction * sprite_offset.y)),abs(desiredY)) * desired_direction
+		else:
+			print("mouzoboyzo")
+		return min(abs(topTile.position.y -(global_position.y + desired_direction * sprite_offset.y )),abs(desiredY)) * desired_direction
 	else:
 		return desiredY
 
@@ -150,27 +163,39 @@ func step_horizontal(space_state):
 
 
 
-func step_vertical(space_state):
+func step_vertical(space_state,delta):
 	
 	
-	if(falling):
-		velocity.y =+ 1
-	
+
+	if grounded:
 		
-	if(jump):
-		if(grounded):
-			velocity.y =- jumpspeed * current_gravity
-			grounded = false
-			falling = true
-	
+		if jumped:
+			print("jampuu")
+			jumped = false
+
+
+	elif velocity.y < G:
+		velocity.y += G * delta
+
+	else:
+		velocity.y = G
+		
+		
+	if jump and grounded:
+		
+		jump = false
+		jumped = true
+		grounded = false
+		velocity.y -= JUMP_FORCE
 	
 	if(velocity.y >= 0):
+		print("mooberts")
 		velocity.y = closestYTile(1, velocity.y, space_state)
 		
 	elif(velocity.y < 0):
+		print("wooboyrts")
 		velocity.y = closestYTile(-1, velocity.y, space_state)
 		
-	
 	
 	return velocity.y
 		
@@ -180,9 +205,14 @@ func step_player(delta):
 	var space = get_world_2d().get_space()
 	var space_state = Physics2DServer.space_get_direct_state(space)
 	
+	if(move_left):
+		get_node("sprite").set_flip_h(true)
+	elif(move_right):
+		get_node("sprite").set_flip_h(false)
+	
 	# step horizontal motion first
 	velocity.x = step_horizontal(space_state)
-	velocity.y = step_vertical(space_state)
+	velocity.y = step_vertical(space_state,delta)
 
 	
 	if grounded:

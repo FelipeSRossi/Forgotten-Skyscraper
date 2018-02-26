@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex"
+path="res://.import/simpleghost.png-33d86264252c5cab8d991fb255c2cd22.stex"
 
 [deps]
 
-source_file="res://ghosts.png"
-source_md5="39ab0c538ae284a7a89b9b8454bd347d"
+source_file="res://Assets/simpleghost.png"
+source_md5="607296858d672ccefb2d98f86cff5cfb"
 
-dest_files=[ "res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex" ]
-dest_md5="ef172985f1eb127c1b9ae09ef4621c95"
+dest_files=[ "res://.import/simpleghost.png-33d86264252c5cab8d991fb255c2cd22.stex" ]
+dest_md5="241c138546bd2ed119e5ea692a768a08"
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

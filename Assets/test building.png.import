@@ -1,0 +1,33 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/test building.png-3cd9749032408c5db2208f954cbf3f13.s3tc.stex"
+path.etc2="res://.import/test building.png-3cd9749032408c5db2208f954cbf3f13.etc2.stex"
+
+[deps]
+
+source_file="res://Assets/test building.png"
+source_md5="85d4c92f2f3fe11db6b63e53adb0cb9f"
+
+dest_files=[ "res://.import/test building.png-3cd9749032408c5db2208f954cbf3f13.s3tc.stex", "res://.import/test building.png-3cd9749032408c5db2208f954cbf3f13.etc2.stex" ]
+dest_md5="ad2d5dfa09d08997212903c3db57ff03"
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=true
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=1
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0
