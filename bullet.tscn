@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://bullet.gd" type="Script" id=1]
 [ext_resource path="res://Assets/particle1.png" type="Texture" id=2]
@@ -66,6 +66,25 @@ light_mode = 0
 custom_solver_bias = 0.0
 radius = 2.0
 
+[sub_resource type="Animation" id=8]
+
+resource_name = "idle"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
 [sub_resource type="Animation" id=6]
 
 length = 1.5
@@ -131,6 +150,7 @@ tracks/0/keys = {
 
 [node name="bullet" type="RigidBody2D"]
 
+modulate = Color( 0.0987854, 0.644955, 0.972656, 1 )
 material = SubResource( 1 )
 input_pickable = false
 collision_layer = 1
@@ -139,7 +159,7 @@ mode = 0
 mass = 5.0
 friction = 1.0
 bounce = 0.0
-gravity_scale = 1.0
+gravity_scale = 0.0
 custom_integrator = false
 continuous_cd = 2
 contacts_reported = 1
@@ -155,15 +175,16 @@ _sections_unfolded = [ "Angular", "Collision", "Linear", "Material", "Pickable",
 
 [node name="Particles2D" type="Particles2D" parent="." index="0"]
 
+modulate = Color( 0.885254, 0.0820313, 1, 1 )
 material = SubResource( 2 )
-emitting = false
+emitting = true
 amount = 8
 lifetime = 0.3
 one_shot = false
 preprocess = 0.0
 speed_scale = 3.0
-explosiveness = 0.0
-randomness = 0.0
+explosiveness = 0.27
+randomness = 0.24
 fixed_fps = 0
 fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
@@ -181,7 +202,7 @@ _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Visib
 material = SubResource( 4 )
 texture = ExtResource( 3 )
 hframes = 8
-frame = 1
+frame = 2
 _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility", "Z" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
@@ -203,6 +224,7 @@ autoplay = "spin"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 14.77
+anims/idle = SubResource( 8 )
 anims/shutdown = SubResource( 6 )
 anims/spin = SubResource( 7 )
 blend_times = [  ]

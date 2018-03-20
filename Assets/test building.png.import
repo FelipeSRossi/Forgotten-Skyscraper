@@ -11,7 +11,7 @@ source_file="res://Assets/test building.png"
 source_md5="85d4c92f2f3fe11db6b63e53adb0cb9f"
 
 dest_files=[ "res://.import/test building.png-3cd9749032408c5db2208f954cbf3f13.s3tc.stex", "res://.import/test building.png-3cd9749032408c5db2208f954cbf3f13.etc2.stex" ]
-dest_md5="ad2d5dfa09d08997212903c3db57ff03"
+dest_md5="f42f86b59dbed6e6cd8c4258bd60b7e1"
 
 [params]
 
@@ -20,7 +20,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=true
-flags/filter=true
+flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=1

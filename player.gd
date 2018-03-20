@@ -3,12 +3,11 @@ extends KinematicBody2D
 # This demo shows how to build a kinematic controller.
 
 const SHOOT_TIME_SHOW_WEAPON = 0.2
-const G = 600
-const JUMP_FORCE = G * 0.38
+const G = 450
+const JUMP_FORCE = 200
 const BULLET_VELOCITY = 300
 
 var velocity = Vector2(0, 0);
-var on_air_time = 100
 var jumping = false
 var shoot_time = 99999
 var prev_jump_pressed = false
@@ -83,15 +82,12 @@ func _physics_process(delta):
 	self.move_and_slide(velocity, Vector2(0, -1), 0, 2);
 	var grounded = self.is_on_floor()
 	
-
-		
-	
 	
 	if grounded:
 		
 		if jumped:
 			jumped = false
-		velocity.y = 1
+		velocity.y = 5
 
 		if to_ignore:
 			remove_collision_exception_with(to_ignore)
@@ -115,7 +111,6 @@ func _physics_process(delta):
 
 	if jump and grounded:
 		
-		jump = false
 		jumped = true
 
 		if move_down:
@@ -126,7 +121,11 @@ func _physics_process(delta):
 
 		else:
 			velocity.y -= JUMP_FORCE
-		
+	
+	
+	#Allows for more precise jumping	
+	if((jump == false)&& velocity.y < 0):
+		velocity.y = velocity.y / 2
 		
 		
 		if move_left:
