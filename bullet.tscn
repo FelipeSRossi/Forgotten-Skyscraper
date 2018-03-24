@@ -61,12 +61,12 @@ render_priority = 0
 blend_mode = 0
 light_mode = 0
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=9]
 
 custom_solver_bias = 0.0
 radius = 2.0
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 
 resource_name = "idle"
 length = 1.0
@@ -85,7 +85,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 1.5
 loop = false
@@ -129,9 +129,8 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
-resource_name = "spin"
 length = 0.8
 loop = true
 step = 0.1
@@ -207,13 +206,13 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform",
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
-shape = SubResource( 5 )
+shape = SubResource( 9 )
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z" ]
 
 [node name="Timer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 0.5
 one_shot = true
 autostart = true
 
@@ -224,9 +223,9 @@ autoplay = "spin"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 14.77
-anims/idle = SubResource( 8 )
-anims/shutdown = SubResource( 6 )
-anims/spin = SubResource( 7 )
+anims/idle = SubResource( 6 )
+anims/shutdown = SubResource( 7 )
+anims/spin = SubResource( 8 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 

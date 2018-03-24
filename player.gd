@@ -17,11 +17,18 @@ var move_right = false
 var move_down = false
 var up = false
 
+var crouch = false
 var jump = false
 var jumped = false
 
+var spinning = false
+
 var shoot = false
 var slide = false
+var sliding = false
+var slide_timer = 1
+
+var divekick = false
 
 var animator
 var animation = "Idle"
@@ -84,6 +91,18 @@ func _physics_process(delta):
 	
 	
 	if grounded:
+		spinning = false
+		divekick = false
+		if(move_down):
+			crouch = true
+#			to_ignore = move_and_collide(Vector2(0, 1))
+#			to_ignore = to_ignore.collider
+#			if to_ignore.get_name().match("ground*"):
+#				add_collision_exception_with(to_ignore)
+		else:
+			crouch = false
+		
+		
 		
 		if jumped:
 			jumped = false
@@ -99,47 +118,54 @@ func _physics_process(delta):
 	else:
 		velocity.y = G
 
+	
+	if(spinning and is_on_wall()):
+		velocity.x = -velocity.x*2
 
-
-	if move_right:
+	if move_right and !crouch:
 		velocity.x = 100
-	elif move_left:
+	elif move_left and !crouch:
 		velocity.x = -100
 	else:
 		velocity.x = 0
 
 
+
+	if(slide and grounded and not sliding and abs(velocity.x) > 0):
+			slide = false
+			sliding = true
+			slide_timer = 1
+	if(sliding):
+		slide_timer = slide_timer - delta*4.5
+		velocity.x = velocity.x + velocity.x*3
+		
+	if(slide_timer <= 0):
+		sliding = false
+		
+			
+
 	if jump and grounded:
 		
 		jumped = true
+		crouch = false
 
-		if move_down:
-			to_ignore = move_and_collide(Vector2(0, 1))
-			to_ignore = to_ignore.collider
-			if to_ignore.get_name().match("ground*"):
-				add_collision_exception_with(to_ignore)
-
-		else:
-			velocity.y -= JUMP_FORCE
+		velocity.y -= JUMP_FORCE
 	
 	
 	#Allows for more precise jumping	
 	if((jump == false)&& velocity.y < 0):
 		velocity.y = velocity.y / 2
-		
-		
-		if move_left:
-			velocity.x = -75
-		elif move_right:
-			velocity.x = 75
 			
 	if(is_on_ceiling()):
 		if(velocity.y < 0):
 			velocity.y = 0
 			
 			
+			
+	if (jumped and sliding):
+			spinning = true
 		# Shooting
-	if (shoot && lastshot > 10):
+	if (shoot && lastshot > 10 and !crouch and !sliding and !spinning):
 		lastshot = 0
 		var bullet = preload("bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
@@ -148,8 +174,15 @@ func _physics_process(delta):
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
 		shoot_time = 0
 
+
+	if(spinning and shoot):
+		divekick = true
 	if grounded:
-		if abs(velocity.x) > 0:
+		if(crouch):
+			animation = "Crouch"
+		elif(sliding and velocity.x !=0):
+			animation = "Slide"
+		elif abs(velocity.x) > 0:
 			if shoot_time < SHOOT_TIME_SHOW_WEAPON:
 				animation = "Run Shoot"
 			else:
@@ -162,6 +195,11 @@ func _physics_process(delta):
 	else:
 		if shoot_time < SHOOT_TIME_SHOW_WEAPON:
 			animation = "Jump Shoot"
+		elif(spinning):
+			if(divekick):
+				animation = "DiveKick"
+			else:
+				animation = "Spin"
 		else:
 			animation = "Jump"
 			
@@ -182,3 +220,4 @@ func _ready():
 	animator = self.get_node("AnimationPlayer")
 	set_physics_process(true)
 	set_process_input(true)
+

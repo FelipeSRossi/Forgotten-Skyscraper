@@ -7,10 +7,10 @@ path="res://.import/ninjakid.png-cfcd8d699a484d24e0d352079eae60b2.stex"
 [deps]
 
 source_file="res://Assets/ninjakid.png"
-source_md5="6887ccc312bf1af5274634cf629b2412"
+source_md5="93c7d57f1168b763a508e64ca2d9b3c9"
 
 dest_files=[ "res://.import/ninjakid.png-cfcd8d699a484d24e0d352079eae60b2.stex" ]
-dest_md5="c8841d61fa3314a9c68247cf06b1c1b5"
+dest_md5="4474b7ed928fd87585b3c03d2f9c7fe4"
 
 [params]
 
@@ -28,5 +28,5 @@ process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
