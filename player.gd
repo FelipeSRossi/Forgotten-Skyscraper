@@ -26,8 +26,11 @@ var spinning = false
 var shoot = false
 var slide = false
 var sliding = false
-var slide_timer = 1
+var slide_timer = 1.5
 
+var wall_grab = false
+var walled
+var grounded
 var divekick = false
 
 var animator
@@ -87,8 +90,9 @@ func _physics_process(delta):
 	
 	
 	self.move_and_slide(velocity, Vector2(0, -1), 0, 2);
-	var grounded = self.is_on_floor()
-	
+	grounded = self.is_on_floor()
+	walled = self.is_on_wall()
+	wall_grab = false
 	
 	if grounded:
 		spinning = false
@@ -106,29 +110,29 @@ func _physics_process(delta):
 		
 		if jumped:
 			jumped = false
-		velocity.y = 5
+		velocity.y = 1
 
 		if to_ignore:
 			remove_collision_exception_with(to_ignore)
 			to_ignore = null
-
-	elif velocity.y < G:
-		velocity.y += G * delta
-
-	else:
-		velocity.y = G
-
 	
-	if(spinning and is_on_wall()):
-		velocity.x = -velocity.x*2
+	#can only grab wall at the top of the jump. Thanks Inticreates
+	elif(((walled and move_left) or (walled and move_right) )and not spinning and (velocity.y > 0)):
+				wall_grab = true
+				velocity.y = max(G * delta/5, velocity.y+ G * delta/5)
+	else:
+		velocity.y = min(G, velocity.y+ G * delta)
+
+#
+#	if(spinning and is_on_wall()):
+#		velocity.x += - velocity.x*2
 
 	if move_right and !crouch:
-		velocity.x = 100
+		velocity.x = min(100, velocity.x+ 10000*delta)
 	elif move_left and !crouch:
-		velocity.x = -100
+		velocity.x = max(-100, velocity.x- 10000*delta)
 	else:
 		velocity.x = 0
-
 
 
 	if(slide and grounded and not sliding and abs(velocity.x) > 0):
@@ -137,20 +141,17 @@ func _physics_process(delta):
 			slide_timer = 1
 	if(sliding):
 		slide_timer = slide_timer - delta*4.5
-		velocity.x = velocity.x + velocity.x*3
+		velocity.x = min(300, velocity.x+ velocity.x*2)
 		
 	if(slide_timer <= 0):
 		sliding = false
 		
-			
 
-	if jump and grounded:
-		
+	if (jump and grounded and !wall_grab) :
 		jumped = true
 		crouch = false
 
-		velocity.y -= JUMP_FORCE
-	
+		velocity.y = min(G, velocity.y - JUMP_FORCE)
 	
 	#Allows for more precise jumping	
 	if((jump == false)&& velocity.y < 0):
@@ -165,7 +166,7 @@ func _physics_process(delta):
 	if (jumped and sliding):
 			spinning = true
 		# Shooting
-	if (shoot && lastshot > 10 and !crouch and !sliding and !spinning):
+	if (shoot && lastshot > 10 and !crouch and !sliding and !spinning and !wall_grab):
 		lastshot = 0
 		var bullet = preload("bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
@@ -174,7 +175,7 @@ func _physics_process(delta):
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
 		shoot_time = 0
 
-
+		
 	if(spinning and shoot):
 		divekick = true
 	if grounded:
@@ -193,7 +194,10 @@ func _physics_process(delta):
 			else:
 				animation = "Idle"
 	else:
-		if shoot_time < SHOOT_TIME_SHOW_WEAPON:
+		if(wall_grab):
+			animation = "Grab Wall"
+			
+		elif shoot_time < SHOOT_TIME_SHOW_WEAPON:
 			animation = "Jump Shoot"
 		elif(spinning):
 			if(divekick):
