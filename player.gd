@@ -27,6 +27,7 @@ var shoot = false
 var slide = false
 var sliding = false
 var slide_timer = 1.5
+var last_slide = false
 
 var wall_grab = false
 var walled
@@ -88,7 +89,6 @@ func _physics_process(delta):
 	
 	shoot_time += delta
 	
-	
 	self.move_and_slide(velocity, Vector2(0, -1), 0, 2);
 	grounded = self.is_on_floor()
 	walled = self.is_on_wall()
@@ -119,7 +119,7 @@ func _physics_process(delta):
 	#can only grab wall at the top of the jump. Thanks Inticreates
 	elif(((walled and move_left) or (walled and move_right) )and not spinning and (velocity.y > 0)):
 				wall_grab = true
-				velocity.y = max(G * delta/5, velocity.y+ G * delta/5)
+				velocity.y = G*delta*8
 	else:
 		velocity.y = min(G, velocity.y+ G * delta)
 
@@ -128,33 +128,44 @@ func _physics_process(delta):
 #		velocity.x += - velocity.x*2
 
 	if move_right and !crouch:
-		velocity.x = min(100, velocity.x+ 10000*delta)
+		velocity.x = 100
 	elif move_left and !crouch:
-		velocity.x = max(-100, velocity.x- 10000*delta)
+		velocity.x = -100
 	else:
 		velocity.x = 0
 
 
+
+
 	if(slide and grounded and not sliding and abs(velocity.x) > 0):
-			slide = false
 			sliding = true
-			slide_timer = 1
-	if(sliding):
-		slide_timer = slide_timer - delta*4.5
-		velocity.x = min(300, velocity.x+ velocity.x*2)
+			
+	if(sliding and slide_timer > 0):
+		slide_timer = slide_timer - delta*3.5
+		velocity.x = velocity.x*2.5
 		
-	if(slide_timer <= 0):
+	else:
 		sliding = false
 		
+	if((slide == false)):
+		sliding = false
+		if(slide_timer <=0):
+			slide_timer = 1
+			
+	if(slide == false and last_slide == true):
+		slide_timer = 1 
 
-	if (jump and grounded and !wall_grab) :
+
+
+
+	if (jump and grounded) :
 		jumped = true
 		crouch = false
 
 		velocity.y = min(G, velocity.y - JUMP_FORCE)
 	
 	#Allows for more precise jumping	
-	if((jump == false)&& velocity.y < 0):
+	if((jump == false) and velocity.y < 0):
 		velocity.y = velocity.y / 2
 			
 	if(is_on_ceiling()):
@@ -166,7 +177,7 @@ func _physics_process(delta):
 	if (jumped and sliding):
 			spinning = true
 		# Shooting
-	if (shoot && lastshot > 10 and !crouch and !sliding and !spinning and !wall_grab):
+	if (shoot and lastshot > 10 and !crouch and !sliding and !spinning and !wall_grab):
 		lastshot = 0
 		var bullet = preload("bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
@@ -214,6 +225,8 @@ func _physics_process(delta):
 		animator.play(animation)
 		print(grounded)
 	
+	
+	last_slide = slide
 	lastshot += 1
 	if(lastshot > 50):
 		lastshot = 50
