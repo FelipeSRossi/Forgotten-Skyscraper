@@ -20,9 +20,9 @@ var up = false
 var crouch = false
 var jump = false
 var jumped = false
-
+var last_jump = false
 var spinning = false
-
+var last_shoot = false
 var shoot = false
 var slide = false
 var sliding = false
@@ -123,18 +123,18 @@ func _physics_process(delta):
 	else:
 		velocity.y = min(G, velocity.y+ G * delta)
 
-#
-#	if(spinning and is_on_wall()):
-#		velocity.x += - velocity.x*2
-
+			
 	if move_right and !crouch:
-		velocity.x = 100
+		velocity.x += 100
 	elif move_left and !crouch:
-		velocity.x = -100
+		velocity.x += -100
 	else:
 		velocity.x = 0
 
-
+	if(velocity.x >= 100):
+		velocity.x = 100	
+	if(velocity.x <= -100):
+		velocity.x = -100
 
 
 	if(slide and grounded and not sliding and abs(velocity.x) > 0):
@@ -172,12 +172,14 @@ func _physics_process(delta):
 		if(velocity.y < 0):
 			velocity.y = 0
 			
-			
-			
+	if(wall_grab and jump and !last_jump):
+		velocity.x = velocity.x - sprite.scale.x*400		
+		velocity.y = min(G, velocity.y - JUMP_FORCE)
+		
 	if (jumped and sliding):
 			spinning = true
 		# Shooting
-	if (shoot and lastshot > 10 and !crouch and !sliding and !spinning and !wall_grab):
+	if (shoot and !last_shoot and lastshot > 8 and !crouch and !sliding and !spinning and !wall_grab):
 		lastshot = 0
 		var bullet = preload("bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
@@ -225,9 +227,10 @@ func _physics_process(delta):
 		animator.play(animation)
 		print(grounded)
 	
-	
+	last_jump = jump
 	last_slide = slide
 	lastshot += 1
+	last_shoot = shoot
 	if(lastshot > 50):
 		lastshot = 50
 	
