@@ -7,10 +7,10 @@ path="res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex"
 [deps]
 
 source_file="res://ghosts.png"
-source_md5="bda1558bbcb403dd57e699f5eaee78dd"
+source_md5="4dbf1520c98789d2eef9816b10b85b56"
 
 dest_files=[ "res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex" ]
-dest_md5="5a2d5006717144c6110dc8218c9ec65a"
+dest_md5="f662e68784c6dae069f19dd0a0d9cc97"
 
 [params]
 

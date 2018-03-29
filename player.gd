@@ -16,6 +16,11 @@ var move_left = false
 var move_right = false
 var move_down = false
 var up = false
+var bounce = false
+
+var bounced = false
+
+var bounce_timer = 30
 
 var crouch = false
 var jump = false
@@ -95,6 +100,7 @@ func _physics_process(delta):
 	wall_grab = false
 	
 	if grounded:
+		bounced = false
 		spinning = false
 		divekick = false
 		if(move_down):
@@ -122,14 +128,26 @@ func _physics_process(delta):
 				velocity.y = G*delta*8
 	else:
 		velocity.y = min(G, velocity.y+ G * delta)
-
+	
+	
+	if(walled and spinning and !bounced and !divekick):
+		velocity.x = -sprite.scale.x*300
+		velocity.y = -300
+		bounce = true
+		bounced = true
+		bounce_timer = 0
 			
-	if move_right and !crouch:
-		velocity.x += 100
-	elif move_left and !crouch:
-		velocity.x += -100
-	else:
-		velocity.x = 0
+			
+	if(bounce_timer >= 40 or grounded):
+		bounce = false
+	
+	if(!bounce):		
+		if move_right and !crouch:
+			velocity.x += 100
+		elif move_left and !crouch:
+			velocity.x += -100
+		else:
+			velocity.x = 0
 
 	if(velocity.x >= 100):
 		velocity.x = 100	
@@ -187,7 +205,6 @@ func _physics_process(delta):
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
 		shoot_time = 0
-
 		
 	if(spinning and shoot):
 		divekick = true
@@ -230,10 +247,12 @@ func _physics_process(delta):
 	last_jump = jump
 	last_slide = slide
 	lastshot += 1
+	bounce_timer +=1
 	last_shoot = shoot
 	if(lastshot > 50):
 		lastshot = 50
-	
+	if(bounce_timer > 40):
+		bounce_timer = 40
 func _ready():
 	
 	get_node("sprite/Scarf").emitting = true

@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Forgotten Factory"
-run/main_scene="res://3Dmain.tscn"
+run/main_scene="res://DefaultMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -21,6 +21,7 @@ window/size/height=120
 window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+window/stretch/shrink="1"
 
 [input]
 
