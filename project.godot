@@ -17,8 +17,11 @@ config/icon="res://icon.png"
 [display]
 
 window/size/width=240
-window/size/height=120
-window/vsync/use_vsync=false
+window/size/height=135
+window/size/fullscreen=true
+window/size/test_width=480
+window/size/test_height=270
+window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/stretch/shrink="1"

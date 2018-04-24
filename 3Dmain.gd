@@ -9,7 +9,8 @@ var viewport_sprite = null
 
 func _ready():
 	viewport = get_node("Viewport")
-	viewport_sprite = get_node("Viewport_Sprite")
+	viewport_sprite = get_node("Background").get_node("Viewport_Sprite")
+
 
 	# Assign the sprite's texture to the viewport texture
 	viewport.set_clear_mode(Viewport.CLEAR_MODE_ONLY_NEXT_FRAME)

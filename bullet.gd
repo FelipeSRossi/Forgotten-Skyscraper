@@ -1,5 +1,11 @@
 extends RigidBody2D
 
+func _ready():
+	var others = get_parent().get_children()
+	for i in others:
+		if("bullet" in i.name):
+			add_collision_exception_with(i)
+
 func _on_bullet_body_enter( body ):
 	modulate = Color(1,1,1,1)
 	$anim.play("idle")
