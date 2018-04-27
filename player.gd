@@ -9,14 +9,17 @@ const BULLET_VELOCITY = 300
 
 var velocity = Vector2(0, 0);
 var jumping = false
-var shoot_time = 99999
+var shoot_timer = 99999
 var prev_jump_pressed = false
 
+var damage = false
+var damage_timer = 0.5
 var move_left = false
 var move_right = false
 var move_down = false
 var up = false
 
+var HP = 54
 
 var can_move = true
 var can_jump = true
@@ -39,7 +42,7 @@ var wall_grab = false
 var walled
 var grounded
 var divekick = false
-var charge_time = 0
+var charge_timer = 0
 
 var animator
 var animation = "Idle"
@@ -95,21 +98,53 @@ func _input(event):
 
 func _physics_process(delta):
 	
-	shoot_time += delta
+	shoot_timer += delta
 	
-	if(charge_time >=1 and grounded and !shoot):
+	damage_timer += delta
+	
+	get_parent().get_node("HUD").get_node("GUI").get_node("HealthBar").value = HP
+	
+	
+	if(damage_timer <= 0.5):
+		self.modulate = Color(1,1,1,0.5)
+		set_collision_mask_bit( 1,0 )
+	else:
+		self.modulate = Color(1,1,1,1)
+		set_collision_mask_bit( 1,1 )
+	
+	if(charge_timer >=1 and grounded and !shoot):
 		slash = true
-	elif(charge_time >=1 and !grounded and !shoot and !spinning and !divekick and !wall_grab):
+	elif(charge_timer >=1 and !grounded and !shoot and !spinning and !divekick and !wall_grab):
 		air_slash = true
 	
+	
+	if(damage):
+		velocity = Vector2(-(sprite.scale.x)*50, 0)
+		damage_timer = 0
+	
 	if(shoot):
-		charge_time += delta
+		charge_timer += delta
 	else:
-		charge_time = 0
+		charge_timer = 0
 		
-	get_node("sprite/Scarf").self_modulate = Color(0.02,0.018 +charge_time, 0.59,1)
+	get_node("sprite/Scarf").self_modulate = Color(0.02,0.018 +charge_timer, 0.59,1)
 	
 	self.move_and_slide(velocity, Vector2(0, -1), 0, 2);
+	
+	if(get_slide_count()):
+		for i in range(get_slide_count()):
+			var collision = get_slide_collision(i)
+			if("scout" in collision.collider.name and damage_timer >= 0.5):
+				damage = true
+				slash = false
+				divekick = false
+				air_slash = false
+				spinning = false
+				crouch = false
+				wall_grab = false
+				HP -= 2
+
+	
 	grounded = self.is_on_floor()
 	walled = self.is_on_wall()
 	wall_grab = false
@@ -138,7 +173,7 @@ func _physics_process(delta):
 			to_ignore = null
 	
 	#can only grab wall at the top of the jump. Thanks Inticreates
-	elif(((walled and move_left) or (walled and move_right) ) and (velocity.y > 0) and !divekick):
+	elif(((walled and move_left) or (walled and move_right) ) and (velocity.y > 0) and !divekick and !damage):
 				spinning = false
 				wall_grab = true
 				velocity.y = G*delta*8
@@ -149,9 +184,9 @@ func _physics_process(delta):
 	
 
 	
-	if move_right and !crouch:
+	if move_right and !crouch and !damage:
 		velocity.x += 100
-	elif move_left and !crouch:
+	elif move_left and !crouch and !damage:
 		velocity.x += -100
 	else:
 		velocity.x = 0
@@ -162,7 +197,7 @@ func _physics_process(delta):
 		velocity.x = -100
 
 
-	if(slide and grounded and not sliding and abs(velocity.x) > 0 and !slash):
+	if(slide and grounded and not sliding and abs(velocity.x) > 0 and !slash and !damage):
 			sliding = true
 			
 	if(sliding and slide_timer > 0):
@@ -183,7 +218,7 @@ func _physics_process(delta):
 
 
 
-	if (jump and grounded) :
+	if (jump and grounded and !damage) :
 		jumped = true
 		crouch = false
 
@@ -197,27 +232,30 @@ func _physics_process(delta):
 		if(velocity.y < 0):
 			velocity.y = 0
 			
-	if(wall_grab and jump and !last_jump):
+	if(wall_grab and jump and !last_jump and !damage):
 		velocity.x = velocity.x - sprite.scale.x*400		
 		velocity.y = min(G, velocity.y - JUMP_FORCE)
 		
-	if (jumped and sliding):
+	if (jumped and sliding and !damage):
 			spinning = true
 		# Shooting
-	if (shoot and !last_shoot and lastshot > 8 and !crouch and !sliding and !spinning and !wall_grab and !slash and !air_slash):
+	if (shoot and !last_shoot and lastshot > 8 and !crouch and !sliding and !spinning and !wall_grab and !slash and !air_slash and !damage):
 		lastshot = 0
 		var bullet = preload("bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
-		shoot_time = 0
+		shoot_timer = 0
 		
 	
-	if(spinning and shoot and !last_shoot and lastshot > 8):
+	if(spinning and shoot and !last_shoot and lastshot > 8 and !damage):
 		divekick = true
 		
-	if grounded:
+	if(damage):
+		animation = "Damage"
+		
+	elif grounded:
 		if(slash):
 			animation = "Slash"
 
@@ -226,12 +264,12 @@ func _physics_process(delta):
 		elif(sliding and velocity.x !=0):
 			animation = "Slide"
 		elif abs(velocity.x) > 0:
-			if shoot_time < SHOOT_TIME_SHOW_WEAPON:
+			if shoot_timer < SHOOT_TIME_SHOW_WEAPON:
 				animation = "Run Shoot"
 			else:
 				animation = "Run"
 		else:
-			if shoot_time < SHOOT_TIME_SHOW_WEAPON:
+			if shoot_timer < SHOOT_TIME_SHOW_WEAPON:
 				animation = "Shoot"
 			else:
 				animation = "Idle"
@@ -241,7 +279,7 @@ func _physics_process(delta):
 		elif(wall_grab):
 			animation = "Grab Wall"
 			
-		elif shoot_time < SHOOT_TIME_SHOW_WEAPON:
+		elif shoot_timer < SHOOT_TIME_SHOW_WEAPON:
 			animation = "Jump Shoot"
 		elif(spinning):
 			if(divekick):
@@ -282,3 +320,5 @@ func _ready():
 	set_physics_process(true)
 	set_process_input(true)
 
+func damage_end():
+	damage = false

@@ -71,7 +71,7 @@ min_value = 0.0
 max_value = 54.0
 step = 1.0
 page = 0.0
-value = 45.0
+value = 54.0
 exp_edit = false
 rounded = false
 texture_under = ExtResource( 2 )
@@ -113,8 +113,7 @@ _sections_unfolded = [ "Rendering" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Viewport" index="0"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0638888, -1.75 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -154,7 +153,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance" index="1"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
+transform = Transform( 0.999829, -0.018481, 0, 0.018481, 0.999829, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0
@@ -178,7 +177,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance12" type="MeshInstance" parent="Viewport" index="1"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8571, 0, -1.75 )
+transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -14.9265, 0, 1.73779 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -241,8 +240,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance25" type="MeshInstance" parent="Viewport" index="2"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9199, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7262, 0, -1.75 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -259,7 +257,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance25" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.36375, 1.46809, 2.09656 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0
@@ -306,7 +304,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance5" type="MeshInstance" parent="Viewport" index="3"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05613, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36656, 0, -10.6597 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -370,7 +368,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance13" type="MeshInstance" parent="Viewport" index="4"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.80101, 0, -1.75 )
+transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -9.2866, 0, -0.468402 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -433,8 +431,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance27" type="MeshInstance" parent="Viewport" index="5"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.976, 0, -1.75 )
+transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 27.9422, 0.266101, -0.437942 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -449,30 +446,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance27" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance27" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance27" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
@@ -497,8 +471,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance8" type="MeshInstance" parent="Viewport" index="6"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05613, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79557, 0, -1.73289 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -513,30 +486,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance8" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance8" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance8" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
@@ -754,7 +704,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance15" type="MeshInstance" parent="Viewport" index="10"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.152, 0, -6.43519 )
+transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -15.0454, 0, -3.24661 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -817,7 +767,6 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance22" type="MeshInstance" parent="Viewport" index="11"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.625, 0, -6.43519 )
 layers = 1
 material_override = null
@@ -882,7 +831,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance10" type="MeshInstance" parent="Viewport" index="12"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.50456, 0, -6.43519 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.81499, 0, -15.3449 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -946,7 +895,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance11" type="MeshInstance" parent="Viewport" index="13"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.35258, 0, -6.43519 )
+transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -11.449, 0, -6.7497 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1010,7 +959,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance24" type="MeshInstance" parent="Viewport" index="14"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4244, 0, -6.43519 )
+transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 28.8174, 0, -8.98386 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1074,7 +1023,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance6" type="MeshInstance" parent="Viewport" index="15"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76126, 0, -6.43519 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.07169, 0, -15.3449 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1202,7 +1151,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance23" type="MeshInstance" parent="Viewport" index="17"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6811, 0, -6.43519 )
+transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 31.6784, 0.266101, -3.73929 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1265,7 +1214,6 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance7" type="MeshInstance" parent="Viewport" index="18"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76126, 0, -6.43519 )
 layers = 1
 material_override = null
@@ -1281,30 +1229,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance7" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance7" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance7" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
@@ -1457,8 +1382,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance2" type="MeshInstance" parent="Viewport" index="21"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0115, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.940093, 0, -10.6597 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1496,33 +1420,9 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance2" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
 [node name="MeshInstance18" type="MeshInstance" parent="Viewport" index="22"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.84564, 0, -1.75 )
+transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -12.122, 0, 0.640737 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1537,30 +1437,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance18" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance18" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance18" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
@@ -1586,7 +1463,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 [node name="MeshInstance21" type="MeshInstance" parent="Viewport" index="23"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9314, 0, -1.75 )
+transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 25.2675, 0.266101, -1.89247 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1649,8 +1526,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance4" type="MeshInstance" parent="Viewport" index="24"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.06763, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7796, 2.38419e-07, -10.6616 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1665,55 +1541,8 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance4" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance4" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
 [node name="MeshInstance19" type="MeshInstance" parent="Viewport" index="25"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78951, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1752,33 +1581,10 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance19" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
 [node name="MeshInstance26" type="MeshInstance" parent="Viewport" index="26"]
 
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9875, 0, -1.75 )
+transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 30.5878, 0.266101, 1.00078 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1841,8 +1647,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="MeshInstance9" type="MeshInstance" parent="Viewport" index="27"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.06763, 0, -1.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.688, 0, -1.75 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -1880,32 +1685,8 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance9" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
 [node name="MeshInstance20" type="MeshInstance" parent="Viewport" index="28"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78951, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1944,32 +1725,8 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance20" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
 [node name="MeshInstance29" type="MeshInstance" parent="Viewport" index="29"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9875, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1988,29 +1745,6 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance29" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-layers = 1
-light_color = Color( 1, 1, 1, 1 )
-light_energy = 1.0
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
-omni_range = 5.0
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
-_sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance29" index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0
@@ -2143,12 +1877,22 @@ _sections_unfolded = [ "Pause", "Transform" ]
 
 [node name="scout" parent="." index="5" instance=ExtResource( 9 )]
 
-position = Vector2( 0, -25 )
-_sections_unfolded = [ "Transform" ]
+position = Vector2( 19, 15 )
+collision_layer = 2
+collision_mask = 2
+_sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="player" parent="." index="6" instance=ExtResource( 10 )]
+[node name="scout2" parent="." index="6" instance=ExtResource( 9 )]
+
+position = Vector2( -15, 15 )
+collision_layer = 2
+collision_mask = 2
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="player" parent="." index="7" instance=ExtResource( 10 )]
 
 position = Vector2( 0, 11 )
+collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="player" index="3"]
 
@@ -2177,7 +1921,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform" ]
 
-[node name="Background" type="CanvasLayer" parent="." index="7"]
+[node name="Background" type="CanvasLayer" parent="." index="8"]
 
 layer = -1
 offset = Vector2( 0, 0 )

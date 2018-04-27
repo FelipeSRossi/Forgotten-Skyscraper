@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 # class member variables go here, for example:
 var stop = false
@@ -10,10 +10,6 @@ func _ready():
 	original_pos = position
 
 
-func _on_collision( body ):
-	print("calico")
-	if body.has_method("hit_by_enemy"):
-		body.call("hit_by_enemy")
 
 
 
@@ -24,9 +20,9 @@ func hit_by_bullet():
 func _process(delta):
 	if(!stop):
 		if(move_left):
-			move_local_x(0.3)
+			move_and_slide(Vector2(3,0), Vector2(0, -1), 0, 2);
 		elif(move_right):
-			move_local_x(-0.3)
+			move_and_slide(Vector2(-3,0), Vector2(0, -1), 0, 2);
 	
 	
 
