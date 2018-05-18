@@ -147,7 +147,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[node name="bullet" type="RigidBody2D"]
+[node name="bullet" type="RigidBody2D" index="0"]
 
 modulate = Color( 0.0987854, 0.644955, 0.972656, 1 )
 material = SubResource( 1 )

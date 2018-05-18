@@ -14,8 +14,11 @@ func _ready():
 
 
 func hit_by_bullet():
-	stop = true
-	pass
+	if(stop):
+		stop = false
+	else:
+		stop = true
+
 
 func _process(delta):
 	if(!stop):
@@ -36,3 +39,11 @@ func _process(delta):
 	elif(position.x == original_pos.x + 20):
 		move_right = false
 	
+
+func _on_Scout_area_entered(area):
+	print(area.name)
+	if("Hitbox" in area.name):
+		if(stop):
+			stop = false
+		else:
+			stop = true

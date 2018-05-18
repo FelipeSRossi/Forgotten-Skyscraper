@@ -21,7 +21,7 @@ extents = Vector2( 4, 12 )
 custom_solver_bias = 0.0
 extents = Vector2( 4, 69 )
 
-[node name="Node2D" type="Node2D" index="0"]
+[node name="Node2D" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -1767,8 +1767,7 @@ _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
 [node name="Camera" type="Camera" parent="Viewport" index="30"]
 
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.55108, 3.38704, 15.4527 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.55108, 3.38704, 1.25594 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = ExtResource( 6 )
@@ -1777,7 +1776,7 @@ v_offset = 0.0
 doppler_tracking = 0
 projection = 0
 current = true
-fov = 61.4
+fov = 114.6
 size = 1.0
 near = 0.05
 far = 100.0
@@ -1786,7 +1785,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Viewport/Camera" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00860429, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00860453, 0, 0 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0
@@ -1878,21 +1877,19 @@ _sections_unfolded = [ "Pause", "Transform" ]
 [node name="scout" parent="." index="5" instance=ExtResource( 9 )]
 
 position = Vector2( 19, 15 )
-collision_layer = 2
-collision_mask = 2
+collision_layer = 1
 _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="scout2" parent="." index="6" instance=ExtResource( 9 )]
 
 position = Vector2( -15, 15 )
-collision_layer = 2
-collision_mask = 2
+collision_layer = 1
 _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="player" parent="." index="7" instance=ExtResource( 10 )]
 
 position = Vector2( 0, 11 )
-collision_mask = 3
+collision_mask = 2
 
 [node name="Camera2D" type="Camera2D" parent="player" index="3"]
 

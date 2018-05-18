@@ -21,11 +21,12 @@ var up = false
 
 var HP = 54
 
+var hitting = false
+
 var can_move = true
 var can_jump = true
 var air_slash = false
 var slash = false
-var slashing = false
 var crouch = false
 var jump = false
 var jumped = false
@@ -50,6 +51,8 @@ var lastshot = 50
 var to_ignore = null;
 
 onready var sprite = $sprite
+onready var Hitbox = $Hitbox
+onready var Hurtbox = $Hurtbox
 
 func _input(event):
 	if not event.is_echo():
@@ -58,11 +61,17 @@ func _input(event):
 			move_left = true
 			move_right = false
 			sprite.scale.x = -1
+			Hitbox.scale.x = -1
+			Hitbox.position.x = -Hitbox.position.x
+			Hurtbox.position.x = -Hurtbox.position.x
+			Hurtbox.scale.x = -1
 
 		if event.is_action_pressed("move_right"):
 			move_right = true
 			move_left = false
 			sprite.scale.x = 1
+			Hitbox.scale.x = 1
+			#Hurtbox.scale.x = -1
 
 		if event.is_action_pressed("move_down"):
 			move_down = true
@@ -104,13 +113,25 @@ func _physics_process(delta):
 	
 	get_parent().get_node("HUD").get_node("GUI").get_node("HealthBar").value = HP
 	
+	if(hitting and damage_timer >= 0.8):
+		damage = true
+		slash = false
+		divekick = false
+		air_slash = false
+		spinning = false
+		crouch = false
+		wall_grab = false
+		HP -= 2
+		hitting = true
+		charge_timer = 0
 	
-	if(damage_timer <= 0.5):
+	if(damage_timer <= 0.8):
 		self.modulate = Color(1,1,1,0.5)
 		set_collision_mask_bit( 1,0 )
-	else:
+	elif not hitting:
 		self.modulate = Color(1,1,1,1)
 		set_collision_mask_bit( 1,1 )
+	
 	
 	if(charge_timer >=1 and grounded and !shoot):
 		slash = true
@@ -129,22 +150,8 @@ func _physics_process(delta):
 		
 	get_node("sprite/Scarf").self_modulate = Color(0.02,0.018 +charge_timer, 0.59,1)
 	
-	self.move_and_slide(velocity, Vector2(0, -1), 0, 2);
-	
-	if(get_slide_count()):
-		for i in range(get_slide_count()):
-			var collision = get_slide_collision(i)
-			if("scout" in collision.collider.name and damage_timer >= 0.5):
-				damage = true
-				slash = false
-				divekick = false
-				air_slash = false
-				spinning = false
-				crouch = false
-				wall_grab = false
-				HP -= 2
+	self.move_and_slide(velocity, Vector2(0, -1), 0, 1);
 
-	
 	grounded = self.is_on_floor()
 	walled = self.is_on_wall()
 	wall_grab = false
@@ -175,6 +182,7 @@ func _physics_process(delta):
 	#can only grab wall at the top of the jump. Thanks Inticreates
 	elif(((walled and move_left) or (walled and move_right) ) and (velocity.y > 0) and !divekick and !damage):
 				spinning = false
+				air_slash = false
 				wall_grab = true
 				velocity.y = G*delta*8
 	else:
@@ -289,8 +297,9 @@ func _physics_process(delta):
 		else:
 			animation = "Jump"
 			
-
-
+	if (animator.get_current_animation() != "Air Slash") and (animator.get_current_animation() != "Slash") and (animator.get_current_animation() != "DiveKick"):
+		Hitbox.get_node("HitCollider").disabled = true
+		Hitbox.get_node("HitCollider").shape = null
 
 	if animator.get_current_animation() != animation:
 		animator.play(animation)
@@ -303,14 +312,8 @@ func _physics_process(delta):
 	last_shoot = shoot
 	if(lastshot > 50):
 		lastshot = 50
-
-
-func slash():
-	slashing = true
 	
-func slash_end():
-	air_slash = false
-	slash = false
+
 	
 
 func _ready():
@@ -320,5 +323,32 @@ func _ready():
 	set_physics_process(true)
 	set_process_input(true)
 
-func damage_end():
-	damage = false
+func _on_Hurtbox_area_entered(area):
+	print(area.get_parent().name)
+	if("scout" in area.get_parent().name and damage_timer >= 0.8):
+		damage = true
+		slash = false
+		divekick = false
+		air_slash = false
+		spinning = false
+		crouch = false
+		wall_grab = false
+		HP -= 2
+		hitting = true
+		charge_timer = 0
+	elif("scout" in area.get_parent().name):
+		hitting = true
+
+
+func _on_Hurtbox_area_exited(area):
+	if(hitting and "scout" in area.get_parent().name):
+		hitting = false
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if(anim_name == "Damage"):
+		damage = false
+	elif(anim_name == "Slash" or "Air Slash"):
+		slash = false
+		air_slash = false
+
+
