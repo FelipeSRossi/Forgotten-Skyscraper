@@ -7,10 +7,7 @@ path="res://.import/TitleScreen.png-341fcd1288717cc1db71d1e84a980a95.stex"
 [deps]
 
 source_file="res://TitleScreen.png"
-source_md5="0d198d9e7b05c869d61d74a076a86b87"
-
 dest_files=[ "res://.import/TitleScreen.png-341fcd1288717cc1db71d1e84a980a95.stex" ]
-dest_md5="8911998358dddf1220c18c884f13c99d"
 
 [params]
 

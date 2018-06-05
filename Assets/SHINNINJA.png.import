@@ -7,10 +7,7 @@ path="res://.import/SHINNINJA.png-3811baf27dfee27f0d6e98ef312a472a.stex"
 [deps]
 
 source_file="res://Assets/SHINNINJA.png"
-source_md5="58b28a1937c8f684f9cb774fe84140a1"
-
 dest_files=[ "res://.import/SHINNINJA.png-3811baf27dfee27f0d6e98ef312a472a.stex" ]
-dest_md5="ca8c76bebbca9aad917b468d3bd7fc9f"
 
 [params]
 

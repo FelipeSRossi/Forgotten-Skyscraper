@@ -7,10 +7,7 @@ path="res://.import/Tileset.png-17cb559e4b2564b835d39be4154d710f.stex"
 [deps]
 
 source_file="res://Assets/Tileset.png"
-source_md5="89077e2023494ff6c7b5a506c9bd8dbe"
-
 dest_files=[ "res://.import/Tileset.png-17cb559e4b2564b835d39be4154d710f.stex" ]
-dest_md5="25dd0c35aef44e44ff354500c1935da9"
 
 [params]
 

@@ -7,10 +7,7 @@ path="res://.import/simpleghost.png-33d86264252c5cab8d991fb255c2cd22.stex"
 [deps]
 
 source_file="res://Assets/simpleghost.png"
-source_md5="607296858d672ccefb2d98f86cff5cfb"
-
 dest_files=[ "res://.import/simpleghost.png-33d86264252c5cab8d991fb255c2cd22.stex" ]
-dest_md5="241c138546bd2ed119e5ea692a768a08"
 
 [params]
 

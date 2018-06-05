@@ -7,10 +7,7 @@ path="res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex"
 [deps]
 
 source_file="res://ghosts.png"
-source_md5="cf1e783c8e675e93f489a65da80ac85e"
-
 dest_files=[ "res://.import/ghosts.png-413bfa49e4ef90ce3dd66c66e10034be.stex" ]
-dest_md5="6648cbcdb283240bbc476c9628c66825"
 
 [params]
 

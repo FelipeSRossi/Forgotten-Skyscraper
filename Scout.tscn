@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scout.gd" type="Script" id=1]
+[ext_resource path="res://scout.gd" type="Script" id=1]
 [ext_resource path="res://Assets/simpleghost.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -14,7 +14,6 @@ custom_solver_bias = 0.0
 extents = Vector2( 3, 4 )
 
 [node name="control" type="KinematicBody2D"]
-
 input_pickable = false
 collision_layer = 0
 collision_mask = 0
@@ -23,15 +22,12 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
-
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
-
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
-
 root_node = NodePath("..")
 autoplay = ""
 playback_process_mode = 1
@@ -40,7 +36,6 @@ playback_speed = 1.0
 blend_times = [  ]
 
 [node name="Scout" type="Area2D" parent="." index="3"]
-
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -53,9 +48,6 @@ audio_bus_name = "Master"
 _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scout" index="0"]
-
 shape = SubResource( 2 )
 
 [connection signal="area_entered" from="Scout" to="." method="_on_Scout_area_entered"]
-
-

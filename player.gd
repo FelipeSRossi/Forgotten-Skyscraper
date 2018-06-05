@@ -62,6 +62,7 @@ func _input(event):
 			move_right = false
 			sprite.scale.x = -1
 			Hitbox.scale.x = -1
+			get_node("sprite/Scarf").process_material.gravity = Vector3(60,5,0)
 			Hitbox.position.x = -Hitbox.position.x
 			Hurtbox.position.x = -Hurtbox.position.x
 			Hurtbox.scale.x = -1
@@ -71,6 +72,7 @@ func _input(event):
 			move_left = false
 			sprite.scale.x = 1
 			Hitbox.scale.x = 1
+			get_node("sprite/Scarf").process_material.gravity = Vector3(-60,5,0)
 			#Hurtbox.scale.x = -1
 
 		if event.is_action_pressed("move_down"):
@@ -193,16 +195,16 @@ func _physics_process(delta):
 
 	
 	if move_right and !crouch and !damage:
-		velocity.x += 100
+		velocity.x += 300
 	elif move_left and !crouch and !damage:
-		velocity.x += -100
+		velocity.x += -300
 	else:
 		velocity.x = 0
 
-	if(velocity.x >= 100):
-		velocity.x = 100	
-	if(velocity.x <= -100):
-		velocity.x = -100
+	if(velocity.x >= 300):
+		velocity.x = 300	
+	if(velocity.x <= -300):
+		velocity.x = -300
 
 
 	if(slide and grounded and not sliding and abs(velocity.x) > 0 and !slash and !damage):
