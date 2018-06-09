@@ -29,6 +29,7 @@ onready var Hurtbox = $Hurtbox
 onready var states_map = {
 	'move': $States/Move,
 	'jump': $States/Jump,
+	'fall': $States/Fal,
 	'stagger': $States/Stagger,
 }
 
