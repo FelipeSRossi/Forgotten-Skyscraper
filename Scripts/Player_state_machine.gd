@@ -25,11 +25,20 @@ onready var sprite = $sprite
 onready var Hitbox = $Hitbox
 onready var Hurtbox = $Hurtbox
 
+var shoot = false
+var last_shoot = false
+var lastshot = 50
+var shoot_timer = 500
+
+const BULLET_VELOCITY = 300
 
 onready var states_map = {
 	'move': $States/Move,
+	'idle': $States/Idle,
 	'jump': $States/Jump,
-	'fall': $States/Fal,
+	'fall': $States/Fall,
+	'wall grab': $States/WallGrab,
+	'wall jump': $States/WallJump,
 	'stagger': $States/Stagger,
 }
 
@@ -43,6 +52,12 @@ func _ready():
 # The state object, e.g. Move, then handles input, calculates velocity 
 # and moves what I called its "host", the Player node (KinematicBody2D) in this case.
 func _physics_process(delta):
+	
+	lastshot += 1
+
+	last_shoot = shoot
+	if(lastshot > 50):
+		lastshot = 50
 	var state_name = current_state.update(self, delta)
 	if state_name:
 		_change_state(state_name)
@@ -59,6 +74,18 @@ func _input(event):
 	#if event.is_action_pressed('fire'):
 	#	$BulletSpawn.fire(look_direction)
 	#	return
+	shoot = event.is_action_pressed('shoot')
+	
+	if (shoot and !last_shoot and lastshot > 8):
+		lastshot = 0
+		var bullet = preload("res://bullet.tscn").instance()
+		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
+		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
+		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
+		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
+		shoot_timer = 0
+		
+		
 	var state_name = current_state.handle_input(self, event)
 	if state_name:
 		_change_state(state_name)
@@ -93,14 +120,18 @@ func _change_state(state_name):
 
 	if state_name == 'previous':
 		states_stack.pop_front()
-	elif state_name in ['stagger', 'jump']:
+	elif state_name in ['stagger', 'jump', 'fall']:
 		states_stack.push_front(states_map[state_name])
 	else:
 		var new_state = states_map[state_name]
 		states_stack[0] = new_state
 
 	if state_name == 'jump':
-		$States/Jump.initialize(current_state.speed, current_state.velocity)
+		$States/Jump.initialize( current_state.velocity)
+	if state_name == 'fall':
+		$States/Fall.initialize( current_state.velocity)
+	if state_name == 'wall grab':
+		$States/WallGrab.initialize(current_state.get_input_direction(), current_state.enter_velocity)
 
 	current_state = states_stack[0]
 	if state_name != 'previous':

@@ -1,7 +1,7 @@
 extends 'on_ground.gd'
 
 export(float) var MAX_RUN_SPEED = 150
-export(float) var G = 450
+export(float) var G = 50
 
 func enter(host):
 	speed = 0.0
@@ -10,28 +10,22 @@ func enter(host):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 	
-	if(input_direction):
-		if(host.get_node('AnimationPlayer').get_assigned_animation()!='Run'):
-			host.get_node('AnimationPlayer').play('Run')
-	else:
-		if(host.get_node('AnimationPlayer').get_assigned_animation()!='Idle'):
-			host.get_node('AnimationPlayer').queue('Idle')
+	host.get_node('AnimationPlayer').play('Run-start')
+	host.get_node('AnimationPlayer').queue('Run')
+
 
 func handle_input(host, event):
 	return .handle_input(host, event)
 
 
 func update(host, delta):
+	if(!host.is_on_floor()):
+		return 'fall'
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 	
-	
-	if(input_direction):
-		if(host.get_node('AnimationPlayer').get_assigned_animation()!='Run'):
-			host.get_node('AnimationPlayer').play('Run')
-	else:
-		if(host.get_node('AnimationPlayer').get_assigned_animation()!='Idle'):
-			host.get_node('AnimationPlayer').play('Idle')
+	if(!input_direction):
+		return 'idle'
 
 	speed = MAX_RUN_SPEED
 	var collision_info = move(host, speed, input_direction)
