@@ -16,10 +16,11 @@
 custom_solver_bias = 0.0
 extents = Vector2( 4, 12 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConcavePolygonShape2D" id=2]
 
 custom_solver_bias = 0.0
-points = PoolVector2Array( 0, -10, 8.66025, 5, -8.66025, 5 )
+segments = PoolVector2Array( 0, 0, 40, 8, -40, 0, 20, -8 )
+_sections_unfolded = [ "segments" ]
 
 [sub_resource type="RectangleShape2D" id=3]
 
@@ -30,14 +31,14 @@ extents = Vector2( 4, 94 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="HUD" type="CanvasLayer" parent="." index="0"]
+[node name="HUD" type="CanvasLayer" parent="."]
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="GUI" type="MarginContainer" parent="HUD" index="0"]
+[node name="GUI" type="MarginContainer" parent="HUD"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -54,7 +55,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Grow Direction", "Margin", "Rect" ]
 
-[node name="HealthBar" type="TextureProgress" parent="HUD/GUI" index="0"]
+[node name="HealthBar" type="TextureProgress" parent="HUD/GUI"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -88,7 +89,7 @@ radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
 _sections_unfolded = [ "Textures" ]
 
-[node name="Viewport" type="Viewport" parent="." index="1"]
+[node name="Viewport" type="Viewport" parent="."]
 editor/display_folded = true
 arvr = false
 size = Vector2( 480, 270 )
@@ -116,7 +117,7 @@ shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
 _sections_unfolded = [ "Rendering" ]
 
-[node name="MeshInstance" type="MeshInstance" parent="Viewport" index="0"]
+[node name="MeshInstance" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0638888, -1.75 )
 layers = 1
 material_override = null
@@ -132,7 +133,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -154,7 +155,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance"]
 transform = Transform( 0.999829, -0.018481, 0, 0.018481, 0.999829, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -176,7 +177,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance12" type="MeshInstance" parent="Viewport" index="1"]
+[node name="MeshInstance12" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -14.9265, 0, 1.73779 )
 layers = 1
@@ -193,7 +194,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance12" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance12"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -215,7 +216,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance12" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance12"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -237,7 +238,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance25" type="MeshInstance" parent="Viewport" index="2"]
+[node name="MeshInstance25" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7262, 0, -1.75 )
 layers = 1
 material_override = null
@@ -253,7 +254,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance25" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance25"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.36375, 1.46809, 2.09656 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -275,7 +276,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance25" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance25"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -297,7 +298,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance5" type="MeshInstance" parent="Viewport" index="3"]
+[node name="MeshInstance5" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36656, 0, -10.6597 )
 layers = 1
@@ -314,7 +315,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance5" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -336,7 +337,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance5" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -358,7 +359,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance13" type="MeshInstance" parent="Viewport" index="4"]
+[node name="MeshInstance13" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -9.2866, 0, -0.468402 )
 layers = 1
@@ -375,7 +376,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance13" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance13"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -397,7 +398,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance13" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance13"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -419,7 +420,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance27" type="MeshInstance" parent="Viewport" index="5"]
+[node name="MeshInstance27" type="MeshInstance" parent="Viewport"]
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 27.9422, 0.266101, -0.437942 )
 layers = 1
 material_override = null
@@ -435,7 +436,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance27" index="0"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance27"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -457,7 +458,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance8" type="MeshInstance" parent="Viewport" index="6"]
+[node name="MeshInstance8" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79557, 0, -1.73289 )
 layers = 1
 material_override = null
@@ -473,7 +474,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance8" index="0"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -495,7 +496,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance14" type="MeshInstance" parent="Viewport" index="7"]
+[node name="MeshInstance14" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.80101, 0, -1.75 )
 layers = 1
@@ -512,7 +513,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance14" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance14"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -534,7 +535,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance14" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance14"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -556,7 +557,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance28" type="MeshInstance" parent="Viewport" index="8"]
+[node name="MeshInstance28" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.976, 0, -1.75 )
 layers = 1
@@ -573,7 +574,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance28" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -595,7 +596,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance28" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -617,7 +618,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance3" type="MeshInstance" parent="Viewport" index="9"]
+[node name="MeshInstance3" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70513, 0, -6.43519 )
 layers = 1
@@ -634,7 +635,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance3" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -656,7 +657,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance3" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -678,7 +679,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance15" type="MeshInstance" parent="Viewport" index="10"]
+[node name="MeshInstance15" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -15.0454, 0, -3.24661 )
 layers = 1
@@ -695,7 +696,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance15" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance15"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -717,7 +718,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance15" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance15"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -739,7 +740,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance22" type="MeshInstance" parent="Viewport" index="11"]
+[node name="MeshInstance22" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.625, 0, -6.43519 )
 layers = 1
 material_override = null
@@ -755,7 +756,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance22" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance22"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -777,7 +778,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance22" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance22"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -799,7 +800,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance10" type="MeshInstance" parent="Viewport" index="12"]
+[node name="MeshInstance10" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.81499, 0, -15.3449 )
 layers = 1
@@ -816,7 +817,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance10" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -838,7 +839,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance10" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -860,7 +861,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance11" type="MeshInstance" parent="Viewport" index="13"]
+[node name="MeshInstance11" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -11.449, 0, -6.7497 )
 layers = 1
@@ -877,7 +878,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance11" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance11"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -899,7 +900,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance11" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance11"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -921,7 +922,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance24" type="MeshInstance" parent="Viewport" index="14"]
+[node name="MeshInstance24" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 28.8174, 0, -8.98386 )
 layers = 1
@@ -938,7 +939,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance24" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance24"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -960,7 +961,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance24" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance24"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -982,7 +983,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance6" type="MeshInstance" parent="Viewport" index="15"]
+[node name="MeshInstance6" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.07169, 0, -15.3449 )
 layers = 1
@@ -999,7 +1000,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance6" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1021,7 +1022,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance6" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1043,7 +1044,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance17" type="MeshInstance" parent="Viewport" index="16"]
+[node name="MeshInstance17" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09588, 0, -6.43519 )
 layers = 1
@@ -1060,7 +1061,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance17" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance17"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1082,7 +1083,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance17" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance17"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1104,7 +1105,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance23" type="MeshInstance" parent="Viewport" index="17"]
+[node name="MeshInstance23" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 31.6784, 0.266101, -3.73929 )
 layers = 1
@@ -1121,7 +1122,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance23" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance23"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1143,7 +1144,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance23" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance23"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1165,7 +1166,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance7" type="MeshInstance" parent="Viewport" index="18"]
+[node name="MeshInstance7" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76126, 0, -6.43519 )
 layers = 1
 material_override = null
@@ -1181,7 +1182,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance7" index="0"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1203,7 +1204,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance16" type="MeshInstance" parent="Viewport" index="19"]
+[node name="MeshInstance16" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09588, 0, -6.43519 )
 layers = 1
@@ -1220,7 +1221,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance16" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance16"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1242,7 +1243,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance16" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance16"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1264,7 +1265,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance30" type="MeshInstance" parent="Viewport" index="20"]
+[node name="MeshInstance30" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6811, 0, -6.43519 )
 layers = 1
@@ -1281,7 +1282,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance30" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance30"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1303,7 +1304,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance30" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance30"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1325,7 +1326,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance2" type="MeshInstance" parent="Viewport" index="21"]
+[node name="MeshInstance2" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.940093, 0, -10.6597 )
 layers = 1
 material_override = null
@@ -1341,7 +1342,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance2" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1363,7 +1364,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance18" type="MeshInstance" parent="Viewport" index="22"]
+[node name="MeshInstance18" type="MeshInstance" parent="Viewport"]
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -12.122, 0, 0.640737 )
 layers = 1
 material_override = null
@@ -1379,7 +1380,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance18" index="0"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance18"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1401,7 +1402,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance21" type="MeshInstance" parent="Viewport" index="23"]
+[node name="MeshInstance21" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 25.2675, 0.266101, -1.89247 )
 layers = 1
@@ -1418,7 +1419,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance21" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance21"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1440,7 +1441,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance21" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance21"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1462,7 +1463,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance4" type="MeshInstance" parent="Viewport" index="24"]
+[node name="MeshInstance4" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7796, 2.38419e-07, -10.6616 )
 layers = 1
 material_override = null
@@ -1478,7 +1479,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="MeshInstance19" type="MeshInstance" parent="Viewport" index="25"]
+[node name="MeshInstance19" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78951, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1494,7 +1495,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance19" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance19"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1516,7 +1517,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance26" type="MeshInstance" parent="Viewport" index="26"]
+[node name="MeshInstance26" type="MeshInstance" parent="Viewport"]
 editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 30.5878, 0.266101, 1.00078 )
 layers = 1
@@ -1533,7 +1534,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance26" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1555,7 +1556,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance26" index="1"]
+[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1577,7 +1578,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance9" type="MeshInstance" parent="Viewport" index="27"]
+[node name="MeshInstance9" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.688, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1593,7 +1594,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance9" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance9"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1615,7 +1616,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance20" type="MeshInstance" parent="Viewport" index="28"]
+[node name="MeshInstance20" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78951, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1631,7 +1632,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance20" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance20"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1653,7 +1654,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="MeshInstance29" type="MeshInstance" parent="Viewport" index="29"]
+[node name="MeshInstance29" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9875, 0, -1.75 )
 layers = 1
 material_override = null
@@ -1669,7 +1670,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance29" index="0"]
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance29"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1691,7 +1692,7 @@ omni_shadow_mode = 1
 omni_shadow_detail = 1
 _sections_unfolded = [ "Light", "Omni", "Shadow", "Transform" ]
 
-[node name="Camera" type="Camera" parent="Viewport" index="30"]
+[node name="Camera" type="Camera" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.55108, 3.38704, 1.25594 )
 keep_aspect = 1
 cull_mask = 1048575
@@ -1708,7 +1709,7 @@ far = 100.0
 script = ExtResource( 7 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="DirectionalLight" type="DirectionalLight" parent="Viewport/Camera" index="0"]
+[node name="DirectionalLight" type="DirectionalLight" parent="Viewport/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00860453, 0, 0 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
@@ -1734,7 +1735,7 @@ directional_shadow_bias_split_scale = 0.25
 directional_shadow_depth_range = 0
 directional_shadow_max_distance = 200.0
 
-[node name="TileMap" type="TileMap" parent="." index="2"]
+[node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 0, 12 )
 mode = 0
 tile_set = ExtResource( 8 )
@@ -1755,7 +1756,7 @@ format = 1
 tile_data = PoolIntArray( -720917, 10, 0, -786407, 4, 0, -786406, 4, 0, -786405, 4, 0, -786404, 4, 0, -786403, 4, 0, -786402, 4, 0, -786401, 4, 0, -786400, 4, 0, -786399, 4, 0, -786398, 4, 0, -786397, 4, 0, -786396, 4, 0, -786395, 4, 0, -786394, 4, 0, -786393, 4, 0, -786392, 4, 0, -786391, 4, 0, -786390, 4, 0, -786389, 4, 0, -786388, 4, 0, -786387, 4, 0, -786386, 4, 0, -786385, 4, 0, -786384, 4, 0, -786383, 4, 0, -786382, 4, 0, -786381, 4, 0, -786380, 4, 0, -786379, 4, 0, -786378, 4, 0, -786377, 4, 0, -786376, 4, 0, -786375, 4, 0, -786374, 4, 0, -786373, 4, 0, -786372, 4, 0, -786371, 4, 0, -786370, 4, 0, -786369, 4, 0, -786368, 4, 0, -786367, 4, 0, -786366, 4, 0, -786365, 4, 0, -786364, 4, 0, -786363, 4, 0, -786362, 4, 0, -786361, 4, 0, -786360, 4, 0, -786359, 4, 0, -786358, 4, 0, -786357, 4, 0, -786356, 4, 0, -786355, 4, 0, -786354, 4, 0, -786353, 4, 0, -786352, 4, 0, -786351, 4, 0, -786350, 4, 0, -655381, 10, 0, -720871, 4, 0, -720814, 4, 0, -589845, 10, 0, -655335, 4, 0, -655278, 4, 0, -524309, 10, 0, -589799, 4, 0, -589742, 4, 0, -458773, 10, 0, -524263, 4, 0, -524232, 4, 0, -524231, 4, 0, -524230, 4, 0, -524206, 4, 0, -393237, 10, 0, -458727, 4, 0, -458700, 4, 0, -458699, 4, 0, -458670, 4, 0, -327701, 10, 0, -393191, 4, 0, -393186, 4, 0, -393185, 4, 0, -393184, 4, 0, -393183, 4, 0, -393182, 4, 0, -393181, 4, 0, -393180, 4, 0, -393179, 4, 0, -393178, 4, 0, -393177, 4, 0, -393176, 4, 0, -393154, 4, 0, -393153, 4, 0, -393152, 4, 0, -393134, 4, 0, -262165, 10, 0, -327655, 4, 0, -327598, 4, 0, -196629, 10, 0, -262119, 4, 0, -262118, 4, 0, -262062, 4, 0, -131093, 10, 0, -196583, 4, 0, -65557, 10, 0, -65540, 13, 0, -21, 10, 0, -4, 10, 0, -65532, 9, 0, -65531, 11, 0, -65530, 11, 0, -65529, 11, 0, -65528, 11, 0, -65527, 11, 0, -65526, 11, 0, -65525, 11, 0, -65524, 11, 0, -65523, 12, 0, 65515, 10, 0, 65520, 2, 0, 65532, 10, 0, 29, 4, 0, 41, 4, 0, 47, 4, 0, 48, 4, 0, 49, 4, 0, 50, 4, 0, 54, 4, 0, 55, 4, 0, 56, 4, 0, 57, 4, 0, 59, 4, 0, 60, 4, 0, 61, 4, 0, 62, 4, 0, 63, 4, 0, 64, 4, 0, 65, 4, 0, 66, 4, 0, 67, 4, 0, 68, 4, 0, 69, 4, 0, 70, 4, 0, 131051, 10, 0, 131057, 1, 0, 131058, 1, 0, 131059, 1, 0, 131066, 3, 0, 131067, 4, 0, 131068, 4, 0, 131069, 4, 0, 131070, 4, 0, 131071, 4, 0, 65536, 4, 0, 65537, 4, 0, 65538, 4, 0, 65551, 4, 0, 65552, 4, 0, 65561, 4, 0, 65562, 4, 0, 65563, 4, 0, 65564, 4, 0, 65565, 4, 0, 65566, 4, 0, 65567, 4, 0, 65568, 4, 0, 65569, 4, 0, 65570, 4, 0, 65571, 4, 0, 65572, 4, 0, 65573, 4, 0, 65574, 4, 0, 65575, 4, 0, 65576, 4, 0, 65577, 4, 0, 65578, 4, 0, 65579, 4, 0, 65580, 4, 0, 65582, 4, 0, 65583, 4, 0, 65584, 4, 0, 65585, 4, 0, 65586, 4, 0, 65587, 4, 0, 65588, 4, 0, 65589, 4, 0, 65590, 4, 0, 65591, 4, 0, 65592, 4, 0, 65593, 4, 0, 65595, 4, 0, 65618, 4, 0, 196587, 10, 0, 196602, 6, 0, 196603, 7, 0, 196604, 7, 0, 196605, 7, 0, 196606, 7, 0, 196607, 7, 0, 131072, 7, 0, 131073, 7, 0, 131074, 7, 0, 131075, 7, 0, 131076, 7, 0, 131077, 7, 0, 131078, 7, 0, 131079, 7, 0, 131080, 7, 0, 131081, 7, 0, 131082, 7, 0, 131083, 7, 0, 131084, 7, 0, 131085, 7, 0, 131086, 7, 0, 131087, 7, 0, 131088, 7, 0, 131089, 7, 0, 131090, 8, 0, 131098, 4, 0, 131099, 4, 0, 131100, 4, 0, 131101, 4, 0, 131102, 4, 0, 131103, 4, 0, 131104, 4, 0, 131105, 4, 0, 131106, 4, 0, 131107, 4, 0, 131108, 4, 0, 131109, 4, 0, 131110, 4, 0, 131111, 4, 0, 131112, 4, 0, 131113, 4, 0, 131114, 4, 0, 131115, 4, 0, 131116, 4, 0, 131118, 4, 0, 131119, 4, 0, 131120, 4, 0, 131121, 4, 0, 131122, 4, 0, 131123, 4, 0, 131124, 4, 0, 131125, 4, 0, 131126, 4, 0, 131127, 4, 0, 131128, 4, 0, 131129, 4, 0, 131131, 4, 0, 131153, 4, 0, 262123, 10, 0, 196634, 4, 0, 196635, 4, 0, 196636, 4, 0, 196637, 4, 0, 196638, 4, 0, 196639, 4, 0, 196640, 4, 0, 196641, 4, 0, 196642, 4, 0, 196643, 4, 0, 196644, 4, 0, 196645, 4, 0, 196646, 4, 0, 196647, 4, 0, 196648, 4, 0, 196649, 4, 0, 196650, 4, 0, 196651, 4, 0, 196652, 4, 0, 196667, 4, 0, 196689, 4, 0, 327659, 10, 0, 262170, 4, 0, 262171, 4, 0, 262172, 4, 0, 262173, 4, 0, 262174, 4, 0, 262175, 4, 0, 262176, 4, 0, 262177, 4, 0, 262178, 4, 0, 262179, 4, 0, 262180, 4, 0, 262181, 4, 0, 262182, 4, 0, 262183, 4, 0, 262184, 4, 0, 262185, 4, 0, 262186, 4, 0, 262187, 4, 0, 262188, 4, 0, 262203, 4, 0, 262225, 4, 0, 393195, 10, 0, 327707, 4, 0, 327708, 4, 0, 327709, 4, 0, 327710, 4, 0, 327711, 4, 0, 327712, 4, 0, 327713, 4, 0, 327714, 4, 0, 327715, 4, 0, 327716, 4, 0, 327717, 4, 0, 327718, 4, 0, 327719, 4, 0, 327720, 4, 0, 327721, 4, 0, 327722, 4, 0, 327723, 4, 0, 327724, 4, 0, 327725, 4, 0, 327726, 4, 0, 327727, 4, 0, 327728, 4, 0, 327729, 4, 0, 327730, 4, 0, 327731, 4, 0, 327732, 4, 0, 327733, 4, 0, 327734, 4, 0, 327735, 4, 0, 327736, 4, 0, 327737, 4, 0, 327738, 4, 0, 327739, 4, 0, 327740, 4, 0, 327741, 4, 0, 327742, 4, 0, 327743, 4, 0, 327744, 4, 0, 327745, 4, 0, 327746, 4, 0, 327747, 4, 0, 327748, 4, 0, 327749, 4, 0, 327750, 4, 0, 327751, 4, 0, 327752, 4, 0, 327753, 4, 0, 327754, 4, 0, 327755, 4, 0, 327756, 4, 0, 327757, 4, 0, 327758, 4, 0, 327759, 4, 0, 327760, 4, 0, 458731, 10, 0, 524268, 11, 0, 524269, 11, 0, 524270, 11, 0, 524271, 11, 0, 524272, 11, 0, 524273, 11, 0, 524274, 11, 0, 524275, 11, 0, 524276, 11, 0, 524277, 11, 0, 524278, 11, 0, 524279, 11, 0, 524280, 11, 0, 524281, 11, 0, 524282, 11, 0, 524283, 11, 0, 524284, 11, 0, 524285, 11, 0, 524286, 11, 0, 524287, 11, 0, 458752, 11, 0, 458753, 11, 0, 458754, 11, 0, 458755, 11, 0, 458756, 11, 0, 458757, 11, 0, 458758, 11, 0, 458759, 11, 0, 458760, 11, 0, 458761, 11, 0, 458762, 11, 0, 458763, 11, 0, 458764, 11, 0, 458765, 11, 0, 458766, 11, 0, 458767, 11, 0, 458768, 11, 0, 458769, 11, 0, 458770, 11, 0, 458771, 11, 0, 458772, 11, 0, 458773, 11, 0, 458774, 11, 0 )
 _sections_unfolded = [ "Cell", "Collision", "Transform" ]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." index="3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 0, 2 )
 input_pickable = false
@@ -1763,67 +1764,61 @@ collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -28, 6 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Pause" ]
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="." index="4"]
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2( -24, 26 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" index="0"]
-position = Vector2( 75, -27 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2( 98, -22 )
 shape = SubResource( 2 )
-_sections_unfolded = [ "Pause" ]
+_sections_unfolded = [ "shape" ]
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="." index="5"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2( -136, 0 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( -28, 10 )
 shape = SubResource( 3 )
 _sections_unfolded = [ "Pause" ]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2" index="1"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( 70, 72 )
 rotation = 1.5708
 shape = SubResource( 3 )
 _sections_unfolded = [ "Pause", "Transform" ]
 
-[node name="scout" parent="." index="6" instance=ExtResource( 9 )]
+[node name="scout" parent="." instance=ExtResource( 9 )]
 position = Vector2( 19, 15 )
 collision_layer = 1
 motion/sync_to_physics = false
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="scout2" parent="." index="7" instance=ExtResource( 9 )]
+[node name="scout2" parent="." instance=ExtResource( 9 )]
 position = Vector2( -15, 15 )
 collision_layer = 1
 motion/sync_to_physics = false
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="player" parent="." index="8" instance=ExtResource( 10 )]
+[node name="player" parent="." instance=ExtResource( 10 )]
+editor/display_folded = true
 position = Vector2( 244, -136 )
-motion/sync_to_physics = false
 
-[node name="Camera2D" type="Camera2D" parent="player" index="6"]
+[node name="Camera2D" type="Camera2D" parent="player"]
 anchor_mode = 1
 rotating = false
 current = true
@@ -1848,14 +1843,14 @@ editor_draw_limits = true
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform" ]
 
-[node name="Background" type="CanvasLayer" parent="." index="9"]
+[node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Viewport_Sprite" type="Sprite" parent="Background" index="0"]
+[node name="Viewport_Sprite" type="Sprite" parent="Background"]
 position = Vector2( 240, 135 )
 scale = Vector2( 1, -1 )
 _sections_unfolded = [ "Material", "Offset", "Transform", "Z Index" ]

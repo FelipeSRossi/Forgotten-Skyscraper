@@ -3,10 +3,10 @@ extends 'on_ground.gd'
 export(float) var MAX_RUN_SPEED = 150
 export(float) var G = 50
 
+
 func enter(host):
 	speed = 0.0
 	velocity = Vector2()
-
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 	
@@ -21,6 +21,7 @@ func handle_input(host, event):
 func update(host, delta):
 	if(!host.is_on_floor()):
 		return 'fall'
+
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 	
