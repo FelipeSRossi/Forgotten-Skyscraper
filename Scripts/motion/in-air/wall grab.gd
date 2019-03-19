@@ -40,7 +40,7 @@ func update(host, delta):
 		if(velocity.y < 0):
 			velocity.y = 0
 	
-	host.move_and_slide (velocity,Vector2(0,-1), 0, 1)
+	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
 	
 
 	

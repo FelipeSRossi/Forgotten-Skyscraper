@@ -23,7 +23,8 @@ func initialize( enter_velocity):
 func handle_input(host, event):
 	if event.is_action_released("jump"):
 			still_jumping = false
-
+	if event.is_action_pressed('shoot'):
+			return 'divekick'
 
 
 func enter(host):
@@ -31,33 +32,27 @@ func enter(host):
 	update_siding(host,input_direction)
 	velocity.y =- JUMP_FORCE
 
-	host.get_node('AnimationPlayer').play('Jump-start')
-	host.get_node('AnimationPlayer').queue('Jump-rise')
+	host.get_node('AnimationPlayer').play('Roll')
 
 
 func update(host, delta):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 
-	velocity = Vector2(input_direction * speed, min(GRAVITY, velocity.y+ GRAVITY*5*delta))
+	velocity = Vector2(input_direction * speed*2, min(GRAVITY*5, velocity.y+ GRAVITY*5*delta))
 
 	
 		#Allows for more precise jumping	
-	if((!still_jumping) and velocity.y < 0):
-		velocity.y = velocity.y / 2
 			
 	if(host.is_on_ceiling()):
 		if(velocity.y < 0):
 			velocity.y = 0
 	
 	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
-	if(velocity.y < 0):
-		host.get_node('AnimationPlayer').queue('Jump-rise')
 	
-	if(velocity.y >=0):
-		return 'fall'
 	
 	if host.is_on_floor():
-		host.get_node('AnimationPlayer').play('Jump-landing')
-		return 'previous'
+		return 'move'
 
+func exit(host):
+		host.get_node('sprite').rotation_degrees = 0

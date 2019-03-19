@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SHINNINJA.png-3811baf27dfee27f0d6e98ef312a472a.stex"
+path="res://.import/Tileset2.png-9bfd042fbbc9b887950cf71a021d6b02.stex"
 
 [deps]
 
-source_file="res://Assets/SHINNINJA.png"
-dest_files=[ "res://.import/SHINNINJA.png-3811baf27dfee27f0d6e98ef312a472a.stex" ]
+source_file="res://Assets/Tileset2.png"
+dest_files=[ "res://.import/Tileset2.png-9bfd042fbbc9b887950cf71a021d6b02.stex" ]
 
 [params]
 

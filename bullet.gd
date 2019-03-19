@@ -9,7 +9,7 @@ func _ready():
 func _on_bullet_body_enter( body ):
 	modulate = Color(1,1,1,0.25)
 	$anim.play("idle")
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.set_deferred( "disabled", true)
 	if body.has_method("hit_by_bullet"):
 		body.call("hit_by_bullet")
 

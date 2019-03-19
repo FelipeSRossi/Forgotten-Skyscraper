@@ -34,6 +34,9 @@ const BULLET_VELOCITY = 300
 
 onready var states_map = {
 	'move': $States/Move,
+	'slide': $States/Slide,
+	'roll': $States/Roll,
+	'divekick': $States/DiveKick,
 	'idle': $States/Idle,
 	'jump': $States/Jump,
 	'fall': $States/Fall,
@@ -128,8 +131,12 @@ func _change_state(state_name):
 
 	if state_name == 'jump':
 		$States/Jump.initialize( current_state.velocity)
+	if state_name == 'roll':
+		$States/Roll.initialize( current_state.velocity)
 	if state_name == 'fall':
 		$States/Fall.initialize( current_state.velocity)
+	if state_name == 'divekick':
+		$States/DiveKick.initialize( current_state.velocity)
 	if state_name == 'wall grab':
 		$States/WallGrab.initialize(current_state.get_input_direction(), current_state.enter_velocity)
 

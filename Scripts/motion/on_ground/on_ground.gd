@@ -6,4 +6,6 @@ var velocity = Vector2()
 func handle_input(host, event):
 	if event.is_action_pressed('jump'):
 		return 'jump'
+	if event.is_action_pressed('slide'):
+		return 'slide'
 	return .handle_input(host, event)
