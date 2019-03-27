@@ -59,5 +59,5 @@ func update(host, delta):
 	
 	if host.is_on_floor():
 		host.get_node('AnimationPlayer').play('Jump-landing')
-		return 'previous'
+		return 'idle'
 

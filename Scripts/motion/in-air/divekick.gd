@@ -21,8 +21,7 @@ func initialize( enter_velocity):
 	still_jumping = true
 
 func handle_input(host, event):
-	if event.is_action_released("jump"):
-			still_jumping = false
+	pass
 
 
 
@@ -38,8 +37,6 @@ func update(host, delta):
 	update_siding(host,input_direction)
 
 	velocity = Vector2(input_direction * speed*2, min(GRAVITY*5, velocity.y+ GRAVITY*5*delta))
-
-	
 		#Allows for more precise jumping	
 			
 	if(host.is_on_ceiling()):
