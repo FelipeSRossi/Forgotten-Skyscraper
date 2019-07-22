@@ -43,8 +43,6 @@ func update(host, delta):
 
 	
 		#Allows for more precise jumping	
-	if((!still_jumping) and velocity.y < 0):
-		velocity.y = velocity.y / 2
 			
 	if(host.is_on_ceiling()):
 		if(velocity.y < 0):
@@ -55,9 +53,6 @@ func update(host, delta):
 	
 	if host.is_on_floor():
 		return 'move'
-		
-	if(host.is_on_wall() and input_direction != 0):
-		return 'wall grab'
 
 func exit(host):
 		host.get_node('sprite').rotation_degrees = 0

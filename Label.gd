@@ -10,5 +10,4 @@ func _physics_process(delta):
 
 func _on_player_state_changed(states_stack):
 	text = states_stack[0].get_name()
-	print(text)
 

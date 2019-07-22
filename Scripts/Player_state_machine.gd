@@ -22,6 +22,8 @@ remove states from the history.
 var states_stack = []
 var current_state = null
 onready var sprite = $sprite
+onready var Hitbox = $Hitbox
+onready var Hurtbox = $Hurtbox
 
 var shoot = false
 var last_shoot = false
@@ -144,3 +146,15 @@ func _change_state(state_name):
 		current_state.enter(self)
 	emit_signal('state_changed', states_stack)
 
+
+func _on_Hurtbox_area_entered(area):
+	pass
+
+func _on_Hurtbox_area_exited(area):
+	pass
+	
+func _on_Hitbox_area_entered(area):
+	pass
+	
+func _on_Hitbox_area_exited(area):
+	pass

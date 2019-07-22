@@ -46,7 +46,8 @@ func update(host, delta):
 	
 	if host.is_on_floor():
 		return 'move'
-	if (input_direction != enter_input or !host.is_on_wall()):
+	if (input_direction != enter_input):
 		return 'fall'
+
 func exit(host):
 	host.get_node('AnimationPlayer').play('Jump-landing')

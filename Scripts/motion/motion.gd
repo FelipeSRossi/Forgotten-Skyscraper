@@ -15,4 +15,6 @@ func update_siding(host, input_direction):
 		host.get_node("Hitbox").scale.x = input_direction
 		host.get_node("sprite/Scarf").process_material.gravity = Vector3(-input_direction*60,5,0)
 		host.get_node("Hitbox").position.x = input_direction*host.get_node("Hitbox").position.x
+		host.get_node("Hurtbox").position.x = input_direction*host.get_node("Hurtbox").position.x
+		host.get_node("Hurtbox").scale.x = input_direction
 	return

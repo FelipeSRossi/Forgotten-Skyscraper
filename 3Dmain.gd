@@ -4,13 +4,12 @@ extends Node2D
 var viewport = null
 var viewport_sprite = null
 
-
 # variables for the sprite animation
 
 
 func _ready():
-	viewport = get_node("Viewport2")
-	viewport_sprite = get_node("Background2").get_node("Viewport_Sprite")
+	viewport = get_node("Viewport")
+	viewport_sprite = get_node("Background").get_node("Viewport_Sprite")
 
 
 	# Assign the sprite's texture to the viewport texture
@@ -20,8 +19,6 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	viewport_sprite.texture = viewport.get_texture()
-
+  
 	set_process(true)
 
-func _input(event):
-	get_node("Viewport2").get_node("player")._input(event)
