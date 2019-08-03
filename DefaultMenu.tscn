@@ -15,5 +15,4 @@ current = true
 
 [node name="TitleScreen" type="Sprite" parent="Camera2D"]
 texture = ExtResource( 2 )
-
 [connection signal="pressed" from="." to="." method="_on_Button_pressed"]

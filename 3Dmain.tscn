@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://3Dmain.gd" type="Script" id=1]
 [ext_resource path="res://Assets/HealthBarUnder.png" type="Texture" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://Assets/Tileset2.tres" type="TileSet" id=8]
 [ext_resource path="res://Scout.tscn" type="PackedScene" id=9]
 [ext_resource path="res://FSMPlayer.scn" type="PackedScene" id=10]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( -100, 100, 300, 100, -50, -100 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -307,7 +310,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance4" type="MeshInstance" parent="Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7796, 2.38419e-07, -10.6616 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7796, 2.38419e-007, -10.6616 )
 mesh = ExtResource( 5 )
 material/0 = null
 
@@ -365,22 +368,30 @@ script = ExtResource( 7 )
 [node name="DirectionalLight" type="DirectionalLight" parent="Viewport/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00860453, 0, 0 )
 
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( -123, -191 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, -2.94998 )
+shape = SubResource( 1 )
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 8 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( -196608, 536870920, 0, -196607, 6, 0, -196606, 6, 0, -196605, 6, 0, -196604, 0, 0, -196603, 1, 0, -196602, 1, 0, -196601, 1, 0, -196600, 1, 0, -196599, 1, 0, -196598, 1, 0, -196597, 1, 0, -196596, 1, 0, -196595, 1, 0, -196594, 2, 0, -196593, 6, 0, -196592, 6, 0, -196591, 6, 0, -196590, 8, 0, -196568, 2, 0, -196567, 2, 0, -196566, 2, 0, -196565, 2, 0, -196564, 2, 0, -196563, 2, 0, -196562, 2, 0, -196561, 2, 0, -131072, 7, 0, -131071, 7, 0, -131070, 7, 0, -131069, 7, 0, -131057, 7, 0, -131056, 7, 0, -131055, 7, 0, -131054, 7, 0, -131033, 2, 0, -131032, 2, 0, -131031, 2, 0, -131030, 2, 0, -131029, 2, 0, -131028, 2, 0, -131027, 2, 0, -131026, 2, 0, -131025, 2, 0 )
+tile_data = PoolIntArray( -458737, 6, 0, -458736, 6, 0, -458735, 6, 0, -458734, 3, 0, -458733, 4, 0, -458732, 4, 0, -458731, 4, 0, -458730, 5, 0, -393201, 7, 0, -393200, 7, 0, -393199, 7, 0, -327665, 7, 0, -327664, 7, 0, -327663, 7, 0, -262129, 7, 0, -262128, 7, 0, -262127, 7, 0, -196608, 536870920, 0, -196607, 6, 0, -196606, 6, 0, -196605, 6, 0, -196604, 0, 0, -196603, 1, 0, -196602, 1, 0, -196601, 1, 0, -196600, 1, 0, -196599, 1, 0, -196598, 1, 0, -196597, 1, 0, -196596, 1, 0, -196595, 1, 0, -196594, 2, 0, -196593, 7, 0, -196592, 7, 0, -196591, 7, 0, -196590, 8, 0, -196568, 2, 0, -196567, 2, 0, -196566, 2, 0, -196565, 2, 0, -196564, 2, 0, -196563, 2, 0, -196562, 2, 0, -196561, 2, 0, -131072, 7, 0, -131071, 7, 0, -131070, 7, 0, -131069, 7, 0, -131057, 7, 0, -131056, 7, 0, -131055, 7, 0, -131054, 7, 0, -131033, 2, 0, -131032, 2, 0, -131031, 2, 0, -131030, 2, 0, -131029, 2, 0, -131028, 2, 0, -131027, 2, 0, -131026, 2, 0, -131025, 2, 0 )
 
 [node name="scout" parent="." instance=ExtResource( 9 )]
 position = Vector2( 323, -135 )
-collision_layer = 1
+collision_layer = 2
+collision_mask = 2
 
 [node name="scout2" parent="." instance=ExtResource( 9 )]
 position = Vector2( 171, -122 )
-collision_layer = 1
+collision_layer = 2
+collision_mask = 2
 
 [node name="player" parent="." instance=ExtResource( 10 )]
-editor/display_folded = true
 position = Vector2( 244, -136 )
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -397,4 +408,3 @@ layer = -1
 [node name="Viewport_Sprite" type="Sprite" parent="Background"]
 position = Vector2( 240, 135 )
 scale = Vector2( 1, -1 )
-

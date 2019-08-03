@@ -20,7 +20,7 @@ func initialize(input_direction,enter_velocity):
 
 func enter(host):
 	var input_direction = get_input_direction()
-	update_siding(host,input_direction)
+	update_siding(host,-input_direction)
 	host.get_node('AnimationPlayer').play('Jump-fall')
 	horizontal_speed = MAX_RUN_SPEED
 
@@ -32,7 +32,7 @@ func handle_input(host, event):
 
 func update(host, delta):
 	var input_direction = get_input_direction()
-	update_siding(host,input_direction)
+	update_siding(host,-input_direction)
 	
 	velocity = Vector2(input_direction * horizontal_speed, min(GRAVITY, velocity.y+ GRAVITY * delta * 12))
 				
@@ -42,7 +42,9 @@ func update(host, delta):
 	
 	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
 	
-
+	
+	if (!host.is_on_floor() and !host.is_on_wall()):
+		return 'fall'
 	
 	if host.is_on_floor():
 		return 'move'

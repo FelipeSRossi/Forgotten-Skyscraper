@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 window/size/width=336
 window/size/height=189
+window/size/fullscreen=true
 window/size/test_width=336
 window/size/test_height=189
 window/dpi/allow_hidpi=true

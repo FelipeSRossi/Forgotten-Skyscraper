@@ -30,7 +30,7 @@ var last_shoot = false
 var lastshot = 50
 var shoot_timer = 500
 
-const BULLET_VELOCITY = 300
+const BULLET_VELOCITY = 500
 
 onready var states_map = {
 	'move': $States/Move,
@@ -64,7 +64,8 @@ func _physics_process(delta):
 	var state_name = current_state.update(self, delta)
 	if state_name:
 		_change_state(state_name)
-
+	
+	print(get_node('AnimationPlayer2').current_animation)
 
 func _input(event):
 	"""
@@ -83,11 +84,16 @@ func _input(event):
 		lastshot = 0
 		var bullet = preload("res://bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
-		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
+		bullet.linear_velocity = Vector2((sprite.scale.x * BULLET_VELOCITY ), 0) 
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
 		shoot_timer = 0
-		
+		if(get_node('AnimationPlayer2').current_animation == 'shuriken 1'):
+			get_node('AnimationPlayer3').play('shuriken 2')	
+		elif(get_node('AnimationPlayer3').current_animation == 'shuriken 2'):
+			get_node('AnimationPlayer2').play('shuriken 1')
+		else:
+			get_node('AnimationPlayer2').play('shuriken 1')
 		
 	var state_name = current_state.handle_input(self, event)
 	if state_name:

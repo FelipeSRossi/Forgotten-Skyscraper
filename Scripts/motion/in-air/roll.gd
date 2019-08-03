@@ -53,6 +53,8 @@ func update(host, delta):
 	
 	if host.is_on_floor():
 		return 'move'
-
+	
+	if(host.is_on_wall() and input_direction != 0):
+		return 'wall grab'
 func exit(host):
 		host.get_node('sprite').rotation_degrees = 0
