@@ -19,11 +19,14 @@ config/name="Forgotten Factory"
 run/main_scene="res://DefaultMenu.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/width=336
 window/size/height=189
-window/size/fullscreen=true
 window/size/test_width=336
 window/size/test_height=189
 window/dpi/allow_hidpi=true
@@ -142,6 +145,16 @@ slide={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
  ]
 }
+melee={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[network]
+
+limits/debugger_stdout/max_messages_per_frame=100
+limits/debugger_stdout/max_errors_per_frame=100
 
 [rendering]
 

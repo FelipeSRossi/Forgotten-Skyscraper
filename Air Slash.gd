@@ -23,16 +23,14 @@ func initialize( enter_velocity):
 func handle_input(host, event):
 	if event.is_action_released("jump"):
 			still_jumping = false
-	if event.is_action_pressed('shoot'):
-			return 'divekick'
+
 
 
 func enter(host):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
-	velocity.y =- JUMP_FORCE
 
-	host.get_node('AnimationPlayer').play('Roll')
+	host.get_node('AnimationPlayer').play('Slide')
 
 
 func update(host, delta):
@@ -43,20 +41,15 @@ func update(host, delta):
 
 	
 		#Allows for more precise jumping	
-	if((!still_jumping) and velocity.y < 0):
-		velocity.y = velocity.y / 2
-		
+			
 	if(host.is_on_ceiling()):
 		if(velocity.y < 0):
 			velocity.y = 0
 	
 	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
 	
-	
 	if host.is_on_floor():
 		return 'move'
-	
-	if(host.is_on_wall() and input_direction != 0):
-		return 'wall grab'
+
 func exit(host):
 		host.get_node('sprite').rotation_degrees = 0

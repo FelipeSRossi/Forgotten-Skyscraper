@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_particle.png-282b12927cd5b1f6d9c0bfb485d448ae.stex"
+path="res://.import/bullets.png-5bd1cb36f74ce078fa6f97e5ee0c58e7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://fire_particle.png"
-dest_files=[ "res://.import/fire_particle.png-282b12927cd5b1f6d9c0bfb485d448ae.stex" ]
+source_file="res://Assets/bullets.png"
+dest_files=[ "res://.import/bullets.png-5bd1cb36f74ce078fa6f97e5ee0c58e7.stex" ]
 
 [params]
 

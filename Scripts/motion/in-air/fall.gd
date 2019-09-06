@@ -17,6 +17,10 @@ func initialize(enter_velocity):
 	velocity = enter_velocity
 	
 
+func handle_input(host, event):
+	if event.is_action_pressed("melee"):
+		return 'air slash'
+
 func enter(host):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)

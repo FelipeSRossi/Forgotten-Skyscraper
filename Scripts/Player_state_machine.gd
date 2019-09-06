@@ -25,11 +25,15 @@ onready var sprite = $sprite
 onready var Hitbox = $Hitbox
 onready var Hurtbox = $Hurtbox
 
+
+var flicker = false
+var damage = false
+var melee = false
 var shoot = false
 var last_shoot = false
 var lastshot = 50
 var shoot_timer = 500
-
+var health = 54
 const BULLET_VELOCITY = 500
 
 onready var states_map = {
@@ -43,6 +47,8 @@ onready var states_map = {
 	'wall grab': $States/WallGrab,
 	'wall jump': $States/WallJump,
 	'stagger': $States/Stagger,
+	'slash': $States/Slash,
+	'air slash': $States/AirSlash,
 }
 
 func _ready():
@@ -65,7 +71,15 @@ func _physics_process(delta):
 	if state_name:
 		_change_state(state_name)
 	
-	print(get_node('AnimationPlayer2').current_animation)
+	if(get_node('StaggerTimer').time_left > 0.1):
+		if(flicker == true):
+			get_node('sprite').modulate = Color(8,8,8,0.4)
+			flicker = false
+		else:
+			flicker = true
+			get_node('sprite').modulate = Color(1,1,1,1)
+	else:
+		get_node('sprite').modulate = Color(1,1,1,1)
 
 func _input(event):
 	"""
@@ -78,11 +92,19 @@ func _input(event):
 	#if event.is_action_pressed('fire'):
 	#	$BulletSpawn.fire(look_direction)
 	#	return
-	shoot = event.is_action_pressed('shoot')
+	shoot = event.is_action_pressed('shoot') 
+	melee = event.is_action_pressed('melee')
 	
-	if (shoot and !last_shoot and lastshot > 8):
+	if(melee):
+		if(states_stack[0].name == 'jump'or states_stack[0].name =='fall'):
+			get_node('AnimationPlayer').play('Air Slash')
+		elif(states_stack[0].name == 'move'):
+			get_node('AnimationPlayer').play('Slash')
+		
+	elif (shoot and !last_shoot and lastshot > 8):
 		lastshot = 0
 		var bullet = preload("res://bullet.tscn").instance()
+		bullet.scale.x = sprite.scale.x
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
 		bullet.linear_velocity = Vector2((sprite.scale.x * BULLET_VELOCITY ), 0) 
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
@@ -94,6 +116,7 @@ func _input(event):
 			get_node('AnimationPlayer2').play('shuriken 1')
 		else:
 			get_node('AnimationPlayer2').play('shuriken 1')
+		
 		
 	var state_name = current_state.handle_input(self, event)
 	if state_name:
@@ -137,10 +160,13 @@ func _change_state(state_name):
 
 	if state_name == 'jump':
 		$States/Jump.initialize( current_state.velocity)
+
 	if state_name == 'roll':
 		$States/Roll.initialize( current_state.velocity)
 	if state_name == 'fall':
 		$States/Fall.initialize( current_state.velocity)
+	if state_name == 'air slash':
+		$States/AirSlash.initialize( current_state.velocity)
 	if state_name == 'divekick':
 		$States/DiveKick.initialize( current_state.velocity)
 	if state_name == 'wall grab':
@@ -153,8 +179,14 @@ func _change_state(state_name):
 	emit_signal('state_changed', states_stack)
 
 
+func hit_by_bullet():
+	if get_node('StaggerTimer').is_stopped():
+		_change_state('stagger')
+
 func _on_Hurtbox_area_entered(area):
-	pass
+	print(area.name)
+	if("Scout" in area.name and get_node('StaggerTimer').is_stopped()):
+		_change_state('stagger')
 
 func _on_Hurtbox_area_exited(area):
 	pass

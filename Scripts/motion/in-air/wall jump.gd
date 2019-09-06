@@ -34,7 +34,6 @@ func enter(host):
 func update(host, delta):
 	velocity = Vector2(speed, min(GRAVITY, velocity.y+ GRAVITY*delta))
 	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
-	print(velocity.x,velocity.y)
 	if(timeout):
 		return 'jump'
 
