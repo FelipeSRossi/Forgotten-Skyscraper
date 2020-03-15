@@ -12,7 +12,7 @@ func _on_bullet_body_enter( body ):
 	$CollisionShape2D.set_deferred( "disabled", true)
 	if body.has_method("hit_by_bullet"):
 		body.call("hit_by_bullet")
-
+		queue_free()
 func _on_Timer_timeout():
 	$anim.play("shutdown")
-	queue_free()
+

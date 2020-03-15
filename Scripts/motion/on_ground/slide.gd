@@ -17,7 +17,12 @@ func handle_input(host, event):
 	if event.is_action_released('slide'):
 		return 'move'
 	if event.is_action_pressed('jump'):
-		return 'roll'
+		if(get_parent().get_parent().charge >= 90):
+			return 'roll'
+		else:
+			return 'jump'
+	if event.is_action_pressed('melee'):
+		return 'slide slash'
 	return .handle_input(host, event)
 
 

@@ -13,18 +13,18 @@ var velocity = Vector2()
 var vertical_speed = 0.0
 var height = 0.0
 var still_jumping = true
-
+var charge
 
 func initialize( enter_velocity):
 	speed = MAX_RUN_SPEED
 	velocity = enter_velocity
 	still_jumping = true
-
+	
 func handle_input(host, event):
 	if event.is_action_released("jump"):
 			still_jumping = false
-	if event.is_action_pressed('shoot'):
-			return 'divekick'
+	#if (event.is_action_pressed('shoot')): 
+			#return 'divekick'
 
 
 func enter(host):
@@ -39,11 +39,13 @@ func update(host, delta):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 
-	velocity = Vector2(input_direction * speed*2, min(GRAVITY*5, velocity.y+ GRAVITY*5*delta))
+	velocity = Vector2(input_direction * speed*2, min(GRAVITY*7, velocity.y+ GRAVITY*7*delta))
 
 	
 		#Allows for more precise jumping	
-			
+	if((!still_jumping) and velocity.y < 0):
+		velocity.y = velocity.y / 2
+		
 	if(host.is_on_ceiling()):
 		if(velocity.y < 0):
 			velocity.y = 0

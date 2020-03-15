@@ -8,6 +8,9 @@ margin_right = 92.0
 margin_bottom = 20.0
 text = "GAME START"
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 64, -11 )

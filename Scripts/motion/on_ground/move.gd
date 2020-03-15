@@ -10,11 +10,20 @@ func enter(host):
 	velocity = Vector2()
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
-	host.get_node('AnimationPlayer').play('Run-start')
-	host.get_node('AnimationPlayer').queue('Run')
+	if(host.get_node('AnimationPlayer').current_animation == 'Run Slash-1' or host.get_node('AnimationPlayer').current_animation == 'Run Slash-2'):
+		var step = host.get_node('AnimationPlayer').get_current_animation_position()
+		host.get_node('AnimationPlayer').play('Run')
+		host.get_node('AnimationPlayer').advance( step )
+	else:
+		host.get_node('AnimationPlayer').play('Run-start')
+		host.get_node('AnimationPlayer').queue('Run')
 
 
 func handle_input(host, event):
+	if event.is_action_pressed('parry'):
+		return 'parry'
+	elif event.is_action_pressed('melee'):
+		return 'move slash'
 	return .handle_input(host, event)
 
 
@@ -45,3 +54,4 @@ func move(host, speed, direction):
 	if host.get_slide_count() == 0:
 		return
 	return host.get_slide_collision(0)
+

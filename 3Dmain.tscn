@@ -1,406 +1,466 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://3Dmain.gd" type="Script" id=1]
-[ext_resource path="res://Assets/HealthBarUnder.png" type="Texture" id=2]
-[ext_resource path="res://Assets/HealthBarOver.png" type="Texture" id=3]
-[ext_resource path="res://Assets/HealthBar.png" type="Texture" id=4]
-[ext_resource path="res://Assets/building1.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://default_env.tres" type="Environment" id=6]
-[ext_resource path="res://Camera.gd" type="Script" id=7]
-[ext_resource path="res://Assets/Tileset2.tres" type="TileSet" id=8]
-[ext_resource path="res://Scout.tscn" type="PackedScene" id=9]
-[ext_resource path="res://FSMPlayer.scn" type="PackedScene" id=10]
+[ext_resource path="res://HUD.gd" type="Script" id=2]
+[ext_resource path="res://Assets/HealthBarUnder.png" type="Texture" id=3]
+[ext_resource path="res://Assets/HealthBarOver.png" type="Texture" id=4]
+[ext_resource path="res://Assets/HealthBar.png" type="Texture" id=5]
+[ext_resource path="res://Assets/ground.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Assets/building1.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://default_env.tres" type="Environment" id=8]
+[ext_resource path="res://Camera.gd" type="Script" id=9]
+[ext_resource path="res://Roomber.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scout.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Sentry.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Siren.tscn" type="PackedScene" id=13]
+[ext_resource path="res://bars.tscn" type="PackedScene" id=14]
+[ext_resource path="res://cabinet.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Assets/Tileset2.tres" type="TileSet" id=16]
+[ext_resource path="res://Security.tscn" type="PackedScene" id=17]
+[ext_resource path="res://FSMPlayer.scn" type="PackedScene" id=18]
+[ext_resource path="res://Spikes.tscn" type="PackedScene" id=19]
+[ext_resource path="res://FSMSecurityBOSS.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Assets/SHINhealthbarOver.png" type="Texture" id=21]
+[ext_resource path="res://Assets/SHINhealthbarProgress.png" type="Texture" id=22]
+[ext_resource path="res://Assets/SHINhealthbarUnder.png" type="Texture" id=23]
+[ext_resource path="res://Assets/SHINOBIbars.png" type="Texture" id=24]
+[ext_resource path="res://Assets/SHINOBI.png" type="Texture" id=25]
+[ext_resource path="res://Assets/lifecounter.png" type="Texture" id=26]
+[ext_resource path="res://Ready.tscn" type="PackedScene" id=27]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( -100, 100, 300, 100, -50, -100 )
+[sub_resource type="AnimationNodeAnimation" id=1]
+resource_local_to_scene = true
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+resource_local_to_scene = true
+animation = "Jump-fall"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+resource_local_to_scene = true
+animation = "Jump-landing"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+resource_local_to_scene = true
+animation = "Jump-rise"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+resource_local_to_scene = true
+animation = "Jump-start"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+resource_local_to_scene = true
+animation = "Run-start"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+resource_local_to_scene = true
+animation = "Run"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+resource_local_to_scene = true
+animation = "Shoot"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "Slide-start"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "Slide"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+resource_local_to_scene = true
+animation = "newtest (copy)"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+resource_local_to_scene = true
+animation = "newtest"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+
+[sub_resource type="AnimationNodeStateMachine" id=27]
+resource_local_to_scene = true
+states/Idle/node = SubResource( 1 )
+states/Idle/position = Vector2( 613, 52 )
+states/Jump-fall/node = SubResource( 2 )
+states/Jump-fall/position = Vector2( 264, 118 )
+states/Jump-landing/node = SubResource( 3 )
+states/Jump-landing/position = Vector2( 446, 118 )
+states/Jump-rise/node = SubResource( 4 )
+states/Jump-rise/position = Vector2( 264, 52 )
+states/Jump-start/node = SubResource( 5 )
+states/Jump-start/position = Vector2( 446, 52 )
+states/Run/node = SubResource( 7 )
+states/Run/position = Vector2( 761, 118 )
+states/Run-start/node = SubResource( 6 )
+states/Run-start/position = Vector2( 761, 52 )
+states/Shoot/node = SubResource( 8 )
+states/Shoot/position = Vector2( 613, 118 )
+states/Slide/node = SubResource( 10 )
+states/Slide/position = Vector2( 483, 206 )
+states/Slide-start/node = SubResource( 9 )
+states/Slide-start/position = Vector2( 761, 206 )
+states/newtest/node = SubResource( 12 )
+states/newtest/position = Vector2( 940, 52 )
+"states/newtest (copy)/node" = SubResource( 11 )
+"states/newtest (copy)/position" = Vector2( 955, 118 )
+transitions = [ "Idle", "Jump-start", SubResource( 13 ), "Jump-start", "Jump-rise", SubResource( 14 ), "Jump-rise", "Jump-fall", SubResource( 15 ), "Jump-fall", "Jump-landing", SubResource( 16 ), "Jump-landing", "Idle", SubResource( 17 ), "Idle", "Run-start", SubResource( 18 ), "Run-start", "Run", SubResource( 19 ), "Run", "Idle", SubResource( 20 ), "Idle", "Shoot", SubResource( 21 ), "Shoot", "Idle", SubResource( 22 ), "Run", "Slide-start", SubResource( 23 ), "Slide-start", "Slide", SubResource( 24 ), "Slide", "Run", SubResource( 25 ), "Slide", "Idle", SubResource( 26 ) ]
+graph_offset = Vector2( 266.673, -3 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=28]
+
+[sub_resource type="Gradient" id=29]
+
+[sub_resource type="GradientTexture" id=30]
+gradient = SubResource( 29 )
+
+[sub_resource type="Animation" id=31]
+resource_name = "Sirens"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0.87451 ), Color( 0.0313726, 0, 1, 0.87451 ), Color( 1, 0, 0, 0.87451 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0.854902 ), Color( 0, 0.0627451, 1, 0.854902 ), Color( 1, 0, 0, 0.854902 ) ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "Stopped"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 2 )
+
+[node name="Node2D" parent="HUD" instance=ExtResource( 27 )]
+z_index = 1
 
 [node name="GUI" type="MarginContainer" parent="HUD"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -125.0
-margin_top = -64.0
-margin_right = 120.0
+margin_left = -165.0
+margin_top = -93.0
+margin_right = -148.0
 margin_bottom = 67.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HUD/GUI"]
+margin_right = 100.0
+margin_bottom = 160.0
+texture = ExtResource( 24 )
 
 [node name="HealthBar" type="TextureProgress" parent="HUD/GUI"]
-margin_right = 245.0
+margin_right = 100.0
+margin_bottom = 160.0
+max_value = 20.0
+value = 20.0
+texture_under = ExtResource( 23 )
+texture_over = ExtResource( 21 )
+texture_progress = ExtResource( 22 )
+fill_mode = 3
+radial_center_offset = Vector2( 0, 2000 )
+
+[node name="LifeCounter" type="Sprite" parent="HUD/GUI/HealthBar"]
+position = Vector2( 26, 6 )
+texture = ExtResource( 26 )
+vframes = 4
+hframes = 3
+frame = 1
+
+[node name="SHINOBI" type="TextureRect" parent="HUD/GUI/HealthBar"]
+margin_left = -3.0
+margin_top = -2.0
+margin_right = 97.0
+margin_bottom = 158.0
+texture = ExtResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GUI2" type="MarginContainer" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 154.0
+margin_top = -63.5
+margin_right = 168.0
+margin_bottom = 67.5
+
+[node name="BossHealthBar" type="TextureProgress" parent="HUD/GUI2"]
+visible = false
+margin_right = 14.0
 margin_bottom = 131.0
 max_value = 54.0
 value = 54.0
-texture_under = ExtResource( 2 )
-texture_over = ExtResource( 3 )
-texture_progress = ExtResource( 4 )
+texture_under = ExtResource( 3 )
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
 fill_mode = 3
+stretch_margin_right = 1
 
 [node name="Viewport" type="Viewport" parent="."]
-editor/display_folded = true
 size = Vector2( 480, 270 )
 hdr = false
 
+[node name="MeshInstance31" type="MeshInstance" parent="Viewport"]
+transform = Transform( 35, 0, 0, 0, 1, 0, 0, 0, 25, 7.42172, 1.64522, 1.97965 )
+mesh = ExtResource( 6 )
+material/0 = null
+
+[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance31"]
+transform = Transform( 0.01, 0, 0, 0, 1, 0, 0, 0, 0.01, 0.0277811, 38.4478, 0.0731297 )
+visible = false
+light_energy = 7.89
+light_indirect_energy = 16.0
+shadow_enabled = true
+omni_range = 58.9
+omni_attenuation = 2.14355
+
 [node name="MeshInstance" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0638888, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance"]
-transform = Transform( 0.999829, -0.018481, 0, 0.018481, 0.999829, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance12" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -14.9265, 0, 1.73779 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance12"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance12"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance25" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7262, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance25"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.36375, 1.46809, 2.09656 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance25"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance5" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36656, 0, -10.6597 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance13" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -9.2866, 0, -0.468402 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance13"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance13"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance27" type="MeshInstance" parent="Viewport"]
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 27.9422, 0.266101, -0.437942 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance27"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance8" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79557, 0, -1.73289 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance14" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.80101, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance14"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance14"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance28" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.976, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance28"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance28"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70513, 0, -6.43519 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance15" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -15.0454, 0, -3.24661 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance15"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance15"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance22" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.625, 0, -6.43519 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance22"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance22"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance10" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.81499, 0, -15.3449 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance11" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -11.449, 0, -6.7497 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance11"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance11"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance24" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 28.8174, 0, -8.98386 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance24"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance24"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance6" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.07169, 0, -15.3449 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance17" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09588, 0, -6.43519 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance17"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance17"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance23" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 31.6784, 0.266101, -3.73929 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance23"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance23"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance7" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76126, 0, -6.43519 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance16" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09588, 0, -6.43519 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance16"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance16"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance30" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6811, 0, -6.43519 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance30"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance30"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.940093, 0, -10.6597 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance18" type="MeshInstance" parent="Viewport"]
 transform = Transform( 0.931284, 0, 0.364293, 0, 1, 0, -0.364293, 0, 0.931284, -12.122, 0, 0.640737 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance18"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance21" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 25.2675, 0.266101, -1.89247 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
 
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance21"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance21"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
-
 [node name="MeshInstance4" type="MeshInstance" parent="Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7796, 2.38419e-007, -10.6616 )
-mesh = ExtResource( 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7796, 2.38419e-07, -10.6616 )
+mesh = ExtResource( 7 )
 material/0 = null
 
 [node name="MeshInstance19" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78951, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance19"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance26" type="MeshInstance" parent="Viewport"]
-editor/display_folded = true
 transform = Transform( 0.878501, 0, -0.477741, 0, 1, 0, 0.477741, 0, 0.878501, 30.5878, 0.266101, 1.00078 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance26"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
-
-[node name="OmniLight2" type="OmniLight" parent="Viewport/MeshInstance26"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance9" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.688, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance20" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78951, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance20"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 
 [node name="MeshInstance29" type="MeshInstance" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9875, 0, -1.75 )
-mesh = ExtResource( 5 )
+mesh = ExtResource( 7 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="Viewport/MeshInstance29"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25091, 1.43155, 2.15467 )
 
 [node name="Camera" type="Camera" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.55108, 3.38704, 1.25594 )
-environment = ExtResource( 6 )
+environment = ExtResource( 8 )
 current = true
 fov = 114.6
-script = ExtResource( 7 )
+script = ExtResource( 9 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Viewport/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00860453, 0, 0 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( -123, -191 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 0, -2.94998 )
-shape = SubResource( 1 )
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 8 )
-cell_size = Vector2( 32, 32 )
-format = 1
-tile_data = PoolIntArray( -458737, 6, 0, -458736, 6, 0, -458735, 6, 0, -458734, 3, 0, -458733, 4, 0, -458732, 4, 0, -458731, 4, 0, -458730, 5, 0, -393201, 7, 0, -393200, 7, 0, -393199, 7, 0, -327665, 7, 0, -327664, 7, 0, -327663, 7, 0, -262129, 7, 0, -262128, 7, 0, -262127, 7, 0, -196608, 536870920, 0, -196607, 6, 0, -196606, 6, 0, -196605, 6, 0, -196604, 0, 0, -196603, 1, 0, -196602, 1, 0, -196601, 1, 0, -196600, 1, 0, -196599, 1, 0, -196598, 1, 0, -196597, 1, 0, -196596, 1, 0, -196595, 1, 0, -196594, 2, 0, -196593, 7, 0, -196592, 7, 0, -196591, 7, 0, -196590, 8, 0, -196568, 2, 0, -196567, 2, 0, -196566, 2, 0, -196565, 2, 0, -196564, 2, 0, -196563, 2, 0, -196562, 2, 0, -196561, 2, 0, -131072, 7, 0, -131071, 7, 0, -131070, 7, 0, -131069, 7, 0, -131057, 7, 0, -131056, 7, 0, -131055, 7, 0, -131054, 7, 0, -131033, 2, 0, -131032, 2, 0, -131031, 2, 0, -131030, 2, 0, -131029, 2, 0, -131028, 2, 0, -131027, 2, 0, -131026, 2, 0, -131025, 2, 0 )
-
-[node name="scout" parent="." instance=ExtResource( 9 )]
-position = Vector2( 323, -135 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="scout2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 171, -122 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="player" parent="." instance=ExtResource( 10 )]
-position = Vector2( 244, -136 )
-
-[node name="Camera2D" type="Camera2D" parent="player"]
-current = true
-offset_v = 1.0
-offset_h = 1.0
-drag_margin_top = 0.3
-drag_margin_bottom = 0.3
-editor_draw_limits = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00860453, 0, 3.33095 )
+light_energy = 2.04
+shadow_enabled = true
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -408,3 +468,274 @@ layer = -1
 [node name="Viewport_Sprite" type="Sprite" parent="Background"]
 position = Vector2( 240, 135 )
 scale = Vector2( 1, -1 )
+
+[node name="Roomber" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1580, 1028 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+z_index = 1
+
+[node name="Roomber2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1510, 1028 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+z_index = 1
+
+[node name="Roomber4" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2679, 1030 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Roomber3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 2380, 1032 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Scout" parent="." instance=ExtResource( 11 )]
+position = Vector2( 300, 970 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Scout2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 265, 935 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Node2D2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 2220, 1020 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Node2D" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1960, 986 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Siren2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 208, 988 )
+z_index = 1
+
+[node name="Siren4" parent="." instance=ExtResource( 13 )]
+position = Vector2( 816, 507 )
+z_index = 1
+
+[node name="Siren3" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1552, 1020 )
+z_index = 1
+
+[node name="Siren5" parent="." instance=ExtResource( 13 )]
+position = Vector2( 2990, 1020 )
+z_index = 1
+
+[node name="bars5" parent="." instance=ExtResource( 14 )]
+position = Vector2( 3152, 1031 )
+
+[node name="bars6" parent="." instance=ExtResource( 14 )]
+position = Vector2( 3392, 1031 )
+
+[node name="bars7" parent="." instance=ExtResource( 14 )]
+position = Vector2( 3392, 992 )
+rotation = -3.14159
+
+[node name="bars8" parent="." instance=ExtResource( 14 )]
+position = Vector2( 3153, 992 )
+rotation = -3.14159
+
+[node name="Siren6" parent="." instance=ExtResource( 13 )]
+position = Vector2( 3216, 1018 )
+z_index = 1
+
+[node name="cabinet" parent="." instance=ExtResource( 15 )]
+position = Vector2( 752, 505 )
+
+[node name="cabinet3" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3050, 1020 )
+
+[node name="cabinet4" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3280, 1020 )
+
+[node name="cabinet2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 78, 986 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 0, 1106 )
+tile_set = ExtResource( 16 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( -1769457, 536870914, 0, -1769456, 536870913, 0, -1769455, 536870913, 0, -1769454, 536870913, 0, -1769453, 536870913, 0, -1769452, 536870913, 0, -1769451, 536870913, 0, -1769450, 536870913, 0, -1769449, 536870913, 0, -1769448, 536870913, 0, -1769447, 536870913, 0, -1769446, 536870913, 0, -1769445, 536870913, 0, -1769444, 536870913, 0, -1769443, 536870912, 0, -1703921, 7, 0, -1703920, 7, 0, -1703919, 7, 0, -1703918, 7, 0, -1703917, 7, 0, -1703916, 7, 0, -1703915, 7, 0, -1703914, 7, 0, -1703913, 7, 0, -1703912, 7, 0, -1703911, 7, 0, -1703910, 7, 0, -1703909, 7, 0, -1703908, 7, 0, -1703907, 7, 0, -1638385, 7, 0, -1638384, 7, 0, -1638383, 7, 0, -1638382, 7, 0, -1638381, 7, 0, -1638380, 7, 0, -1638379, 7, 0, -1638378, 7, 0, -1638377, 7, 0, -1638376, 7, 0, -1638375, 7, 0, -1638374, 7, 0, -1638373, 7, 0, -1638372, 7, 0, -1638371, 7, 0, -1572849, 7, 0, -1572848, 7, 0, -1572847, 7, 0, -1572846, 7, 0, -1572845, 7, 0, -1572844, 7, 0, -1572843, 7, 0, -1572842, 7, 0, -1572841, 7, 0, -1572840, 7, 0, -1572839, 7, 0, -1572838, 7, 0, -1572837, 7, 0, -1572836, 7, 0, -1572835, 7, 0, -1507313, 7, 0, -1507312, 7, 0, -1507300, 7, 0, -1507299, 7, 0, -1441777, 7, 0, -1441776, 7, 0, -1441764, 7, 0, -1441763, 7, 0, -1376241, 7, 0, -1376240, 7, 0, -1376228, 7, 0, -1376227, 7, 0, -1310705, 7, 0, -1310704, 7, 0, -1245169, 7, 0, -1245168, 7, 0, -1179633, 7, 0, -1179632, 7, 0, -1179629, 6, 0, -1179628, 6, 0, -1179627, 6, 0, -1179626, 6, 0, -1179625, 6, 0, -1179624, 6, 0, -1179623, 6, 0, -1179622, 6, 0, -1179621, 6, 0, -1179620, 6, 0, -1179619, 6, 0, -1179489, 7, 0, -1179488, 7, 0, -1179487, 7, 0, -1179486, 7, 0, -1179485, 7, 0, -1179484, 7, 0, -1179483, 7, 0, -1179482, 7, 0, -1179481, 7, 0, -1179480, 7, 0, -1179479, 7, 0, -1179478, 7, 0, -1179477, 7, 0, -1179476, 7, 0, -1179475, 7, 0, -1179474, 7, 0, -1179473, 7, 0, -1179472, 7, 0, -1179471, 7, 0, -1179470, 7, 0, -1179469, 7, 0, -1179468, 7, 0, -1114097, 7, 0, -1114096, 7, 0, -1114093, 7, 0, -1114092, 7, 0, -1114091, 7, 0, -1114090, 7, 0, -1114089, 7, 0, -1114088, 7, 0, -1114087, 7, 0, -1114086, 7, 0, -1114085, 7, 0, -1114084, 7, 0, -1114083, 7, 0, -1113953, 7, 0, -1113952, 7, 0, -1113951, 7, 0, -1113950, 7, 0, -1113949, 7, 0, -1113948, 7, 0, -1113947, 7, 0, -1113946, 7, 0, -1113945, 7, 0, -1113944, 7, 0, -1113943, 7, 0, -1113942, 7, 0, -1113941, 7, 0, -1113940, 7, 0, -1113939, 7, 0, -1113938, 7, 0, -1113937, 7, 0, -1113936, 7, 0, -1113935, 7, 0, -1113934, 7, 0, -1113933, 7, 0, -1113932, 7, 0, -1048561, 7, 0, -1048560, 7, 0, -1048557, 7, 0, -1048556, 7, 0, -1048417, 7, 0, -1048416, 7, 0, -1048397, 7, 0, -1048396, 7, 0, -983025, 7, 0, -983024, 7, 0, -983021, 7, 0, -983020, 7, 0, -982881, 7, 0, -982880, 7, 0, -982861, 7, 0, -982860, 7, 0, -917489, 7, 0, -917488, 7, 0, -917485, 7, 0, -917484, 7, 0, -917345, 7, 0, -917344, 7, 0, -917325, 7, 0, -917324, 7, 0, -851953, 7, 0, -851952, 7, 0, -851949, 7, 0, -851948, 7, 0, -851878, 7, 0, -851877, 7, 0, -851876, 7, 0, -851875, 7, 0, -851874, 7, 0, -851873, 7, 0, -851872, 7, 0, -851871, 7, 0, -851870, 7, 0, -851869, 7, 0, -851868, 7, 0, -851867, 7, 0, -851866, 7, 0, -851865, 7, 0, -851864, 7, 0, -851863, 7, 0, -851862, 7, 0, -851861, 7, 0, -851809, 7, 0, -851808, 7, 0, -851789, 7, 0, -851788, 7, 0, -786417, 7, 0, -786416, 7, 0, -786413, 7, 0, -786412, 7, 0, -786396, 0, 0, -786395, 1, 0, -786394, 2, 0, -786342, 7, 0, -786341, 7, 0, -786340, 7, 0, -786339, 7, 0, -786338, 7, 0, -786337, 7, 0, -786336, 7, 0, -786335, 7, 0, -786334, 7, 0, -786333, 7, 0, -786332, 7, 0, -786331, 7, 0, -786330, 7, 0, -786329, 7, 0, -786328, 7, 0, -786327, 7, 0, -786326, 7, 0, -786325, 7, 0, -786273, 7, 0, -786272, 7, 0, -786253, 7, 0, -786252, 7, 0, -720881, 7, 0, -720880, 7, 0, -720877, 7, 0, -720876, 7, 0, -720860, 7, 0, -720859, 7, 0, -720858, 7, 0, -720737, 7, 0, -720736, 7, 0, -720717, 7, 0, -720716, 7, 0, -655345, 7, 0, -655344, 7, 0, -655341, 7, 0, -655340, 7, 0, -655324, 7, 0, -655323, 7, 0, -655322, 7, 0, -655201, 7, 0, -655200, 7, 0, -655181, 7, 0, -655180, 7, 0, -589805, 7, 0, -589804, 7, 0, -589788, 7, 0, -589787, 7, 0, -589786, 7, 0, -589665, 7, 0, -589664, 7, 0, -589645, 7, 0, -589644, 7, 0, -524269, 7, 0, -524268, 7, 0, -524252, 7, 0, -524251, 7, 0, -524250, 7, 0, -524198, 6, 0, -524197, 6, 0, -524196, 6, 0, -524191, 6, 0, -524190, 6, 0, -524189, 6, 0, -524184, 6, 0, -524183, 6, 0, -524182, 6, 0, -524181, 6, 0, -524129, 7, 0, -524128, 7, 0, -524109, 7, 0, -524108, 7, 0, -458737, 6, 0, -458736, 6, 0, -458735, 6, 0, -458734, 6, 0, -458733, 7, 0, -458732, 7, 0, -458731, 6, 0, -458730, 6, 0, -458729, 6, 0, -458716, 7, 0, -458715, 7, 0, -458714, 7, 0, -458662, 7, 0, -458661, 7, 0, -458660, 7, 0, -458655, 7, 0, -458654, 7, 0, -458653, 7, 0, -458648, 7, 0, -458647, 7, 0, -458646, 7, 0, -458645, 7, 0, -458593, 7, 0, -458592, 7, 0, -458573, 7, 0, -458572, 7, 0, -393201, 7, 0, -393200, 7, 0, -393199, 7, 0, -393198, 7, 0, -393197, 7, 0, -393196, 7, 0, -393195, 7, 0, -393194, 7, 0, -393193, 7, 0, -393180, 7, 0, -393179, 7, 0, -393178, 7, 0, -393164, 1, 0, -393163, 1, 0, -393162, 1, 0, -393161, 1, 0, -393160, 1, 0, -393126, 7, 0, -393125, 7, 0, -393124, 7, 0, -393118, 7, 0, -393111, 7, 0, -393110, 7, 0, -393057, 7, 0, -393056, 7, 0, -393037, 7, 0, -393036, 7, 0, -327665, 7, 0, -327664, 7, 0, -327663, 7, 0, -327662, 7, 0, -327661, 7, 0, -327660, 7, 0, -327659, 7, 0, -327658, 7, 0, -327657, 7, 0, -327644, 7, 0, -327643, 7, 0, -327642, 7, 0, -327628, 1610612737, 0, -327627, 1610612737, 0, -327626, 1610612737, 0, -327625, 1610612737, 0, -327624, 1610612737, 0, -327590, 7, 0, -327589, 7, 0, -327588, 7, 0, -327582, 7, 0, -327575, 7, 0, -327574, 7, 0, -327521, 7, 0, -327520, 7, 0, -327501, 7, 0, -327500, 7, 0, -262129, 7, 0, -262128, 7, 0, -262127, 7, 0, -262126, 7, 0, -262125, 7, 0, -262124, 7, 0, -262123, 7, 0, -262122, 7, 0, -262121, 7, 0, -262108, 7, 0, -262107, 7, 0, -262106, 7, 0, -262054, 7, 0, -262053, 7, 0, -262052, 7, 0, -261965, 7, 0, -261964, 7, 0, -131074, 6, 0, -131073, 8, 0, -196608, 536870920, 0, -196607, 6, 0, -196606, 6, 0, -196605, 6, 0, -196604, 0, 0, -196603, 1, 0, -196602, 1, 0, -196601, 1, 0, -196600, 1, 0, -196599, 1, 0, -196598, 1, 0, -196597, 1, 0, -196596, 1, 0, -196595, 1, 0, -196594, 2, 0, -196593, 7, 0, -196592, 7, 0, -196591, 7, 0, -196590, 7, 0, -196589, 7, 0, -196588, 7, 0, -196587, 7, 0, -196586, 7, 0, -196585, 7, 0, -196572, 7, 0, -196571, 7, 0, -196570, 7, 0, -196518, 7, 0, -196517, 7, 0, -196516, 7, 0, -196429, 7, 0, -196428, 7, 0, -65538, 7, 0, -65537, 7, 0, -131072, 7, 0, -131071, 7, 0, -131070, 7, 0, -131069, 7, 0, -131068, 7, 0, -131067, 7, 0, -131066, 7, 0, -131065, 7, 0, -131064, 7, 0, -131063, 7, 0, -131062, 7, 0, -131061, 7, 0, -131060, 7, 0, -131059, 7, 0, -131058, 7, 0, -131057, 7, 0, -131056, 7, 0, -131055, 7, 0, -131054, 7, 0, -131053, 7, 0, -131052, 7, 0, -131051, 7, 0, -131050, 7, 0, -131049, 7, 0, -131044, 1, 0, -131043, 1, 0, -131042, 1, 0, -131041, 1, 0, -131040, 1, 0, -131039, 1, 0, -131038, 1, 0, -131037, 1, 0, -131036, 7, 0, -131035, 7, 0, -131034, 7, 0, -131033, 1, 0, -131032, 1, 0, -131031, 1, 0, -131030, 1, 0, -131029, 1, 0, -131028, 1, 0, -131027, 1, 0, -131026, 1, 0, -131025, 1, 0, -131024, 1, 0, -131023, 1, 0, -131022, 1, 0, -131021, 1, 0, -131020, 1, 0, -131019, 1, 0, -131018, 1, 0, -131017, 1, 0, -131016, 1, 0, -131015, 1, 0, -131014, 1, 0, -131013, 1, 0, -131012, 1, 0, -131011, 1, 0, -131010, 1, 0, -131005, 1, 0, -131004, 1, 0, -131003, 1, 0, -130998, 1, 0, -130997, 1, 0, -130992, 1, 0, -130991, 1, 0, -130990, 1, 0, -130989, 1, 0, -130988, 1, 0, -130987, 1, 0, -130986, 1, 0, -130985, 1, 0, -130984, 1, 0, -130983, 1, 0, -130982, 7, 0, -130981, 7, 0, -130980, 7, 0, -130979, 1, 0, -130978, 1, 0, -130977, 1, 0, -130976, 1, 0, -130975, 1, 0, -130974, 1, 0, -130973, 1, 0, -130972, 1, 0, -130971, 1, 0, -130970, 1, 0, -130969, 1, 0, -130968, 1, 0, -130967, 1, 0, -130966, 1, 0, -130965, 1, 0, -130964, 1, 0, -130963, 1, 0, -130962, 1, 0, -130961, 1, 0, -130960, 1, 0, -130959, 1, 0, -130958, 1, 0, -130957, 1, 0, -130956, 1, 0, -130955, 1, 0, -130954, 1, 0, -130953, 1, 0, -130952, 1, 0, -130951, 1, 0, -130950, 1, 0, -130949, 1, 0, -130948, 1, 0, -130947, 1, 0, -130946, 1, 0, -130945, 1, 0, -130944, 1, 0, -130943, 1, 0, -130942, 1, 0, -130941, 1, 0, -130940, 1, 0, -130939, 1, 0, -130938, 1, 0, -130937, 1, 0, -130936, 1, 0, -130935, 1, 0, -130934, 1, 0, -130933, 1, 0, -130932, 1, 0, -130931, 1, 0, -130930, 1, 0, -130929, 1, 0, -130928, 1, 0, -130927, 1, 0, -130926, 1, 0, -130925, 1, 0, -130924, 1, 0, -130923, 1, 0, -130922, 1, 0, -130921, 1, 0, -130920, 1, 0, -130919, 1, 0, -130918, 1, 0, -130917, 1, 0, -130916, 1, 0, -130915, 1, 0, -130914, 1, 0, -130913, 1, 0, -130912, 1, 0, -130911, 1, 0, -130910, 1, 0, -130909, 1, 0, -130908, 1, 0, -130907, 1, 0, -130906, 1, 0, -130905, 1, 0, -130904, 1, 0, -130903, 1, 0, -130902, 1, 0, -130901, 1, 0, -130900, 1, 0, -130899, 1, 0, -130898, 1, 0, -130897, 1, 0, -130896, 1, 0, -130895, 1, 0, -130894, 1, 0, -130893, 7, 0, -130892, 7, 0, -2, 7, 0, -1, 7, 0, -65536, 7, 0, -65535, 7, 0, -65534, 7, 0, -65533, 7, 0, -65532, 7, 0, -65531, 7, 0, -65530, 7, 0, -65529, 7, 0, -65528, 7, 0, -65527, 7, 0, -65526, 7, 0, -65525, 7, 0, -65524, 7, 0, -65523, 7, 0, -65522, 7, 0, -65521, 7, 0, -65520, 7, 0, -65519, 7, 0, -65518, 7, 0, -65517, 7, 0, -65516, 7, 0, -65515, 7, 0, -65514, 7, 0, -65513, 7, 0, -65508, 7, 0, -65507, 7, 0, -65506, 7, 0, -65505, 7, 0, -65504, 7, 0, -65503, 7, 0, -65502, 7, 0, -65501, 7, 0, -65500, 7, 0, -65499, 7, 0, -65498, 7, 0, -65497, 7, 0, -65496, 7, 0, -65495, 7, 0, -65494, 7, 0, -65493, 7, 0, -65492, 7, 0, -65491, 7, 0, -65490, 7, 0, -65489, 7, 0, -65488, 7, 0, -65487, 7, 0, -65486, 7, 0, -65485, 7, 0, -65484, 7, 0, -65483, 7, 0, -65482, 7, 0, -65481, 7, 0, -65480, 7, 0, -65479, 7, 0, -65478, 7, 0, -65477, 7, 0, -65476, 7, 0, -65475, 7, 0, -65474, 7, 0, -65469, 7, 0, -65468, 7, 0, -65467, 7, 0, -65462, 7, 0, -65461, 7, 0, -65456, 7, 0, -65455, 7, 0, -65454, 7, 0, -65453, 7, 0, -65452, 7, 0, -65451, 7, 0, -65450, 7, 0, -65449, 7, 0, -65448, 7, 0, -65447, 7, 0, -65446, 7, 0, -65445, 7, 0, -65444, 7, 0, -65443, 7, 0, -65442, 7, 0, -65441, 7, 0, -65440, 7, 0, -65439, 7, 0, -65438, 7, 0, -65437, 7, 0, -65436, 7, 0, -65435, 7, 0, -65434, 7, 0, -65433, 7, 0, -65432, 7, 0, -65431, 7, 0, -65430, 7, 0, -65429, 7, 0, 65534, 7, 0, 65535, 7, 0, 0, 7, 0, 1, 7, 0, 2, 7, 0, 3, 7, 0, 4, 7, 0, 5, 7, 0, 6, 7, 0, 7, 7, 0, 8, 7, 0, 9, 7, 0, 10, 7, 0, 11, 7, 0, 12, 7, 0, 13, 7, 0, 14, 7, 0, 15, 7, 0, 16, 7, 0, 17, 7, 0, 18, 7, 0, 19, 7, 0, 20, 7, 0, 21, 7, 0, 22, 7, 0, 23, 7, 0, 24, 7, 0, 25, 7, 0, 26, 7, 0, 27, 7, 0, 28, 7, 0, 29, 7, 0, 30, 7, 0, 31, 7, 0, 32, 7, 0, 33, 7, 0, 34, 7, 0, 35, 7, 0, 36, 7, 0, 37, 7, 0, 38, 7, 0, 39, 7, 0, 40, 7, 0, 41, 7, 0, 42, 7, 0, 43, 7, 0, 44, 7, 0, 45, 7, 0, 46, 7, 0, 47, 7, 0, 48, 7, 0, 49, 7, 0, 50, 7, 0, 51, 7, 0, 52, 7, 0, 53, 7, 0, 54, 7, 0, 55, 7, 0, 56, 7, 0, 57, 7, 0, 58, 7, 0, 59, 7, 0, 60, 7, 0, 61, 7, 0, 62, 7, 0, 63, 7, 0, 64, 7, 0, 65, 7, 0, 66, 7, 0, 67, 7, 0, 68, 7, 0, 69, 7, 0, 70, 7, 0, 71, 7, 0, 72, 7, 0, 73, 7, 0, 74, 7, 0, 75, 7, 0, 76, 7, 0, 77, 7, 0, 78, 7, 0, 79, 7, 0, 80, 7, 0, 81, 7, 0, 82, 7, 0, 83, 7, 0, 84, 7, 0, 85, 7, 0, 86, 7, 0, 87, 7, 0, 88, 7, 0, 89, 7, 0, 90, 7, 0, 91, 7, 0, 92, 7, 0, 93, 7, 0, 94, 7, 0, 95, 7, 0, 96, 7, 0, 97, 7, 0, 98, 7, 0, 99, 7, 0, 100, 7, 0, 101, 7, 0, 102, 7, 0, 103, 7, 0, 104, 7, 0, 105, 7, 0, 106, 7, 0, 107, 7, 0 )
+
+[node name="camera" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 478, 917 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="camera10" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 714, 372 )
+rotation = -1.5708
+scale = Vector2( -1, -1 )
+
+[node name="camera11" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 595, 372 )
+rotation = -1.5708
+scale = Vector2( -1, -1 )
+
+[node name="camera12" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 543, 426 )
+rotation = -3.14159
+scale = Vector2( -1, -1 )
+
+[node name="camera2" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 1150, 873 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="camera6" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 1150, 793 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="camera4" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 1250, 873 )
+
+[node name="camera7" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 1250, 793 )
+
+[node name="camera13" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 3041, 755 )
+rotation = 1.5708
+
+[node name="camera14" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 3264, 755 )
+rotation = 1.5708
+
+[node name="camera3" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 1150, 953 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+
+[node name="camera5" parent="." groups=[
+"Security",
+] instance=ExtResource( 17 )]
+position = Vector2( 1250, 953 )
+
+[node name="player" parent="." instance=ExtResource( 18 )]
+position = Vector2( 120, 969 )
+z_index = 1
+
+[node name="AnimationTree" parent="player" index="12"]
+tree_root = SubResource( 27 )
+parameters/playback = SubResource( 28 )
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+scale = Vector2( 1e-05, 1e-05 )
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+offset_h = 1.0
+offset_v = 1.0
+drag_margin_top = 0.4
+drag_margin_bottom = 0.4
+editor_draw_limits = true
+
+[node name="bars2" parent="." instance=ExtResource( 14 )]
+position = Vector2( 911, 480 )
+rotation = -3.14159
+
+[node name="bars" parent="." instance=ExtResource( 14 )]
+position = Vector2( 911, 518 )
+
+[node name="bars3" parent="." instance=ExtResource( 14 )]
+position = Vector2( 558, 805 )
+rotation = 1.5708
+
+[node name="bars4" parent="." instance=ExtResource( 14 )]
+position = Vector2( 594, 805 )
+rotation = -1.5708
+
+[node name="Spikes" parent="." instance=ExtResource( 19 )]
+position = Vector2( 784, 1098 )
+
+[node name="Spikes2" parent="." instance=ExtResource( 19 )]
+position = Vector2( 816, 1098 )
+
+[node name="Spikes3" parent="." instance=ExtResource( 19 )]
+position = Vector2( 848, 1098 )
+
+[node name="Spikes4" parent="." instance=ExtResource( 19 )]
+position = Vector2( 880, 1098 )
+
+[node name="Spikes5" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2032, 1097 )
+
+[node name="Spikes11" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2256, 1097 )
+
+[node name="Spikes16" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2448, 1097 )
+
+[node name="Spikes6" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2064, 1097 )
+
+[node name="Spikes9" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2288, 1097 )
+
+[node name="Spikes14" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2480, 1097 )
+
+[node name="Spikes7" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2096, 1097 )
+
+[node name="Spikes10" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2320, 1097 )
+
+[node name="Spikes15" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2512, 1097 )
+
+[node name="Spikes8" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2128, 1097 )
+
+[node name="Spikes12" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2352, 1097 )
+
+[node name="Spikes13" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2544, 1097 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 40, 507 )
+scale = Vector2( 3370, 1180 )
+z_index = -21
+texture = SubResource( 30 )
+
+[node name="Siren" type="AnimationPlayer" parent="."]
+autoplay = "Stopped"
+anims/Sirens = SubResource( 31 )
+anims/Stopped = SubResource( 32 )
+
+[node name="SecurityBoss" parent="." instance=ExtResource( 20 )]
+position = Vector2( 5649, 1024 )
+
+[editable path="player"]

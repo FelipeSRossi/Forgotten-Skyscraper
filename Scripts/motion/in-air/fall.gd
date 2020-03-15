@@ -17,6 +17,12 @@ func initialize(enter_velocity):
 	velocity = enter_velocity
 	
 
+func handle_input(host, event):
+	if event.is_action_pressed("parry"):
+		return 'air parry'
+	elif event.is_action_pressed("melee"):
+		return 'air slash'
+
 func enter(host):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
@@ -33,7 +39,7 @@ func update(host, delta):
 		if(velocity.y < 0):
 			velocity.y = 0
 	
-	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
+	host.move_and_slide(velocity,Vector2(0,-1), 0, 4)
 
 	if host.is_on_floor():
 		return 'move'

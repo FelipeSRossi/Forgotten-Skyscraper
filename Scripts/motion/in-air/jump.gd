@@ -15,14 +15,19 @@ var height = 0.0
 var still_jumping = true
 
 
-func initialize( enter_velocity):
+func initialize(enter_velocity):
 	speed = MAX_RUN_SPEED
 	velocity = enter_velocity
 	still_jumping = true
 
 func handle_input(host, event):
+	
 	if event.is_action_released("jump"):
 			still_jumping = false
+	if event.is_action_pressed("parry"):
+		return 'air parry'
+	elif event.is_action_pressed("melee"):
+		return 'air slash'
 
 
 

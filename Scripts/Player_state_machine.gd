@@ -25,27 +25,45 @@ onready var sprite = $sprite
 onready var Hitbox = $Hitbox
 onready var Hurtbox = $Hurtbox
 
+
+var flicker = false
+var damage = false
+var melee = false
 var shoot = false
+var holding = false
+var bigshoot = false
 var last_shoot = false
 var lastshot = 50
 var shoot_timer = 500
-
+var health = 20
 const BULLET_VELOCITY = 500
-
+var charge = 0
 onready var states_map = {
 	'move': $States/Move,
+	'death': $States/Death,
 	'slide': $States/Slide,
 	'roll': $States/Roll,
+	'roll stagger': $States/RollStagger,
 	'divekick': $States/DiveKick,
 	'idle': $States/Idle,
 	'jump': $States/Jump,
 	'fall': $States/Fall,
 	'wall grab': $States/WallGrab,
 	'wall jump': $States/WallJump,
+	'wall slash': $States/WallSlash,
 	'stagger': $States/Stagger,
+	'slash': $States/Slash,
+	'slash2': $States/Slash2,
+	'slash3': $States/Slash3,
+	'air slash': $States/AirSlash,
+	'move slash': $States/MoveSlash,
+	'slide slash': $States/SlideSlash,
+	'parry': $States/Parry,
+	'air parry': $States/AirParry,
 }
 
 func _ready():
+	get_node('Parry').monitoring = false
 	states_stack.push_front($States/Move)
 	current_state = states_stack[0]
 	_change_state('move')
@@ -56,6 +74,18 @@ func _ready():
 # and moves what I called its "host", the Player node (KinematicBody2D) in this case.
 func _physics_process(delta):
 	
+	if(holding):
+		charge = charge + 1
+	else:
+		charge = 0
+		
+	if(charge >100):
+		charge = 100
+
+	if(health <= 0):
+		_change_state('death')
+	
+		
 	lastshot += 1
 
 	last_shoot = shoot
@@ -65,8 +95,19 @@ func _physics_process(delta):
 	if state_name:
 		_change_state(state_name)
 	
-	print(get_node('AnimationPlayer2').current_animation)
-
+	if(get_node('StaggerTimer').time_left > 0.1):
+		if(flicker == true):
+			get_node('sprite').modulate = Color(8,8,8,0.4)
+			flicker = false
+		else:
+			flicker = true
+			get_node('sprite').modulate = Color(1,1,1,1)
+	else:
+		get_node('sprite').modulate = Color(1,1,1,1)
+	
+	if(get_node('StaggerTimer').is_stopped()):
+		get_node('Hurtbox').set_monitoring(true)
+	
 func _input(event):
 	"""
 	If you make a shooter game, you may want the player to be able to
@@ -80,9 +121,14 @@ func _input(event):
 	#	return
 	shoot = event.is_action_pressed('shoot')
 	
-	if (shoot and !last_shoot and lastshot > 8):
+	if(shoot):
+		holding = true
+	
+		
+	if (shoot and !(current_state.name in ['Roll','Slash','Slash2','Slash3', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','SlideSlash','DiveKick']) and !last_shoot and lastshot > 8):
 		lastshot = 0
 		var bullet = preload("res://bullet.tscn").instance()
+		bullet.scale.x = sprite.scale.x
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
 		bullet.linear_velocity = Vector2((sprite.scale.x * BULLET_VELOCITY ), 0) 
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
@@ -94,6 +140,44 @@ func _input(event):
 			get_node('AnimationPlayer2').play('shuriken 1')
 		else:
 			get_node('AnimationPlayer2').play('shuriken 1')
+	
+	if(event.is_action_released('shoot') and charge >= 90  and !(current_state.name in ['Roll','Slash','Slash2','Slash3', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','SlideSlash','DiveKick'])):
+		charge = 0
+		lastshot = 0
+		var Bigbullet = preload("res://Bigbullet.tscn").instance()
+		Bigbullet.scale.x = sprite.scale.x
+		Bigbullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
+		Bigbullet.linear_velocity = Vector2((sprite.scale.x * BULLET_VELOCITY ), 0) 
+		Bigbullet.add_collision_exception_with(self) # don't want player to collide with bullet
+		get_parent().add_child(Bigbullet) #don't want bullet to move with me, so add it as child of parent
+		shoot_timer = 0
+		if(get_node('AnimationPlayer2').current_animation == 'shuriken 1'):
+			get_node('AnimationPlayer3').play('shuriken 2')	
+		elif(get_node('AnimationPlayer3').current_animation == 'shuriken 2'):
+			get_node('AnimationPlayer2').play('shuriken 1')
+		else:
+			get_node('AnimationPlayer2').play('shuriken 1')	
+	elif(event.is_action_released('shoot') and charge <= 90  and charge >= 25 and !(current_state.name in ['Roll','Slash', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','DiveKick'])):
+		charge = 0
+		lastshot = 0
+		var Medbullet = preload("res://Medbullet.tscn").instance()
+		Medbullet.scale.x = sprite.scale.x
+		Medbullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
+		Medbullet.linear_velocity = Vector2((sprite.scale.x * BULLET_VELOCITY ), 0) 
+		Medbullet.add_collision_exception_with(self) # don't want player to collide with bullet
+		get_parent().add_child(Medbullet) #don't want bullet to move with me, so add it as child of parent
+		shoot_timer = 0
+		if(get_node('AnimationPlayer2').current_animation == 'shuriken 1'):
+			get_node('AnimationPlayer3').play('shuriken 2')	
+		elif(get_node('AnimationPlayer3').current_animation == 'shuriken 2'):
+			get_node('AnimationPlayer2').play('shuriken 1')
+		else:
+			get_node('AnimationPlayer2').play('shuriken 1')	
+	elif(event.is_action_released('shoot') and charge >= 90  and (current_state.name == 'Roll')):
+		charge = 0
+		_change_state('divekick')
+	if(event.is_action_released('shoot')):
+		holding = false
 		
 	var state_name = current_state.handle_input(self, event)
 	if state_name:
@@ -129,7 +213,7 @@ func _change_state(state_name):
 
 	if state_name == 'previous':
 		states_stack.pop_front()
-	elif state_name in ['stagger', 'jump', 'fall']:
+	elif state_name in ['stagger', 'jump', 'fall','air slash','air parry']:
 		states_stack.push_front(states_map[state_name])
 	else:
 		var new_state = states_map[state_name]
@@ -137,14 +221,23 @@ func _change_state(state_name):
 
 	if state_name == 'jump':
 		$States/Jump.initialize( current_state.velocity)
+
 	if state_name == 'roll':
+		$States/Roll.initialize( current_state.velocity)
+	if state_name == 'rollstagger':
 		$States/Roll.initialize( current_state.velocity)
 	if state_name == 'fall':
 		$States/Fall.initialize( current_state.velocity)
+	if state_name == 'air slash':
+		$States/AirSlash.initialize( current_state.velocity)
+	if state_name == 'air parry':
+		$States/AirParry.initialize( current_state.velocity)
 	if state_name == 'divekick':
 		$States/DiveKick.initialize( current_state.velocity)
 	if state_name == 'wall grab':
 		$States/WallGrab.initialize(current_state.get_input_direction(), current_state.enter_velocity)
+	if state_name == 'wall slash':
+		$States/WallSlash.initialize(current_state.get_input_direction(), current_state.enter_velocity)
 
 	current_state = states_stack[0]
 	if state_name != 'previous':
@@ -153,8 +246,15 @@ func _change_state(state_name):
 	emit_signal('state_changed', states_stack)
 
 
+func hit_by_enemy_bullet():
+	if get_node('StaggerTimer').is_stopped():
+		_change_state('stagger')
+
 func _on_Hurtbox_area_entered(area):
-	pass
+	if("Scout" in area.name and get_node('StaggerTimer').is_stopped()):
+		_change_state('stagger')
+	elif("Spikes" in area.name and get_node('StaggerTimer').is_stopped()):
+		_change_state('stagger')
 
 func _on_Hurtbox_area_exited(area):
 	pass
@@ -164,3 +264,20 @@ func _on_Hitbox_area_entered(area):
 	
 func _on_Hitbox_area_exited(area):
 	pass
+
+
+
+func _on_Hitbox_body_entered(body):
+	if body.has_method("hit_by_sword"):
+		body.call("hit_by_sword")
+	pass # Replace with function body.
+
+
+func _on_Timer_timeout():
+	pass # Replace with function body.
+
+
+func _on_Kick_body_entered(body):
+	if body.has_method("hit_by_kick"):
+		body.call("hit_by_kick")
+	pass # Replace with function body.

@@ -13,9 +13,10 @@ var velocity = Vector2()
 var vertical_speed = 0.0
 var height = 0.0
 var still_jumping = true
-
+var kicked = false
 
 func initialize( enter_velocity):
+
 	speed = MAX_RUN_SPEED
 	velocity = enter_velocity
 	still_jumping = true
@@ -29,16 +30,16 @@ func handle_input(host, event):
 func enter(host):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
-
-	host.get_node('AnimationPlayer').play('Slide')
-
+	
+	host.get_node('AnimationPlayer').play('DiveKick')
 
 func update(host, delta):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 
-	velocity = Vector2(input_direction * speed*2, min(GRAVITY*5, velocity.y+ GRAVITY*5*delta))
-
+	velocity = Vector2(input_direction * speed*3, min(GRAVITY*15, velocity.y+ GRAVITY*15*delta))
+	if(host.is_on_wall() and input_direction != 0):
+		return 'wall grab'
 	
 		#Allows for more precise jumping	
 			
@@ -50,6 +51,14 @@ func update(host, delta):
 	
 	if host.is_on_floor():
 		return 'move'
-
+	if(kicked):
+		kicked = false
+		return 'roll stagger'
 func exit(host):
+		host.get_node('Kick').monitoring = false
 		host.get_node('sprite').rotation_degrees = 0
+
+
+func _on_Kick_body_shape_entered(body_id, body, body_shape, area_shape):
+	kicked = true
+	

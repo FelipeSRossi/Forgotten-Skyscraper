@@ -6,12 +6,8 @@ export(float) var MAX_RUN_SPEED = 150
 var enter_velocity = Vector2()
 var velocity = Vector2()
 var enter_input
-var max_horizontal_speed = 0.0
 var horizontal_speed = 0.0
-var horizontal_velocity = Vector2()
 
-var vertical_speed = 0.0
-var height = 0.0
 
 
 func initialize(input_direction,enter_velocity):
@@ -21,14 +17,15 @@ func initialize(input_direction,enter_velocity):
 func enter(host):
 	var input_direction = get_input_direction()
 	update_siding(host,-input_direction)
-	host.get_node('AnimationPlayer').play('Jump-fall')
+	host.get_node('AnimationPlayer').play('Grab Wall')
 	horizontal_speed = MAX_RUN_SPEED
 
 
 func handle_input(host, event):
 	if event.is_action_pressed('jump'):
 			return 'wall jump'
-
+	if event.is_action_pressed('melee'):
+			return 'wall slash'
 
 func update(host, delta):
 	var input_direction = get_input_direction()
