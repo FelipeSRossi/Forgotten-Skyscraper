@@ -1,5 +1,5 @@
 # Forgotten-Skyscraper
-Project developed using Godot Engine for my CS degree. I did the Game Design, Level Design, Implementation, Art and Sound Effects.
+An action platformer developed using Godot Engine for my CS degree. I did the Game Design, Level Design, Implementation, Art and Sound Effects.
 
 # Design, Motivation, etc
 My Bachelor's final project goes deeper into the Design process, Project motivations, tools used and general description of the development. Read it at:
