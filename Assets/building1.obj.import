@@ -9,12 +9,10 @@ path="res://.import/building1.obj-98ffecffe01d87d897efe8f39fa94fe3.mesh"
 files=[ "res://.import/building1.obj-98ffecffe01d87d897efe8f39fa94fe3.mesh" ]
 
 source_file="res://Assets/building1.obj"
-source_md5="26f6d1fc65a1ce37254740da8448e2d8"
-
 dest_files=[ "res://.import/building1.obj-98ffecffe01d87d897efe8f39fa94fe3.mesh", "res://.import/building1.obj-98ffecffe01d87d897efe8f39fa94fe3.mesh" ]
-dest_md5="26f27e9c5527fd1a84a4feefdbea3e49"
 
 [params]
 
 generate_tangents=true
 scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

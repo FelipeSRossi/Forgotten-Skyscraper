@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/slide.png-c3c30fc3346ce13ef66e408fca0d4e23.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Assets/slide.png"
-source_md5="e1ea6e082bd4f80ae0b49aca91638d93"
-
 dest_files=[ "res://.import/slide.png-c3c30fc3346ce13ef66e408fca0d4e23.stex" ]
-dest_md5="baeca2c07e8c2ff28b3295195ec53546"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

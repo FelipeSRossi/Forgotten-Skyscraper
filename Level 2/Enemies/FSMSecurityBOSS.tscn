@@ -1,0 +1,290 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Scripts/FSMSecurityBoss/FSMSecurityBOSS.gd" type="Script" id=1]
+[ext_resource path="res://Assets/SecurityBoss.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SHINNINJA.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/FSMSecurityBoss/PatrolBoss.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/FSMSecurityTrooper/Shoot.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/FSMSecurityBoss/Melee.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/FSMSecurityBoss/Summon.gd" type="Script" id=7]
+[ext_resource path="res://LabelSecurityTrooper.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9, 22 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "SlashSprite"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slashsprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 0.4, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 96, 97, 98, 99, 100 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Scout2:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Scout2:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slashsprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.2, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 9.5, 22.25 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 250, 250 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 80, 50 )
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 26.0
+height = 10.0
+
+[sub_resource type="Animation" id=7]
+resource_name = "Dash"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 8 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 1.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.6, 1.2, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -20, 0 ), Vector2( -40, 0 ), Vector2( -80, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7 ]
+}
+
+[node name="SecurityBoss" type="KinematicBody2D"]
+scale = Vector2( -1, 1 )
+collision_layer = 3
+collision_mask = 10
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -4 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1, -5 )
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 3
+
+[node name="bullet_shoot" type="Position2D" parent="Sprite"]
+position = Vector2( 19, -8 )
+
+[node name="SlashPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/SlashSprite = SubResource( 2 )
+
+[node name="Slashsprite" type="Sprite" parent="Sprite"]
+visible = false
+position = Vector2( 15, 0 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 3 )
+vframes = 50
+hframes = 3
+frame = 100
+
+[node name="Scout" type="Area2D" parent="."]
+position = Vector2( -3, 0 )
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scout"]
+position = Vector2( 3, -4 )
+shape = SubResource( 3 )
+
+[node name="Patrol " type="Area2D" parent="."]
+position = Vector2( -3, 0 )
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Patrol "]
+shape = SubResource( 4 )
+
+[node name="Melee" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
+shape = SubResource( 5 )
+
+[node name="Scout2" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scout2"]
+position = Vector2( 40, -6 )
+scale = Vector2( 1.25, 0.8 )
+shape = SubResource( 6 )
+
+[node name="BulletTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.7
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Dash = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/Melee = SubResource( 9 )
+anims/Run = SubResource( 10 )
+anims/Shoot = SubResource( 11 )
+anims/Summon = SubResource( 12 )
+
+[node name="States" type="Node" parent="."]
+
+[node name="Patrol" type="Node" parent="States"]
+script = ExtResource( 4 )
+
+[node name="Chase" type="Node" parent="States"]
+
+[node name="Shoot" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Melee" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="MeleeCooldown" type="Timer" parent="States/Melee"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Summon" type="Node" parent="States"]
+script = ExtResource( 7 )
+
+[node name="SummonCooldown" type="Timer" parent="States/Summon"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 56.0
+margin_bottom = -26.0
+rect_scale = Vector2( -1, 1 )
+script = ExtResource( 8 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -3, 0 )
+[connection signal="state_changed" from="." to="Label" method="_on_SecurityTrooper_state_changed"]
+[connection signal="animation_finished" from="Sprite/SlashPlayer" to="States/Melee" method="_on_SlashPlayer_animation_finished"]
+[connection signal="area_entered" from="Scout" to="." method="_on_Scout_area_entered"]
+[connection signal="area_entered" from="Patrol " to="States/Patrol" method="_on_Patrol__area_entered"]
+[connection signal="area_entered" from="Patrol " to="States/Shoot" method="_on_Patrol__area_entered"]
+[connection signal="area_exited" from="Patrol " to="States/Patrol" method="_on_Patrol__area_exited"]
+[connection signal="area_exited" from="Patrol " to="States/Shoot" method="_on_Patrol__area_exited"]
+[connection signal="timeout" from="BulletTimer" to="States/Shoot" method="_on_BulletTimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="States/Summon" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]

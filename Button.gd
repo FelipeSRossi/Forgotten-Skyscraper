@@ -17,3 +17,8 @@ func _ready():
 
 func _on_Button_pressed():
 	get_tree().change_scene("res://3Dmain.tscn")
+
+
+func _input(event):
+	if(event.is_action_pressed("pause")): 
+		get_tree().change_scene("res://3Dmain.tscn")

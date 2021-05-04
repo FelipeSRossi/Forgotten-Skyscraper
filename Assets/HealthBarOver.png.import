@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/HealthBarOver.png-1cc4b16cff6ae3fa278d5d0b1250e9e3.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Assets/HealthBarOver.png"
-source_md5="f83f375dd741c95cd7147b464de4160b"
-
 dest_files=[ "res://.import/HealthBarOver.png-1cc4b16cff6ae3fa278d5d0b1250e9e3.stex" ]
-dest_md5="22b285bc903735bf516173cbb92d0eea"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

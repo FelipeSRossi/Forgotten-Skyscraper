@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Security.gd" type="Script" id=1]
+[ext_resource path="res://Assets/camera.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Pivot.gd" type="Script" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 0, -10, 9, 5, -9, 5 )
+
+[sub_resource type="Curve" id=3]
+max_value = 100.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.995122, 9.09091 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6.04096, 5.00931 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 6.025, 5.0126 )
+
+[node name="Security" type="KinematicBody2D"]
+z_index = 2
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 2
+frame = 1
+
+[node name="Pivot" type="Node2D" parent="Sprite"]
+script = ExtResource( 3 )
+
+[node name="Patrol" type="Area2D" parent="Sprite/Pivot"]
+position = Vector2( 95, 0 )
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Pivot/Patrol"]
+show_behind_parent = true
+material = SubResource( 1 )
+position = Vector2( 20, 0 )
+rotation = -1.5708
+scale = Vector2( 4, 10 )
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite/Pivot/Patrol/CollisionShape2D"]
+position = Vector2( -0.00442216, -0.493819 )
+scale = Vector2( 1.11062, 1.11062 )
+z_index = -1
+color = Color( 0, 0.952941, 1, 0.521569 )
+polygon = PoolVector2Array( 0, -10, 9, 5, -9, 5 )
+
+[node name="Sprite2" type="Sprite" parent="Sprite/Pivot"]
+position = Vector2( -5, 0 )
+texture = ExtResource( 2 )
+hframes = 2
+
+[node name="Line2D" type="Line2D" parent="Sprite/Pivot"]
+visible = false
+position = Vector2( 6.00001, 0 )
+points = PoolVector2Array( -1.00001, 0, 159, 0 )
+width_curve = SubResource( 3 )
+default_color = Color( 0.101961, 0.658824, 0.529412, 0.560784 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Sprite/Pivot"]
+position = Vector2( 6.00001, 0 )
+enabled = true
+cast_to = Vector2( 150, 0 )
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 0 )
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Scout" type="Area2D" parent="."]
+position = Vector2( -3, 0 )
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scout"]
+position = Vector2( 5, 0 )
+shape = SubResource( 5 )
+disabled = true
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true
+[connection signal="area_entered" from="Sprite/Pivot/Patrol" to="Sprite/Pivot" method="_on_Patrol__area_entered"]
+[connection signal="area_exited" from="Sprite/Pivot/Patrol" to="Sprite/Pivot" method="_on_Patrol__area_exited"]
+[connection signal="area_entered" from="Scout" to="." method="_on_Scout_area_entered"]
