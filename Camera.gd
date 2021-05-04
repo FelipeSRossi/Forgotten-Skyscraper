@@ -9,7 +9,7 @@ var newposition = Vector2()
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	camera = get_parent().get_parent().get_node("player").get_node("Camera2D")
+	camera = get_parent().get_parent().get_parent().get_node("World/player/Camera2D")
 	oldposition = camera.get_camera_position()
 	set_physics_process(true)
 	

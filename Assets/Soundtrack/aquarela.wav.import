@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/aquarela.wav-5ca622aa5bce47c51bca3ab45a19352a.sample"
+
+[deps]
+
+source_file="res://Assets/Soundtrack/aquarela.wav"
+dest_files=[ "res://.import/aquarela.wav-5ca622aa5bce47c51bca3ab45a19352a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

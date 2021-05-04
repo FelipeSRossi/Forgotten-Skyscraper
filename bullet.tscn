@@ -1,20 +1,17 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://bullet.gd" type="Script" id=1]
+[ext_resource path="res://Assets/SFX/Level 1/Shoot.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/shuriken.png" type="Texture" id=3]
+[ext_resource path="res://Assets/SFX/Level 1/DM-CGS-39(Hit).wav" type="AudioStream" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
-
-[sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
 
-[sub_resource type="CanvasItemMaterial" id=3]
-blend_mode = 1
-
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=2]
 radius = 4.5
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -30,7 +27,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -71,7 +68,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -100,9 +97,9 @@ tracks/1/keys = {
 }
 
 [node name="bullet" type="RigidBody2D"]
-modulate = Color( 0.0987854, 0.644955, 0.972656, 1 )
-material = SubResource( 1 )
-collision_layer = 4
+pause_mode = 2
+z_index = 7
+collision_mask = 2
 mass = 5.0
 gravity_scale = 0.0
 continuous_cd = 2
@@ -111,38 +108,50 @@ contact_monitor = true
 script = ExtResource( 1 )
 
 [node name="Particles2D" type="CPUParticles2D" parent="."]
-modulate = Color( 0.885254, 0.0820313, 1, 1 )
-material = SubResource( 2 )
-amount = 9
-lifetime = 0.3
-speed_scale = 3.0
+modulate = Color( 0, 0.529412, 1, 1 )
+self_modulate = Color( 1, 1, 1, 0.294118 )
+material = SubResource( 1 )
+amount = 5
+lifetime = 0.01
 explosiveness = 0.27
 randomness = 0.24
 local_coords = false
 texture = ExtResource( 3 )
+spread = 0.0
 gravity = Vector2( 0, 0 )
 angle = 720.0
 angle_random = 1.0
+hue_variation = -0.13
 
 [node name="sprite" type="Sprite" parent="."]
-material = SubResource( 3 )
-rotation = 2.27932
 scale = Vector2( -1, 1 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.9
 one_shot = true
 autostart = true
 
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = 0.495
+pitch_scale = 2.0
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -35.839
+pitch_scale = 0.76
+autoplay = true
+
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "spin"
 playback_speed = 14.77
-anims/idle = SubResource( 5 )
-anims/shutdown = SubResource( 6 )
-anims/spin = SubResource( 7 )
+anims/idle = SubResource( 3 )
+anims/shutdown = SubResource( 4 )
+anims/spin = SubResource( 5 )
 [connection signal="body_entered" from="." to="." method="_on_bullet_body_enter"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="finished" from="HitSound" to="." method="_on_HitSound_finished"]

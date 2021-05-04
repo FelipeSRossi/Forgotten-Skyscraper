@@ -10,7 +10,7 @@ ground_curve = 0.01
 sun_color = Color( 0.815686, 0.364706, 0.0666667, 1 )
 
 [resource]
-background_mode = 2
+background_mode = 4
 background_sky = SubResource( 1 )
 background_color = Color( 1, 1, 1, 1 )
 ambient_light_color = Color( 0.392157, 0.129412, 0.631373, 1 )

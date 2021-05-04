@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Level 1/pole2.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Level 1/pole.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9, 96 )
+
+[node name="Pole" type="StaticBody2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -20, -30 )
+shape = SubResource( 1 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+z_index = 5
+z_as_relative = false
+texture = ExtResource( 1 )

@@ -10,8 +10,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	get_node("GUI/HealthBar").value = get_parent().get_node("player").health
-	if(get_parent().get_node("SecurityBoss").health ):
-		get_node("GUI2/BossHealthBar").value = get_parent().get_node("SecurityBoss").health 
+	get_node("GUI/HealthBar").value = get_parent().get_node("World/player").health
+	if(get_parent().get_node("World/Enemies/Boss").health):
+		get_node("GUI2/BossHealthBar").value = get_parent().get_node("World/Enemies/Boss").health 
 	else:
 		get_node("GUI2/BossHealthBar").value = 0

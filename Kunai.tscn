@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Medbullet.gd" type="Script" id=1]
+[ext_resource path="res://Assets/particle1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SFX/Level 1/SciFiGun11.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/SFX/Level 1/Shoot.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Kunai.png" type="Texture" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 4.5
+
+[sub_resource type="Animation" id=3]
+resource_name = "Active"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 2, 1 ]
+}
+
+[sub_resource type="Animation" id=4]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 1.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1.31 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="bullet" type="RigidBody2D"]
+pause_mode = 2
+z_index = 7
+collision_mask = 2
+mass = 5.0
+gravity_scale = 0.0
+continuous_cd = 2
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+
+[node name="Particles2D" type="CPUParticles2D" parent="."]
+modulate = Color( 0.203922, 0.278431, 0.858824, 1 )
+material = SubResource( 1 )
+position = Vector2( -5, 1 )
+amount = 4
+lifetime = 0.7
+local_coords = false
+texture = ExtResource( 2 )
+direction = Vector2( 0, 1 )
+spread = 0.5
+gravity = Vector2( 0, 5 )
+initial_velocity = 15.0
+tangential_accel = 53.26
+tangential_accel_random = 0.21
+angle = 249.5
+angle_random = 0.18
+color = Color( 0, 0.470588, 0.960784, 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+vframes = 2
+hframes = 3
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.9
+one_shot = true
+autostart = true
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -15.352
+autoplay = true
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "Active"
+playback_speed = 3.0
+anims/Active = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/shutdown = SubResource( 5 )
+[connection signal="body_entered" from="." to="." method="_on_bullet_body_enter"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="finished" from="HitSound" to="." method="_on_HitSound_finished"]

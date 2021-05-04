@@ -1,0 +1,17 @@
+{
+    "001" : {"name":"Blue","expression": "masked", "text":"Control, We're at the factory's gate."},
+    "002" : {"name":"Green","expression": "masked", "text":"We're going in."},
+    "003" : {"name":"Control","expression": "default", "text":"Wait a sec........"},
+    "004" : {"name":"Control","expression": "default", "text":"Oh, you're in trouble."},
+    "005" : {"name":"Blue","expression": "masked", "text":"What is the problem?"},
+    "006" : {"name":"Control","expression": "default", "text":"You know what it is. All that police-bot smashing got them riled up."},
+    "007" : {"name":"Green","expression": "masked", "text":"Truly the Shinobi way."},
+    "008" : {"name":"Blue","expression": "masked", "text":"Captain will be proud."},
+    "009" : {"name":"Control","expression": "default", "text":"Something big is coming."},
+    "010" : {"name":"Green","expression": "masked", "text":"How big are we talking here?"},
+    "011" : {"name":"Control","expression": "default", "text":"Smasher."},
+    "012" : {"name":"Blue","expression": "masked", "text":"Oh."},
+    "013" : {"name":"Control","expression": "default", "text":"There he is...Good luck."},
+    "014" : {"name":"Green","expression": "masked", "text":"Relax, between me and rookie here we've got all we need to trash'em."},
+    "015" : {"name":"Blue","expression": "masked", "text":"Let's get started then."}
+}

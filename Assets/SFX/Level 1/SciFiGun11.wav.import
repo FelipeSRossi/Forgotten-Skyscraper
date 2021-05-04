@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SciFiGun11.wav-83d601f48f47c6becae1542f12cab1a4.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Level 1/SciFiGun11.wav"
+dest_files=[ "res://.import/SciFiGun11.wav-83d601f48f47c6becae1542f12cab1a4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

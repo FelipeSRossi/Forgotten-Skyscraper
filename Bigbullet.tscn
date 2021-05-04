@@ -1,18 +1,19 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Bigbullet.gd" type="Script" id=1]
 [ext_resource path="res://Assets/bigShuriken.png" type="Texture" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="PhysicsMaterial" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 radius = 12.0
 
-[sub_resource type="Animation" id=4]
-resource_name = "idle"
+[sub_resource type="Animation" id=5]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -27,7 +28,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -68,7 +69,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -95,10 +96,17 @@ tracks/1/keys = {
 "values": [ 0.0, 180.0, 360.0 ]
 }
 
+[sub_resource type="CircleShape2D" id=8]
+radius = 14.0
+
 [node name="Bigbullet" type="RigidBody2D"]
+pause_mode = 2
 material = SubResource( 1 )
+z_index = 7
 collision_layer = 4
-mass = 0.01
+collision_mask = 0
+mass = 0.00102041
+physics_material_override = SubResource( 2 )
 gravity_scale = 0.0
 continuous_cd = 2
 contacts_reported = 1
@@ -108,7 +116,7 @@ script = ExtResource( 1 )
 [node name="Particles2D" type="CPUParticles2D" parent="."]
 modulate = Color( 0.0823529, 1, 0.854902, 1 )
 self_modulate = Color( 0, 0.780392, 0.843137, 1 )
-material = SubResource( 2 )
+material = SubResource( 3 )
 amount = 3
 lifetime = 0.3
 speed_scale = 3.0
@@ -122,13 +130,13 @@ angle_random = 1.0
 color = Color( 0.027451, 0.596078, 0.937255, 1 )
 
 [node name="sprite" type="Sprite" parent="."]
-rotation = 5.69814
-scale = Vector2( -1, 1 )
+rotation = -2.55655
+scale = Vector2( 1, -1 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.9
@@ -138,8 +146,16 @@ autostart = true
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "spin"
 playback_speed = 5.0
-anims/idle = SubResource( 4 )
-anims/shutdown = SubResource( 5 )
-anims/spin = SubResource( 6 )
+anims/idle = SubResource( 5 )
+anims/shutdown = SubResource( 6 )
+anims/spin = SubResource( 7 )
+
+[node name="Area2D" type="Area2D" parent="."]
+gravity_vec = Vector2( 0, 0 )
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 8 )
 [connection signal="body_entered" from="." to="." method="_on_Bigbullet_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
