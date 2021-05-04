@@ -5,21 +5,25 @@ var max_horizontal_speed = 0.0
 var speed = 0.0
 var velocity = Vector2(0,0)
 var side = 0
-
+var cancel = false
 
 func enter(host):
 	host.get_node('AnimationPlayer').play('Absorb')
 
 func handle_input(host, event):
+	if event.is_action_released('parry'):
+		return 'idle'
 	return .handle_input(host, event)
 
 func exit(host):
 	host.get_node('Parry').monitoring = false
 	
 func _on_animation_finished(anim_name):
-	if( anim_name == 'Absorb'):
-		velocity = Vector2(0,0)
-		return 'idle'
+	#if( anim_name == 'Absorb' or cancel):
+		#velocity = Vector2(0,0)
+		#cancel = false
+		#return 'idle'
+		pass
 	
 func update(host, delta):
 	if(!host.is_on_floor()):

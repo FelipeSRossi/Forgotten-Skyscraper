@@ -8,7 +8,7 @@ var original_pos
 var direction 
 func enter(host):
 	host.get_node("AnimationPlayer").play("Run")
-	host.get_parent().get_node("HUD/GUI2").set_visible(true)
+	host.get_parent().get_parent().get_node("HUD/GUI2").set_visible(true)
 	original_pos = host.position
 
 func update(host, delta):

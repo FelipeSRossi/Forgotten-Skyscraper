@@ -23,8 +23,8 @@ func enter(host):
 	timeout = false
 	var input_direction = get_input_direction()
 	enter_input = input_direction
-	speed = -MAX_RUN_SPEED*3*enter_input
-	velocity = Vector2(speed, -JUMP_FORCE)
+	speed = -MAX_RUN_SPEED*enter_input
+	velocity = Vector2(speed, -JUMP_FORCE/2)
 	update_siding(host,input_direction)
 	host.get_node('AnimationPlayer').play('Jump-start')
 	host.get_node('AnimationPlayer').queue('Jump-rise')
@@ -32,7 +32,7 @@ func enter(host):
 
 
 func update(host, delta):
-	velocity = Vector2(speed, min(GRAVITY, velocity.y+ GRAVITY*delta))
+	velocity = Vector2(speed, min(GRAVITY*4, velocity.y+ GRAVITY*4*delta))
 	host.move_and_slide (velocity,Vector2(0,-1), 0, 4)
 	if(timeout):
 		return 'jump'

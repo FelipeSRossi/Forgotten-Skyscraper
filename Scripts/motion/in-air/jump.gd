@@ -13,9 +13,11 @@ var velocity = Vector2()
 var vertical_speed = 0.0
 var height = 0.0
 var still_jumping = true
-
+var sliding = false
 
 func initialize(enter_velocity):
+	if(abs(enter_velocity.x) > MAX_RUN_SPEED):
+		sliding = true
 	speed = MAX_RUN_SPEED
 	velocity = enter_velocity
 	still_jumping = true
@@ -43,9 +45,11 @@ func enter(host):
 func update(host, delta):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
-
-	velocity = Vector2(input_direction * speed, min(GRAVITY, velocity.y+ GRAVITY*5*delta))
-
+	
+	if(sliding):
+		velocity = Vector2(input_direction * speed*1.5, min(GRAVITY, velocity.y+ GRAVITY*5*delta))
+	else:
+		velocity = Vector2(input_direction * speed, min(GRAVITY, velocity.y+ GRAVITY*5*delta))
 	
 		#Allows for more precise jumping	
 	if((!still_jumping) and velocity.y < 0):
@@ -65,4 +69,8 @@ func update(host, delta):
 	if host.is_on_floor():
 		host.get_node('AnimationPlayer').play('Jump-landing')
 		return 'previous'
+	
+func exit(host):
+	sliding = false
+		
 

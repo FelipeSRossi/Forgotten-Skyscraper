@@ -24,7 +24,17 @@ func handle_input(host, event):
 func update(host, delta):
 	
 	if(!host.is_on_floor()):
-		return 'fall'
+		if(host.get_node('AnimationPlayer4').current_animation == 'Slash effects'):
+			return 'fall'
+		else:
+			return 'air slash'
+	
+	if(PHASETWO):
+		var step = host.get_node('AnimationPlayer').get_current_animation_position()
+		host.get_node('AnimationPlayer').play('Run Slash-2')
+		host.get_node('AnimationPlayer').advance( step )
+		host.get_node('AnimationPlayer4').play('Slash effects')
+		PHASETWO = false
 	
 	if(movingon):
 		movingon=false
@@ -32,8 +42,8 @@ func update(host, delta):
 
 	var input_direction = get_input_direction()
 
-	if(!input_direction):
-		return 'idle'
+	#if(!input_direction):
+		#return 'idle'
 
 	speed = MAX_RUN_SPEED
 	var collision_info = move(host, speed, input_direction)
@@ -42,24 +52,19 @@ func update(host, delta):
 	if collision_info.collider.is_in_group('environment'):
 		return null
 		
-	if(PHASETWO):
-		var step = host.get_node('AnimationPlayer').get_current_animation_position()
-		host.get_node('AnimationPlayer').play('Run Slash-2')
-		host.get_node('AnimationPlayer').advance( step )
-		host.get_node('AnimationPlayer4').play('Slash effects')
-		PHASETWO = false
 
 
 
 func move(host, speed, direction):
-	velocity = Vector2(direction * speed, G)
+	velocity = Vector2(direction * speed, 0)
 	#host.move_and_slide(velocity, Vector2(0,-1), 0, 4)
-	host.move_and_slide_with_snap(velocity,  Vector2(0,32),Vector2(0,-1), 0, 4)
+	host.move_and_slide_with_snap(velocity,  Vector2(0,5),Vector2(0,-1), 0, 4)
 	if host.get_slide_count() == 0:
 		return
 	return host.get_slide_collision(0)
 
 func exit(host):
+	host.get_node('Hitbox').monitoring = false
 	get_node('Timer').stop()
 	
 

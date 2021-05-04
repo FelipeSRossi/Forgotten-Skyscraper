@@ -8,9 +8,14 @@ var inarea = false
 var incounter = 0
 var lock = false
 var rotate_left = true
+
 signal alert
-onready var color = get_node("Patrol /CollisionShape2D/Polygon2D").color
-onready var playerpos = get_parent().get_parent().get_parent().get_node("player/CollisionShape2D").global_position
+
+onready var color = get_node("Patrol/CollisionShape2D/Polygon2D").color
+onready var playerpos = get_parent().get_parent().get_parent().get_parent().get_node("player/CollisionShape2D").global_position
+onready var Raycast = get_node("RayCast2D")
+onready var Line = get_node("Line2D")
+onready var Shaper = get_node("Patrol/CollisionShape2D")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -31,19 +36,21 @@ func _process(delta):
 		lock = true
 	elif(incounter >=3):
 		lock = false
+
 	
+	#Shaper.set_shape(Polygon)
 	if(lock):
-		get_node("Patrol /CollisionShape2D/Polygon2D").color =  Color("#85ff006d")
+		get_node("Patrol/CollisionShape2D/Polygon2D").color =  Color("#85ff006d")
 		
 	else:
-		get_node("Patrol /CollisionShape2D/Polygon2D").color = color
+		get_node("Patrol/CollisionShape2D/Polygon2D").color = color
 		if(rotate_left):
 			rotation_degrees = rotation_degrees - 0.5
 		else:
 			rotation_degrees = rotation_degrees + 0.5
 			
 			
-	playerpos = get_parent().get_parent().get_parent().get_node("player/CollisionShape2D").global_position
+	playerpos = get_parent().get_parent().get_parent().get_parent().get_node("player/CollisionShape2D").global_position
 
 func _on_Patrol__area_entered(area):
 	if((area).name == "Hurtbox"):

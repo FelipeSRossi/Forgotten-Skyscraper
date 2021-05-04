@@ -49,7 +49,7 @@ func _process(delta):
 		bigbullet = preload("res://ScoutBigBullet.tscn").instance()
 
 		bullet.position = global_position #use node for shoot position
-		bullet.linear_velocity = -((get_node("Sprite").global_position - get_parent().get_parent().get_node("player").global_position)*BULLET_VELOCITY*delta) 
+		bullet.linear_velocity = -((get_node("Sprite").global_position - get_parent().get_parent().get_parent().get_node("player").global_position)*BULLET_VELOCITY*delta) 
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
 		get_parent().get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
 		shoot = false

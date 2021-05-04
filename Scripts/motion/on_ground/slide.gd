@@ -51,8 +51,8 @@ func update(host, delta):
 func move(host, speed, direction):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
-	velocity = Vector2(input_direction * speed*2.5, G)
-	host.move_and_slide_with_snap(velocity, Vector2(0,32),Vector2(0,-1), 0, 4)
+	velocity = Vector2(input_direction *min(max(abs(velocity.x+velocity.x*1/10),MAX_RUN_SPEED) , 400), 0)
+	host.move_and_slide_with_snap(velocity, Vector2(0,5),Vector2(0,-1), 0, 4)
 	if host.get_slide_count() == 0:
 		return
 	return host.get_slide_collision(0)

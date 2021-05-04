@@ -128,5 +128,5 @@ func hit_by_kick():
 	health = health - 3
 	flicker = true
 func _on_VisibilityEnabler2D_screen_entered():
-	get_parent().get_node("HUD/GUI2/BossHealthBar").set_visible(true)
+	get_parent().get_parent().get_node("HUD/GUI2/BossHealthBar").set_visible(true)
 

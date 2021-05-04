@@ -6,13 +6,15 @@ export(float) var MAX_RUN_SPEED = 150
 var velocity = Vector2()
 var horizontal_speed = 0.0
 var enter_velocity = Vector2()
-
+var cancel = false
 func initialize(enter_velocity):
 	velocity = enter_velocity
 	
 
 func handle_input(host, event):
-	pass
+	if event.is_action_released('parry'):
+		return 'fall'
+	
 
 func enter(host):
 	var input_direction = get_input_direction()
@@ -21,6 +23,9 @@ func enter(host):
 	host.get_node('AnimationPlayer').play('Air Parry')
 
 func update(host, delta):
+	
+		
+	
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 	
@@ -48,5 +53,6 @@ func exit(host):
 	host.get_node('Parry').monitoring = false
 	
 func _on_animation_finished(anim_name):
-	if(anim_name == 'Air Parry'):
-		return 'fall'
+	#if(anim_name == 'Air Parry'):
+		#return 'fall'
+		pass

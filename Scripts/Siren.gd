@@ -27,7 +27,7 @@ func _process(delta):
 		
 	
 	if(health <= 0):
-		get_parent().alarm_state = 0
+		get_parent().get_parent().get_parent().alarm_state = 0
 		get_tree().call_group("Security", "SHUTDOWN")
 		on = false
 		
@@ -36,7 +36,7 @@ func ALARM():
 	
 func SHUTDOWN():
 	on = false
-	get_parent().alarm_state = 0
+	get_parent().get_parent().get_parent().alarm_state = 0
 	
 func hit_by_bullet():
 	health = health - 1

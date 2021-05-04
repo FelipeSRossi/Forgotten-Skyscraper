@@ -24,8 +24,13 @@ var current_state = null
 onready var sprite = $sprite
 onready var Hitbox = $Hitbox
 onready var Hurtbox = $Hurtbox
+onready var player_vars = get_node("/root/GlobalVar")
+
+var JustHit
 
 
+var another_treadmill = false
+var on_treadmill = false
 var flicker = false
 var damage = false
 var melee = false
@@ -38,6 +43,8 @@ var shoot_timer = 500
 var health = 20
 const BULLET_VELOCITY = 500
 var charge = 0
+onready var stage_start = get_parent().get_node("StageStart")
+
 onready var states_map = {
 	'move': $States/Move,
 	'death': $States/Death,
@@ -45,6 +52,7 @@ onready var states_map = {
 	'roll': $States/Roll,
 	'roll stagger': $States/RollStagger,
 	'divekick': $States/DiveKick,
+	'cutscene': $States/Cutscene,
 	'idle': $States/Idle,
 	'jump': $States/Jump,
 	'fall': $States/Fall,
@@ -68,11 +76,14 @@ func _ready():
 	current_state = states_stack[0]
 	_change_state('move')
 
-
 # The state machine delegates process and input callbacks to the current state
 # The state object, e.g. Move, then handles input, calculates velocity 
 # and moves what I called its "host", the Player node (KinematicBody2D) in this case.
 func _physics_process(delta):
+	
+	
+	if(position.x < stage_start.position.x):
+		position.x = stage_start.position.x
 	
 	if(holding):
 		charge = charge + 1
@@ -82,9 +93,15 @@ func _physics_process(delta):
 	if(charge >100):
 		charge = 100
 
+	if(health > 20):
+		health = 20
 	if(health <= 0):
 		_change_state('death')
 	
+	if(charge == 30):
+		JustHit = preload("res://JustHit.tscn").instance()
+		add_child(JustHit)
+		JustHit.get_node("AnimatedSprite").play("default")	
 		
 	lastshot += 1
 
@@ -108,6 +125,11 @@ func _physics_process(delta):
 	if(get_node('StaggerTimer').is_stopped()):
 		get_node('Hurtbox').set_monitoring(true)
 	
+	if(on_treadmill):
+		move_and_slide_with_snap(Vector2(60,0),  Vector2(0,5),Vector2(0,-1), 0, 4)
+	
+	
+	
 func _input(event):
 	"""
 	If you make a shooter game, you may want the player to be able to
@@ -125,7 +147,7 @@ func _input(event):
 		holding = true
 	
 		
-	if (shoot and !(current_state.name in ['Roll','Slash','Slash2','Slash3', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','SlideSlash','DiveKick']) and !last_shoot and lastshot > 8):
+	if (shoot and !(current_state.name in ['Cutscene','Roll','Slash','Slash2','Slash3', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','SlideSlash','DiveKick']) and !last_shoot and lastshot > 8):
 		lastshot = 0
 		var bullet = preload("res://bullet.tscn").instance()
 		bullet.scale.x = sprite.scale.x
@@ -141,7 +163,7 @@ func _input(event):
 		else:
 			get_node('AnimationPlayer2').play('shuriken 1')
 	
-	if(event.is_action_released('shoot') and charge >= 90  and !(current_state.name in ['Roll','Slash','Slash2','Slash3', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','SlideSlash','DiveKick'])):
+	if(event.is_action_released('shoot') and charge >= 90  and !(current_state.name in ['Cutscene','Roll','Slash','Slash2','Slash3', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','SlideSlash','DiveKick'])):
 		charge = 0
 		lastshot = 0
 		var Bigbullet = preload("res://Bigbullet.tscn").instance()
@@ -157,10 +179,18 @@ func _input(event):
 			get_node('AnimationPlayer2').play('shuriken 1')
 		else:
 			get_node('AnimationPlayer2').play('shuriken 1')	
-	elif(event.is_action_released('shoot') and charge <= 90  and charge >= 25 and !(current_state.name in ['Roll','Slash', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','DiveKick'])):
+	elif(event.is_action_released('shoot') and charge <= 90  and charge >= 25 and !(current_state.name in ['Cutscene','Roll','Slash', 'WallSlash','AirSlash','Parry', 'AirParry','MoveSlash','DiveKick'])):
 		charge = 0
 		lastshot = 0
+		
 		var Medbullet = preload("res://Medbullet.tscn").instance()
+			
+		if(JustHit.get_node("AnimatedSprite").frame == 3 or JustHit.get_node("AnimatedSprite").frame == 2):
+			var perfectHit = preload("res://JustHitPerfect.tscn").instance()
+			add_child(perfectHit)
+			perfectHit.get_node("AnimatedSprite").play("default")
+			Medbullet = preload("res://Kunai.tscn").instance()
+			
 		Medbullet.scale.x = sprite.scale.x
 		Medbullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
 		Medbullet.linear_velocity = Vector2((sprite.scale.x * BULLET_VELOCITY ), 0) 
@@ -221,6 +251,8 @@ func _change_state(state_name):
 
 	if state_name == 'jump':
 		$States/Jump.initialize( current_state.velocity)
+	if state_name == 'slide slash':
+		$States/Roll.initialize( current_state.velocity)
 
 	if state_name == 'roll':
 		$States/Roll.initialize( current_state.velocity)
@@ -247,17 +279,34 @@ func _change_state(state_name):
 
 
 func hit_by_enemy_bullet():
-	if get_node('StaggerTimer').is_stopped():
+	if(get_node('StaggerTimer').is_stopped() and current_state.name != 'Cutscene'):
 		_change_state('stagger')
 
 func _on_Hurtbox_area_entered(area):
-	if("Scout" in area.name and get_node('StaggerTimer').is_stopped()):
+	if("Scout" in area.name and get_node('StaggerTimer').is_stopped() and  current_state.name != 'Cutscene'):
+		health -= 5
 		_change_state('stagger')
-	elif("Spikes" in area.name and get_node('StaggerTimer').is_stopped()):
-		_change_state('stagger')
+	elif("Spikes" in area.name and get_node('StaggerTimer').is_stopped() and  current_state.name != 'Cutscene'):
+		health = 0
+		#_change_state('stagger')
+		
+	if("Treadmill" in area.name and on_treadmill == true):
+		another_treadmill = true	
+	elif("Treadmill" in area.name and on_treadmill == false):
+		on_treadmill = true
+	
+	if("Crusher" in area.name):
+		health = 0
+
+		
 
 func _on_Hurtbox_area_exited(area):
-	pass
+	if("Treadmill" in area.name):
+		if(!another_treadmill):
+			on_treadmill = false
+		else :
+			another_treadmill = false
+			
 	
 func _on_Hitbox_area_entered(area):
 	pass
@@ -270,14 +319,21 @@ func _on_Hitbox_area_exited(area):
 func _on_Hitbox_body_entered(body):
 	if body.has_method("hit_by_sword"):
 		body.call("hit_by_sword")
-	pass # Replace with function body.
+
 
 
 func _on_Timer_timeout():
-	pass # Replace with function body.
-
+	pass 
 
 func _on_Kick_body_entered(body):
 	if body.has_method("hit_by_kick"):
 		body.call("hit_by_kick")
-	pass # Replace with function body.
+
+
+
+func enter_cutscene():
+	_change_state('cutscene')
+		
+func exit_cutscene():
+	_change_state('idle')
+

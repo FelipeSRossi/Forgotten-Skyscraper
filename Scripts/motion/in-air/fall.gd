@@ -11,9 +11,11 @@ var horizontal_velocity = Vector2()
 
 var vertical_speed = 0.0
 var height = 0.0
-
+var sliding = false
 
 func initialize(enter_velocity):
+	if(abs(enter_velocity.x) > MAX_RUN_SPEED):
+		sliding = true
 	velocity = enter_velocity
 	
 
@@ -33,7 +35,11 @@ func update(host, delta):
 	var input_direction = get_input_direction()
 	update_siding(host,input_direction)
 	
-	velocity = Vector2(input_direction * horizontal_speed, min(GRAVITY, velocity.y+ GRAVITY * delta))
+	if(sliding):
+		velocity = Vector2(input_direction * horizontal_speed*1.5, min(GRAVITY*2, velocity.y+ GRAVITY*2*delta))
+	else:
+		velocity = Vector2(input_direction * horizontal_speed, min(GRAVITY*2, velocity.y+ GRAVITY*2 * delta))
+		
 				
 	if(host.is_on_ceiling()):
 		if(velocity.y < 0):
@@ -51,3 +57,4 @@ func update(host, delta):
 
 func exit(host):
 	host.get_node('AnimationPlayer').play('Jump-landing')
+	sliding = false

@@ -29,7 +29,7 @@ func update(host, delta):
 	
 	if(shoot):
 		host.get_node("AnimationPlayer").play("Shoot")
-		direction = sign(host.global_position.x - host.get_parent().get_node("player/sprite").global_position.x)
+		direction = sign(host.global_position.x - host.get_parent().get_parent().get_node("player/sprite").global_position.x)
 		host.sprite.scale.x = direction
 		bullet = preload("res://ScoutBullet.tscn").instance()
 		bigbullet = preload("res://ScoutBigBullet.tscn").instance()

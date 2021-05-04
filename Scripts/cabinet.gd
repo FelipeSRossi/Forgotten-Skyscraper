@@ -13,8 +13,8 @@ func _ready():
 func _process(delta):
 	if(alarm and !oldalarm):
 		get_node("AnimationPlayer").play("open")
-		var SecurityTrooper = preload("res://FSMSecurityTrooper.tscn").instance()
-		SecurityTrooper.position = Vector2(global_position.x, global_position.y+4)
+		var SecurityTrooper = preload("res://Level 2/Enemies/FSMSecurityTrooper.tscn").instance()
+		SecurityTrooper.position = Vector2(global_position.x, global_position.y+11)
 		get_parent().add_child(SecurityTrooper)
 	oldalarm = alarm
 	

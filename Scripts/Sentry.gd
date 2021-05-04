@@ -26,7 +26,7 @@ func _process(delta):
 		get_node("control").position = Vector2(radius, 0)
 		get_node("Sprite2").position = Vector2(radius, 0)
 		
-		position = get_parent().get_node("player").position
+		position = get_parent().get_parent().get_node("player").position
 		rotation += speed * delta
 		get_node("control").rotation =  - rotation
 		if(rotation <=-1):

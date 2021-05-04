@@ -11,7 +11,7 @@ var max_horizontal_speed = 0.0
 var speed = 0.0
 var velocity = Vector2(0,0)
 var side = 0
-
+onready var player_vars = get_node("/root/GlobalVar")
 
 func enter(host):
 	host.get_node("Hurtbox").set_deferred("monitoring",false)
@@ -23,4 +23,8 @@ func enter(host):
 	
 func _on_animation_finished(anim_name):
 	if( anim_name == 'Stagger'):
-		get_tree().change_scene("res://DefaultMenu.tscn")
+		player_vars.lives -= 1
+		if(player_vars.lives < 0):
+			player_vars.reset()
+		else:
+			get_tree().reload_current_scene()

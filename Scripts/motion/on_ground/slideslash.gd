@@ -7,12 +7,17 @@ export(float) var JUMP_FORCE = 300.0
 
 var PHASETWO = false
 var movingon = false
+var tired = false
+
+func initialize(enter_velocity):
+	velocity = enter_velocity
+	
+
 func enter(host):
 	speed = 0.0
-	velocity = Vector2()
 	var input_direction = get_input_direction()
 	host.get_node('AnimationPlayer').play('Slide Slash')
-	
+	host.get_node('Hitbox').monitoring = true
 
 func handle_input(host, event):
 	return .handle_input(host, event)
@@ -26,6 +31,8 @@ func update(host, delta):
 	if(movingon):
 		movingon=false
 		return 'move'
+		
+	
 
 	var input_direction = get_input_direction()
 
@@ -42,9 +49,12 @@ func update(host, delta):
 
 
 func move(host, speed, direction):
+	var input_direction = get_input_direction()
+	update_siding(host,input_direction)
+	
+	velocity = Vector2(input_direction *min(max(abs(velocity.x+velocity.x*1/10),MAX_RUN_SPEED) , 400), 0)
 
-	velocity = Vector2(direction * speed*2.5, G)
-	host.move_and_slide_with_snap(velocity, Vector2(0,32),Vector2(0,-1), 0, 4)
+	host.move_and_slide_with_snap(velocity, Vector2(0,5),Vector2(0,-1), 0, 4)
 	if host.get_slide_count() == 0:
 		return
 	return host.get_slide_collision(0)
@@ -54,4 +64,8 @@ func move(host, speed, direction):
 func _on_animation_finished(anim_name):
 	if(anim_name =='Slide Slash'):
 		movingon = true
+		
+func exit(host):
+	host.get_node('Hitbox').monitoring = false
+	
 
